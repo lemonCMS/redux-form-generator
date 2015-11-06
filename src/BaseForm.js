@@ -36,7 +36,6 @@ class BaseForm extends Component {
     this.input = this.input.bind(this);
     this.row = this.row.bind(this);
     this.col = this.col.bind(this);
-    this.change = this.change.bind(this);
     this.plupload = this.plupload.bind(this);
     this.state = {
       dropDownTitle: {},

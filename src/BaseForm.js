@@ -55,7 +55,11 @@ class BaseForm extends Component {
     this.setState(_.set(Object.assign({}, this.state), ['dropDownTitle', name], item.desc || item.default));
 
     return new Promise((resolve) => {
-      resolve(this.props.dispatch(change(this.props.formName, name, item.field)));
+      const changeConst = change(this.props.formName, name, item.field);
+      resolve(this.props.dispatch({
+        ...changeConst,
+        'key': this.props.formKey || undefined
+      }));
     }).then(()=>{ this.refs.button.click(); });
   }
 

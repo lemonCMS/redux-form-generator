@@ -2,12 +2,12 @@ import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {mapDispatchToProps} from './utils/functions';
-import {Alert, Row, Col, DropdownButton, MenuItem, Input, Button, FormControls, Table} from 'react-bootstrap';
+import {Row, Col, DropdownButton, MenuItem, Input, Button, FormControls} from 'react-bootstrap';
 import Pending from './Pending';
 import {change} from 'redux-form';
-import Plupload from 'react-plupload';
+import {GenInput, GenPlupload, GenMessage} from './types';
 
-@connect(state=>({}), mapDispatchToProps)
+@connect(()=>({}), mapDispatchToProps)
 class BaseForm extends Component {
 
   static propTypes = {
@@ -36,7 +36,6 @@ class BaseForm extends Component {
     this.input = this.input.bind(this);
     this.row = this.row.bind(this);
     this.col = this.col.bind(this);
-    this.plupload = this.plupload.bind(this);
     this.state = {
       dropDownTitle: {},
       hidden: [],
@@ -143,108 +142,6 @@ class BaseForm extends Component {
     );
   }
 
-  plupload(field: Object) {
-    const props = this.props.fields[field.name];
-    let allFiles = props.value || [];
-    const extraProps = {};
-    if (props.touched && props.error) {
-      extraProps.bsStyle = 'error';
-    }
-    if (props.touched && props.error) {
-      extraProps.help = props.error;
-    }
-
-    const stateChange = (plupload) => {
-      if (plupload.state === 2) { // Starting with uploading
-        this.setState({pending: true});
-        return true;
-      }
-
-      this.setState({pending: false});
-    };
-
-    const addedFiles = (plupload, files) => {
-      const fileList = [];
-      _.map(files, (file)=> {
-        fileList.push(file.name);
-      });
-    };
-
-    const fileUploaded = (plupload, file, response) => {
-      const uploadResponse = JSON.parse(response.response);
-      if (_.get(field, 'multi_selection', true) === false) {
-        allFiles = [];
-        allFiles.push(uploadResponse.result);
-      } else {
-        allFiles.push(uploadResponse.result);
-      }
-
-      this.props.dispatch(change(this.props.formName, field.name, allFiles));
-
-    };
-
-    const fileDelete = (index) => {
-      _.set(allFiles, [index], _.merge(_.get(allFiles, [index]), {deleted: 1}));
-      this.props.dispatch(change(this.props.formName, field.name, allFiles));
-    };
-
-    const showFiles = _.filter(props.value, (v) => { return !v.deleted; } );
-
-
-    const renderTable = () => {
-      if (showFiles.length === 0) {
-        return [];
-      }
-
-      return (
-        <Table striped bordered condensed hover>
-          <thead>
-          <tr>
-            <th>Bestand</th>
-            <th></th>
-          </tr>
-          </thead>
-          <tbody>
-          {_.map(showFiles, (file, key) => {
-            return (
-              <tr key={key}>
-                <td>{file.file_original_name} {file.deleted}</td>
-                <td><Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button></td>
-              </tr>
-            );
-          })}
-          </tbody>
-        </Table>
-      );
-
-    };
-
-    return (
-      <div key={field.name} className="formgroup">
-
-        <label className={field.labelClassName + ' control-label'}>{field.label}</label>
-        <div className={field.wrapperClassName}>
-          <Plupload
-            key={field.name}
-            id="plupload"
-            runtimes="html5"
-            multipart
-            chunk_size="1mb"
-            url={field.url}
-            multi_selection={_.get(field, 'multi_selection', true)}
-            flash_swf_url={_.get(field, 'flash_swf_url', '/plupload-2.1.8/js/Moxie.swf')}
-            onFilesAdded={addedFiles}
-            onStateChanged={stateChange}
-            onFileUploaded={fileUploaded}
-            autoUpload
-            headers={field.headers || {}}
-          />
-          {renderTable()}
-        </div>
-      </div>
-    );
-  }
-
   staticField(field: Object, size: string) {
     const props = this.props.fields[field.name];
     const thisSize = _.get(field, 'bsSize', size);
@@ -328,18 +225,10 @@ class BaseForm extends Component {
     );
   }
 
-  message(field: Object, size: string) {
-    const {success, failed} = this.props.getActionState();
-    if ((field.type === 'success' && success && this.props.valid === true) || (field.type === 'error' && (failed || (this.props.invalid === true && this.props.pristine === false)))) {
-      const style = field.type === 'success' ? 'success' : 'danger';
-      return (
-        <Alert key={field.type} bsStyle={style} bsSize={_.get(field, 'bsSize', size)}>{field.message}</Alert>
-      );
-    }
-  }
-
   addField(field, size) {
     if (!_.isEmpty(field)) {
+      const properties = this.props.fields[field.name];
+
       switch (field.type) {
         case 'submit':
           return this.submit(field, size);
@@ -349,7 +238,7 @@ class BaseForm extends Component {
           return this.dropDown(field, size);
         case 'success':
         case 'error':
-          return this.message(field, size);
+          return <GenMessage key={field.type} field={field} size={size} properties={properties} valid={this.props.valid} invalid={this.props.invalid} pristine={this.props.pristine} getActionState={this.props.getActionState}/>; // return this.message(field, size);
         case 'static':
           return this.staticField(field, size);
         case 'link':
@@ -357,9 +246,9 @@ class BaseForm extends Component {
         case 'file':
           return this.file(field, size);
         case 'plupload':
-          return this.plupload(field);
+          return <GenPlupload key={field.name} field={field} dispatch={this.props.dispatch} formName={this.props.formName} properties={properties} addField={this.addField}/>; // return this.plupload(field);
         default:
-          return this.input(field, size);
+          return <GenInput key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>; // inputType.input(field, size);
       }
     }
   }

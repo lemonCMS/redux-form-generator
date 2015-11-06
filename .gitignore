@@ -1,0 +1,9 @@
+.idea/
+static/admin
+static/css/admin
+static/img
+node_modules/
+dist/
+*.iml
+webpack-stats.json
+npm-debug.log

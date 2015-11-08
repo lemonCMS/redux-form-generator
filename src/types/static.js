@@ -1,8 +1,8 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
-import {Input} from 'react-bootstrap';
+import {FormControls} from 'react-bootstrap';
 
-export default class FileType extends Component {
+export default class StaticType extends Component {
 
   static propTypes = {
     'field': PropTypes.object.isRequired,
@@ -23,17 +23,13 @@ export default class FileType extends Component {
     }
 
     return (
-      <Input
-        ref={this.props.field.name}
+      <FormControls.Static
         key={this.props.field.name}
         name="search"
         bsSize={thisSize}
         {...extraProps}
         {...this.props.field}
-        onDrop={this.props.properties.onDrop}
-        onChange={this.props.properties.onChange}
-        onFocus={this.props.properties.onFocus}
-        onUpdate={this.props.properties.onUpdate}
+        {...this.props.properties}
         buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
         buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
         />

@@ -1,11 +1,12 @@
-export {default as Button} from './button';
-export {default as Submit} from './submit';
-export {default as File} from './file';
+export {default as GenButton} from './button';
+export {default as GenFile} from './file';
 export {default as GenPlupload} from './plupload';
 export {default as Text} from './text';
 export {default as Textarea} from './textarea';
 export {default as Radio} from './radio';
 export {default as Select} from './select';
-export {default as DropDown} from './dropDown';
+export {default as GenDropDown} from './dropDown';
 export {default as GenInput} from './input';
 export {default as GenMessage} from './message';
+export {default as GenSubmit} from './submit';
+export {default as GenStatic} from './static';

@@ -32,6 +32,7 @@ class BaseForm extends Component {
     this.addField = this.addField.bind(this);
     this.row = this.row.bind(this);
     this.col = this.col.bind(this);
+    this.submitForm = this.submitForm.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,6 +40,10 @@ class BaseForm extends Component {
     if (_.isEmpty(nextProps.active) && success) {
       this.props.clearActionState();
     }
+  }
+
+  submitForm() {
+    this.refs.button.click();
   }
 
   row(field, key, size) {
@@ -75,7 +80,7 @@ class BaseForm extends Component {
         case 'button':
           return <GenButton key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'dropdown':
-          return <GenDropDown formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} />; // inputType.input(field, size);
+          return <GenDropDown submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} />; // inputType.input(field, size);
         case 'success':
         case 'error':
           return <GenMessage key={field.type} field={field} size={size} properties={properties} valid={this.props.valid} invalid={this.props.invalid} pristine={this.props.pristine} getActionState={this.props.getActionState}/>; // return this.message(field, size);

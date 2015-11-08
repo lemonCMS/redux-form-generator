@@ -10,6 +10,7 @@ export default class DropDownType extends Component {
     'properties': PropTypes.object.isRequired,
     'size': PropTypes.string,
     'dispatch': PropTypes.func.isRequired,
+    'submit': PropTypes.func.isRequired,
     'formName': PropTypes.string.isRequired,
     'formKey': PropTypes.string.isRequired
   }
@@ -30,7 +31,9 @@ export default class DropDownType extends Component {
         'key': this.props.formKey || undefined
       }));
     }).then(()=> {
-      // this.refs.button.click();
+      if (typeof this.props.submit === 'function') {
+        this.props.submit();
+      }
     });
   }
 

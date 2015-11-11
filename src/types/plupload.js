@@ -60,14 +60,7 @@ export default class PluploadType extends Component {
       dispatch(change(this.props.formName, field.name, allFiles));
     };
 
-    const showFiles = _.filter(properties.value, (v) => { return !v.deleted; } );
-
-
     const renderTable = () => {
-      if (showFiles.length === 0) {
-        return [];
-      }
-
       return (
         <Table striped bordered condensed hover>
           <thead>
@@ -77,17 +70,19 @@ export default class PluploadType extends Component {
           </tr>
           </thead>
           <tbody>
-          {_.map(showFiles, (file, key) => {
-            return (
-              <tr key={key}>
-                <td>{file.file_original_name} {file.deleted}</td>
-                {() => {
-                  if(_.get(this.props, 'static', false) === false) {
-                    return (<td><Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button></td>);
-                  }
-                }}
-              </tr>
-            );
+          {_.map(properties.value, (file, key) => {
+            if (!file.deleted) {
+              return (
+                <tr key={key}>
+                  <td>{file.file_original_name} {file.deleted}</td>
+                  {() => {
+                    if(_.get(this.props, 'static', false) === false) {
+                      return (<td><Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button></td>);
+                    }
+                  }}
+                </tr>
+              );
+            }
           })}
           </tbody>
         </Table>

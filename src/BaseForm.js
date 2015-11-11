@@ -34,6 +34,8 @@ class BaseForm extends Component {
     this.row = this.row.bind(this);
     this.col = this.col.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.submit = this.submit.bind(this);
+    this.state = {displayErrors: false};
   }
 
   componentWillReceiveProps(nextProps) {
@@ -98,7 +100,7 @@ class BaseForm extends Component {
           return <GenDropDown static={this.props.static} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} />; // inputType.input(field, size);
         case 'success':
         case 'error':
-          return <GenMessage static={this.props.static} key={field.type} field={field} size={size} properties={properties} valid={this.props.valid} invalid={this.props.invalid} pristine={this.props.pristine} getActionState={this.props.getActionState}/>; // return this.message(field, size);
+          return <GenMessage static={this.props.static} key={field.type} displayErrors={this.state.displayErrors} field={field} size={size} properties={properties} valid={this.props.valid} invalid={this.props.invalid} pristine={this.props.pristine} getActionState={this.props.getActionState}/>; // return this.message(field, size);
         case 'file':
           return <GenFile static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'static':
@@ -111,11 +113,17 @@ class BaseForm extends Component {
     }
   }
 
+  submit() {
+    this.setState({'displayErrors': true});
+  }
+
   render() {
     const {pending} = this.props.getActionState();
     const {fieldsNeeded} = this.props;
+    const handleSubmit = this.props.handleSubmit(this.props.submit);
+
     return (
-      <form onSubmit={this.props.handleSubmit(this.props.submit)} ref="form" className={_.get(this.props, 'formClass', 'form-horizontal')}>
+      <form onSubmit={(e) => { this.submit(); handleSubmit(e); }} ref="form" className={_.get(this.props, 'formClass', 'form-horizontal')}>
         <Pending state={pending || false}>
           <div formKey={this.props.formKey} >
             {_.map(fieldsNeeded, (field, key) => {
@@ -127,7 +135,6 @@ class BaseForm extends Component {
               }
             })}
           </div>
-          <input type="button" ref="button" onClick={this.props.handleSubmit(this.props.submit)} className="hidden" />
         </Pending>
       </form>
     );

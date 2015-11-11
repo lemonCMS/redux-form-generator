@@ -98,13 +98,9 @@ class BaseForm extends Component {
     }
   }
 
-  submit(e, handleSubmit) {
-    e.preventDefault();
-    this.setState({'displayErrors': true}, () => {
-      handleSubmit(e);
-    });
+  submit() {
+    this.setState({'displayErrors': true});
   }
-
 
   render() {
     const {pending} = this.props.getActionState();
@@ -112,7 +108,7 @@ class BaseForm extends Component {
     const handleSubmit = this.props.handleSubmit(this.props.submit);
 
     return (
-      <form onSubmit={(e) => { this.submit(e, handleSubmit); }} ref="form" className={_.get(this.props, 'formClass', 'form-horizontal')}>
+      <form onSubmit={(e) => { this.submit(); handleSubmit(e); }} ref="form" className={_.get(this.props, 'formClass', 'form-horizontal')}>
         <Pending state={pending || false}>
           <div formKey={this.props.formKey} >
             {_.map(fieldsNeeded, (field, key) => {
@@ -121,11 +117,9 @@ class BaseForm extends Component {
                 return this.addField(field, size);
               } else if (field.hasOwnProperty('row')) {
                 return this.row(field, key, size);
-                return this.row(field, key, size);
               }
             })}
           </div>
-          <input type="button" ref="button" onClick={(e) => { this.submit(e, handleSubmit); }} className="hidden" />
         </Pending>
       </form>
     );

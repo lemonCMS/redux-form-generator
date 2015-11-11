@@ -10,13 +10,16 @@ export default class MessageType extends Component {
     'getActionState': PropTypes.func.isRequired,
     'valid': PropTypes.bool.isRequired,
     'invalid': PropTypes.bool.isRequired,
-    'pristine': PropTypes.bool.isRequired
+    'pristine': PropTypes.bool.isRequired,
+    'displayErrors': PropTypes.bool.isRequired
   }
 
   render() {
     const {success, failed} = this.props.getActionState();
     const {field, size, valid, invalid, pristine} = this.props;
-    if ((field.type === 'success' && success && valid === true) || (field.type === 'error' && (failed || (invalid === true && pristine === false)))) {
+
+    if (this.props.displayErrors === true &&
+      ((field.type === 'success' && success && valid === true) || (field.type === 'error' && (failed || (invalid === true && pristine === false))))) {
       const style = field.type === 'success' ? 'success' : 'danger';
       return (
         <Alert bsStyle={style} bsSize={_.get(field, 'bsSize', size)}>{field.message}</Alert>

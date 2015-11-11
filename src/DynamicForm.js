@@ -48,7 +48,6 @@ class DynamicForm extends Component {
       initialValues={this.props.initialValues}
       fieldsNeeded={this.props.fieldsNeeded}
       submit={(data, dispatch) => {
-        console.log('SUBMITTING');
         if (this.props.hasOwnProperty('onSubmit')) {
           return this.props.onSubmit(data, dispatch);
         }

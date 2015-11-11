@@ -33,6 +33,7 @@ class BaseForm extends Component {
     this.row = this.row.bind(this);
     this.col = this.col.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.state = {displayErrors: false};
   }
 
   componentWillReceiveProps(nextProps) {
@@ -83,7 +84,7 @@ class BaseForm extends Component {
           return <GenDropDown submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} />; // inputType.input(field, size);
         case 'success':
         case 'error':
-          return <GenMessage key={field.type} field={field} size={size} properties={properties} valid={this.props.valid} invalid={this.props.invalid} pristine={this.props.pristine} getActionState={this.props.getActionState}/>; // return this.message(field, size);
+          return <GenMessage key={field.type} displayErrors={this.state.displayErrors} field={field} size={size} properties={properties} valid={this.props.valid} invalid={this.props.invalid} pristine={this.props.pristine} getActionState={this.props.getActionState}/>; // return this.message(field, size);
         case 'file':
           return <GenFile key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'static':
@@ -96,7 +97,13 @@ class BaseForm extends Component {
     }
   }
 
+  submit(values, dispatch) {
+    this.setState({displayErrors: true});
+    this.props.submit(values, dispatch);
+  }
+
   render() {
+    console.log(this.props);
     const {pending} = this.props.getActionState();
     const {fieldsNeeded} = this.props;
     return (

@@ -8,13 +8,12 @@ export default class ButtonType extends Component {
     'field': PropTypes.object.isRequired,
     'properties': PropTypes.object.isRequired,
     'size': PropTypes.string,
-    'addField': PropTypes.func.isRequired
-
+    'addField': PropTypes.func.isRequired,
+    'static': PropTypes.bool
   }
 
   render() {
     const thisSize = _.get(this.props.field, 'bsSize', this.props.size);
-
     return (
       <Button
         bsSize={_.get(this.props.field, 'bsSize', thisSize)}

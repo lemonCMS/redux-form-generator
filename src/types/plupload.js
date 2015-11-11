@@ -73,7 +73,7 @@ export default class PluploadType extends Component {
           <thead>
           <tr>
             <th>Bestand</th>
-            <th></th>
+            {_.get(this.props, 'static', false) === false ? <th></th> : ''}
           </tr>
           </thead>
           <tbody>
@@ -81,7 +81,11 @@ export default class PluploadType extends Component {
             return (
               <tr key={key}>
                 <td>{file.file_original_name} {file.deleted}</td>
-                <td><Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button></td>
+                {() => {
+                  if(_.get(this.props, 'static', false) === false) {
+                    return (<td><Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button></td>);
+                  }
+                }}
               </tr>
             );
           })}
@@ -90,10 +94,9 @@ export default class PluploadType extends Component {
       );
     };
 
-    return (
-      <div key={field.name} className="formgroup">
-        <label className={field.labelClassName + ' control-label'}>{field.label}</label>
-        <div className={field.wrapperClassName}>
+    const plupload = () => {
+      if (_.get(this.props, 'static', false) === false) {
+        return (
           <Plupload
             key={field.name}
             id="plupload"
@@ -109,6 +112,16 @@ export default class PluploadType extends Component {
             autoUpload
             headers={field.headers || {}}
             />
+        );
+      }
+    }
+
+
+    return (
+      <div key={field.name} className="formgroup">
+        <label className={field.labelClassName + ' control-label'}>{field.label}</label>
+        <div className={field.wrapperClassName}>
+          {plupload()}
           {renderTable()}
         </div>
       </div>

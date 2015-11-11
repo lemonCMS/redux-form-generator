@@ -16,10 +16,9 @@ export default class MessageType extends Component {
 
   render() {
     const {success, failed} = this.props.getActionState();
-    const {field, size, valid, invalid, pristine} = this.props;
-
+    const {field, size, valid, invalid} = this.props;
     if (this.props.displayErrors === true &&
-      ((field.type === 'success' && success && valid === true) || (field.type === 'error' && (failed || (invalid === true && pristine === false))))) {
+      ((field.type === 'success' && success && valid === true) || (field.type === 'error' && (failed || (invalid === true))))) {
       const style = field.type === 'success' ? 'success' : 'danger';
       return (
         <Alert bsStyle={style} bsSize={_.get(field, 'bsSize', size)}>{field.message}</Alert>

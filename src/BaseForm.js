@@ -33,6 +33,7 @@ class BaseForm extends Component {
     this.row = this.row.bind(this);
     this.col = this.col.bind(this);
     this.submitForm = this.submitForm.bind(this);
+    this.submit = this.submit.bind(this);
     this.state = {displayErrors: false};
   }
 
@@ -97,17 +98,21 @@ class BaseForm extends Component {
     }
   }
 
-  submit(values, dispatch) {
-    this.setState({displayErrors: true});
-    this.props.submit(values, dispatch);
+  submit(e, handleSubmit) {
+    e.preventDefault();
+    this.setState({'displayErrors': true}, () => {
+      handleSubmit(e);
+    });
   }
 
+
   render() {
-    console.log(this.props);
     const {pending} = this.props.getActionState();
     const {fieldsNeeded} = this.props;
+    const handleSubmit = this.props.handleSubmit(this.props.submit);
+
     return (
-      <form onSubmit={this.props.handleSubmit(this.props.submit)} ref="form" className={_.get(this.props, 'formClass', 'form-horizontal')}>
+      <form onSubmit={(e) => { this.submit(e, handleSubmit); }} ref="form" className={_.get(this.props, 'formClass', 'form-horizontal')}>
         <Pending state={pending || false}>
           <div formKey={this.props.formKey} >
             {_.map(fieldsNeeded, (field, key) => {
@@ -116,10 +121,11 @@ class BaseForm extends Component {
                 return this.addField(field, size);
               } else if (field.hasOwnProperty('row')) {
                 return this.row(field, key, size);
+                return this.row(field, key, size);
               }
             })}
           </div>
-          <input type="button" ref="button" onClick={this.props.handleSubmit(this.props.submit)} className="hidden" />
+          <input type="button" ref="button" onClick={(e) => { this.submit(e, handleSubmit); }} className="hidden" />
         </Pending>
       </form>
     );

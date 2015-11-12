@@ -15,9 +15,10 @@
   "homepage": "https://github.com/lemonCMS/redux-form-generator",
   "keywords": [
     "react",
-    "redyx",
+    "redux",
     "dynamic forms",
-    "form generator"
+    "form generator",
+    "redux-form-generator"
   ],
   "author": "Raymond van Vuuren",
   "license": "BSD-2-Clause",

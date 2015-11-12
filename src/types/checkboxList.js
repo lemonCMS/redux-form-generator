@@ -52,7 +52,7 @@ export default class CheckboxListType extends Component {
             <input
               type="checkbox"
               value={option.value}
-              checked={_.indexOf(selectedValue, option.value)>-1}
+              checked={_.indexOf(selectedValue, option.value) > -1}
               onChange={(e) => { this.onChange(e, option.value); }}
               onClick={(e) => { this.onChange(e, option.value); }}
               />
@@ -67,29 +67,27 @@ export default class CheckboxListType extends Component {
   render() {
     const thisSize = _.get(this.props.field, 'bsSize', this.props.size);
     const {field} = this.props;
-
-
     const getClass = (classNames = '') => {
-
-      if(thisSize === 'large') {
-        classNames = classNames + ' form-group-lg';
+      let ret = classNames;
+      if (thisSize === 'large') {
+        ret = ret + ' form-group-lg';
       }
 
-      if(thisSize === 'small') {
-        classNames = classNames + ' form-group-sm';
+      if (thisSize === 'small') {
+        ret = ret + ' form-group-sm';
       }
 
       if (this.props.properties.touched && this.props.properties.error) {
-        return classNames + ' has-error';
+        return ret + ' has-error';
       }
-      return classNames;
-    }
+      return ret;
+    };
 
     const help = () => {
       if (_.has(this.props.properties, 'error')) {
-        return (<span id="helpBlock2" className="help-block">{this.props.properties.error}</span>);
+        return (<span className="help-block">{this.props.properties.error}</span>);
       }
-    }
+    };
 
     const label = () => {
       if (!!field.label) {

@@ -61,7 +61,7 @@ export default class PluploadType extends Component {
     };
 
     const renderTable = () => {
-      const files = _.filter(properties.value, file => {return !file.deleted});
+      const files = _.filter(properties.value, file => { return !file.deleted; });
       if (files.length > 0) {
         return (
           <Table striped bordered condensed hover>
@@ -116,7 +116,7 @@ export default class PluploadType extends Component {
             />
         );
       }
-    }
+    };
 
     return (
       <div key={field.name} className="form-group">

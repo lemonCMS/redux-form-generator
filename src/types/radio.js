@@ -45,27 +45,41 @@ export default class RadioType extends Component {
 
   render() {
     const thisSize = _.get(this.props.field, 'bsSize', this.props.size);
-    const extraProps = {};
     const {field} = this.props;
+    const getClass = (classNames = '') => {
+      let ret = classNames;
+      if (thisSize === 'large') {
+        ret = ret + ' form-group-lg';
+      }
 
-    if (this.props.properties.touched && this.props.properties.error) {
-      extraProps.bsStyle = 'error';
-    }
-    if (this.props.properties.touched && this.props.properties.error) {
-      extraProps.help = this.props.properties.error;
-    }
+      if (thisSize === 'small') {
+        ret = ret + ' form-group-sm';
+      }
+
+      if (this.props.properties.touched && this.props.properties.error) {
+        return ret + ' has-error';
+      }
+      return ret;
+    };
+
+    const help = () => {
+      if (_.has(this.props.properties, 'error')) {
+        return (<span className="help-block">{this.props.properties.error}</span>);
+      }
+    };
 
     const label = () => {
       if (!!field.label) {
-        return (<label className={field.labelClassName + ' control-label'}>{field.label}</label>);
+        return (<label className={'control-label ' + _.get(field, 'labelClassName')}>{field.label}</label>);
       }
-    }
+    };
 
     return (
-      <div key={field.name} className="form-group">
+      <div key={field.name} className={getClass('form-group')}>
         {label()}
         <div className={field.wrapperClassName}>
           {this.options()}
+          {help()}
         </div>
       </div>
     );

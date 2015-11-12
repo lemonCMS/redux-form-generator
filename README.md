@@ -41,7 +41,8 @@ const fields = (token) => {
         Authorization: 'Bearer ' + token
       },
       multi_selection: false,
-      hideOnStatic: true <-- This will hide this element when the form is rendered with the static option
+      hideOnStatic: true <-- Show the element only when in edit mode
+      showOnStatic: true <-- Show the element only when in static mode 
     },
     {
       name: 'initials',

@@ -45,6 +45,30 @@ const fields = (token) => {
       showOnStatic: true <-- Show the element only when in static mode 
     },
     {
+    	name: 'radio',
+    	label: 'Radio set',
+    	type: 'radio',
+    	labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10',
+      options: [
+      	{value: 1, desc: 'Option 1'},
+      	{value: 2, desc: 'Option 2'},
+      	{value: 3, desc: 'Option 3'},
+      ]
+    },
+    {
+    	name: 'select',
+    	label: 'Select box',
+    	type: 'select',
+    	labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10',
+      options: [
+      	{value: 1, desc: 'Option 1'},
+      	{value: 2, desc: 'Option 2'},
+      	{value: 3, desc: 'Option 3'},
+      ]
+    },    
+    {
       name: 'initials',
       label: 'Voorletters',
       type: 'text',

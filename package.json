@@ -1,6 +1,6 @@
 {
   "name": "redux-form-generator",
-  "version": "0.0.9",
+  "version": "0.0.11",
   "description": "Generate forms with redux-form",
   "main": "lib/DynamicForm.js",
   "scripts": {
@@ -15,9 +15,10 @@
   "homepage": "https://github.com/lemonCMS/redux-form-generator",
   "keywords": [
     "react",
-    "redyx",
+    "redux",
     "dynamic forms",
-    "form generator"
+    "form generator",
+    "redux-form-generator"
   ],
   "author": "Raymond van Vuuren",
   "license": "BSD-2-Clause",

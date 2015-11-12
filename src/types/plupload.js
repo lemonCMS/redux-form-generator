@@ -61,32 +61,39 @@ export default class PluploadType extends Component {
     };
 
     const renderTable = () => {
-      return (
-        <Table striped bordered condensed hover>
-          <thead>
-          <tr>
-            <th>Bestand</th>
-            {_.get(this.props, 'static', false) === false ? <th></th> : ''}
-          </tr>
-          </thead>
-          <tbody>
-          {_.map(properties.value, (file, key) => {
-            if (!file.deleted) {
-              return (
-                <tr key={key}>
-                  <td>{file.file_original_name} {file.deleted}</td>
-                  {() => {
-                    if(_.get(this.props, 'static', false) === false) {
-                      return (<td><Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button></td>);
-                    }
-                  }}
-                </tr>
-              );
-            }
-          })}
-          </tbody>
-        </Table>
-      );
+      const files = _.filter(properties.value, file => {return !file.deleted});
+      if (files.length > 0) {
+        return (
+          <Table striped bordered condensed hover>
+            <thead>
+            <tr>
+              <th>Bestand</th>
+              {_.get(this.props, 'static', false) === false ? <th></th> : ''}
+            </tr>
+            </thead>
+            <tbody>
+            {_.map(properties.value, (file, key) => {
+              if (!file.deleted) {
+                return (
+                  <tr key={key}>
+                    <td>{file.file_original_name} {file.deleted}</td>
+                    {() => {
+                      if (_.get(this.props, 'static', false) === false) {
+                        return (
+                          <td>
+                            <Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button>
+                          </td>
+                        );
+                      }
+                    }}
+                  </tr>
+                );
+              }
+            })}
+            </tbody>
+          </Table>
+        );
+      }
     };
 
     const plupload = () => {
@@ -111,9 +118,8 @@ export default class PluploadType extends Component {
       }
     }
 
-
     return (
-      <div key={field.name} className="formgroup">
+      <div key={field.name} className="form-group">
         <label className={field.labelClassName + ' control-label'}>{field.label}</label>
         <div className={field.wrapperClassName}>
           {plupload()}

@@ -31,7 +31,6 @@ class DynamicForm extends Component {
 
   render() {
     const { formName, fieldsNeeded } = this.props;
-
     const DynamicInnerForm = reduxForm({
       form: formName,
       fields: filterFields(fieldsNeeded),

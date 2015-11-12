@@ -25,7 +25,7 @@ class BaseForm extends Component {
     success: PropTypes.bool,
     token: PropTypes.string,
     valid: PropTypes.bool.isRequired,
-    static: PropTypes.bool,
+    static: PropTypes.bool
   };
 
   constructor() {
@@ -50,6 +50,11 @@ class BaseForm extends Component {
   }
 
   row(field, key, size) {
+    // Hide fields that are only visible in static mode
+    if (!this.props.static && !!field.row.showOnStatic) {
+      return false;
+    }
+    // Hide fields that are only visible in edit mode
     if (!!this.props.static && !!field.row.hideOnStatic) {
       return false;
     }
@@ -68,6 +73,11 @@ class BaseForm extends Component {
     return _.map(cols, (col, key)=>{
       const thisSize = _.get(col, 'bsSize', size);
 
+      // Hide fields that are only visible in static mode
+      if (!this.props.static && !!col.showOnStatic) {
+        return false;
+      }
+      // Hide fields that are only visible in edit mode
       if (!!this.props.static && !!col.hideOnStatic) {
         return false;
       }
@@ -83,7 +93,11 @@ class BaseForm extends Component {
   }
 
   addField(field, size) {
-
+    // Hide fields that are only visible in static mode
+    if (!this.props.static && !!field.showOnStatic) {
+      return false;
+    }
+    // Hide fields that are only visible in edit mode
     if (!!this.props.static && !!field.hideOnStatic) {
       return false;
     }

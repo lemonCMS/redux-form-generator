@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {mapDispatchToProps} from './utils/functions';
 import {Row, Col} from 'react-bootstrap';
 import Pending from './Pending';
-import {GenInput, GenPlupload, GenMessage, GenDropDown, GenButton, GenSubmit, GenStatic, GenFile} from './types';
+import {GenInput, GenPlupload, GenMessage, GenDropDown, GenButton, GenSubmit, GenStatic, GenFile, GenRadio} from './types';
 
 @connect(()=>({}), mapDispatchToProps)
 class BaseForm extends Component {
@@ -36,6 +36,13 @@ class BaseForm extends Component {
     this.submitForm = this.submitForm.bind(this);
     this.submit = this.submit.bind(this);
     this.state = {displayErrors: false};
+  }
+
+  componentWillMount() {
+    const {success} = this.props.getActionState();
+    if (success) {
+      this.submit();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -121,6 +128,8 @@ class BaseForm extends Component {
           return <GenStatic static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'plupload':
           return <GenPlupload static={this.props.static} key={field.name} field={field} dispatch={this.props.dispatch} formName={this.props.formName} properties={properties} addField={this.addField}/>; // return this.plupload(field);
+        case 'radio':
+          return <GenRadio static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         default:
           return <GenInput static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
       }

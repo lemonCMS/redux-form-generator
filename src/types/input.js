@@ -12,6 +12,19 @@ export default class InputType extends Component {
     'static': PropTypes.bool
   }
 
+  constructor() {
+    super();
+    this.options = this.options.bind(this);
+  }
+
+  options() {
+    if (this.props.field.type === 'select') {
+      return _.map(_.get(this.props.field, 'options', []), (option, key) => {
+        return <option key={key} value={option.value}>{option.desc}</option>;
+      });
+    }
+  }
+
   render() {
     const thisSize = _.get(this.props.field, 'bsSize', this.props.size);
     const extraProps = {};
@@ -46,9 +59,8 @@ export default class InputType extends Component {
       {..._.omit(this.props.properties, ['value', 'defaultValue'])}
       buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
       buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
-      />);
+      >{this.options()}</FormControls.Static>);
     }
-
 
     return (
       <Input
@@ -60,7 +72,9 @@ export default class InputType extends Component {
         {...this.props.properties}
         buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
         buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
-        />
+        >
+        {this.options()}
+      </Input>
     );
   }
 }

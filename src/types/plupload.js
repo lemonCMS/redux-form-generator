@@ -111,9 +111,8 @@ export default class PluploadType extends Component {
       }
     }
 
-
     return (
-      <div key={field.name} className="formgroup">
+      <div key={field.name} className="form-group">
         <label className={field.labelClassName + ' control-label'}>{field.label}</label>
         <div className={field.wrapperClassName}>
           {plupload()}

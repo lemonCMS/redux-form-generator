@@ -41,6 +41,7 @@ const fields = (token) => {
         Authorization: 'Bearer ' + token
       },
       multi_selection: false,
+      hideOnStatic: true <-- This will hide this element when the form is rendered with the static option
     },
     {
       name: 'initials',
@@ -62,6 +63,7 @@ Punt in your react render component the following code
 	formKey="formkey" <-- (optional) redux formKey fort multiple forms
 	formClass="form-horizontal" <-- Bootstrap className 
 	fieldsNeeded={fields()} <-- The field const function
+	static <-- Then shows the with FormControls.Static from react-bootstrap
 	initialValues={{}} <-- Pass the initial values from your store 
 	onSubmit={this.handleSubmit} <-- The submit function in your component to handle submit
 	getActionState={this.getActionState} <-- (optional) Used to check the state of your reducer

@@ -11,3 +11,4 @@ export {default as GenMessage} from './message';
 export {default as GenSubmit} from './submit';
 export {default as GenStatic} from './static';
 export {default as GenRadio} from './radio';
+export {default as GenCheckboxList} from './checkboxList';

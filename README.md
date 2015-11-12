@@ -29,6 +29,23 @@ Like i needed my authorization token for the use with plupload.
 ````javascript
 const fields = (token) => {
   return ([
+		{name: 'search', type: 'text', placeholder: 'zoeken...', bsSize: 'large',
+			buttonBefore: {
+				submit: true, <-- Set to true if you want to submit your form after you made a selection
+				name: 'searchField', type: 'dropdown', onlySelf: false,
+				items: [
+					{default: 'Alle'},
+					{desc: 'Voornaam', field: 'firstname'},
+					{desc: 'Achternaam', field: 'lastname'},
+					{desc: 'Volledige naam', field: 'fullname'},
+					{desc: 'E-mail', field: 'email'}
+				]
+			},
+			buttonAfter: {
+				type: 'submit',
+				value: <i className="fa fa-search"></i>
+			}
+		}, 
     {
       name: 'picture',
       label: 'Foto',

@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
-import {Input, FormControls} from 'react-bootstrap';
+// import {Input, FormControls} from 'react-bootstrap';
 
 export default class RadioType extends Component {
 

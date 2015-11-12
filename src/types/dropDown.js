@@ -31,7 +31,7 @@ export default class DropDownType extends Component {
         'key': this.props.formKey || undefined
       }));
     }).then(()=> {
-      if (typeof this.props.submit === 'function') {
+      if (!!this.props.field.submit && typeof this.props.submit === 'function') {
         this.props.submit();
       }
     });

@@ -8,7 +8,8 @@ export default class SubmitType extends Component {
     'field': PropTypes.object.isRequired,
     'size': PropTypes.string,
     'addField': PropTypes.func.isRequired,
-    'pending': PropTypes.bool
+    'pending': PropTypes.bool,
+    'static': PropTypes.bool
 
   }
 

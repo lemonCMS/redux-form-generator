@@ -16,7 +16,8 @@ class DynamicForm extends Component {
     getActionState: PropTypes.func,
     clearActionState: PropTypes.func,
     validate: PropTypes.func,
-    success: PropTypes.bool
+    success: PropTypes.bool,
+    static: PropTypes.bool
   };
 
   shouldComponentUpdate(nextProps:Object) {
@@ -43,6 +44,7 @@ class DynamicForm extends Component {
     })(BaseForm);
 
     return (<DynamicInnerForm
+      static={this.props.static}
       formName={this.props.formName}
       formKey={this.props.formKey || null}
       initialValues={this.props.initialValues}

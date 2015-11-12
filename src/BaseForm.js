@@ -24,7 +24,8 @@ class BaseForm extends Component {
     getActionState: PropTypes.func.isRequired,
     success: PropTypes.bool,
     token: PropTypes.string,
-    valid: PropTypes.bool.isRequired
+    valid: PropTypes.bool.isRequired,
+    static: PropTypes.bool,
   };
 
   constructor() {
@@ -49,6 +50,10 @@ class BaseForm extends Component {
   }
 
   row(field, key, size) {
+    if (!!this.props.static && !!field.row.hideOnStatic) {
+      return false;
+    }
+
     return (
       <Row key={key}>
         {_.map(field, (row)=>{
@@ -62,9 +67,14 @@ class BaseForm extends Component {
   col(cols, size) {
     return _.map(cols, (col, key)=>{
       const thisSize = _.get(col, 'bsSize', size);
+
+      if (!!this.props.static && !!col.hideOnStatic) {
+        return false;
+      }
+
       return (
         <Col key={key} {..._.omit(col, 'children')}>
-          {_.map(col.children, (child)=>{
+          {_.map(_.omit(col.children, ['hideOnStatic']), (child)=>{
             return this.addField(child, thisSize);
           })}
         </Col>
@@ -73,27 +83,32 @@ class BaseForm extends Component {
   }
 
   addField(field, size) {
+
+    if (!!this.props.static && !!field.hideOnStatic) {
+      return false;
+    }
+
     if (!_.isEmpty(field)) {
       const properties = this.props.fields[field.name];
 
       switch (field.type) {
         case 'submit':
-          return <GenSubmit key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
+          return <GenSubmit static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'button':
-          return <GenButton key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
+          return <GenButton static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'dropdown':
-          return <GenDropDown submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} />; // inputType.input(field, size);
+          return <GenDropDown static={this.props.static} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} />; // inputType.input(field, size);
         case 'success':
         case 'error':
-          return <GenMessage key={field.type} displayErrors={this.state.displayErrors} field={field} size={size} properties={properties} valid={this.props.valid} invalid={this.props.invalid} pristine={this.props.pristine} getActionState={this.props.getActionState}/>; // return this.message(field, size);
+          return <GenMessage static={this.props.static} key={field.type} displayErrors={this.state.displayErrors} field={field} size={size} properties={properties} valid={this.props.valid} invalid={this.props.invalid} pristine={this.props.pristine} getActionState={this.props.getActionState}/>; // return this.message(field, size);
         case 'file':
-          return <GenFile key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
+          return <GenFile static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'static':
-          return <GenStatic key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
+          return <GenStatic static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'plupload':
-          return <GenPlupload key={field.name} field={field} dispatch={this.props.dispatch} formName={this.props.formName} properties={properties} addField={this.addField}/>; // return this.plupload(field);
+          return <GenPlupload static={this.props.static} key={field.name} field={field} dispatch={this.props.dispatch} formName={this.props.formName} properties={properties} addField={this.addField}/>; // return this.plupload(field);
         default:
-          return <GenInput key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
+          return <GenInput static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
       }
     }
   }

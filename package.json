@@ -33,6 +33,7 @@
     "output-file-sync": "^1.1.1",
     "babel": "5.8.29",
     "glob": "^5.0.15",
+    "css-loader": "0.22.0",
     "eslint": "1.8.0",
     "eslint-config-airbnb": "0.1.0",
     "eslint-loader": "^1.1.1",

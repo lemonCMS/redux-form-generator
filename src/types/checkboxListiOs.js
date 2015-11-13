@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
 import {change} from 'redux-form';
 
-export default class CheckboxListType extends Component {
+export default class CheckboxListTypeiOs extends Component {
 
   static propTypes = {
     'field': PropTypes.object.isRequired,
@@ -60,17 +60,19 @@ export default class CheckboxListType extends Component {
     return _.map(_.get(field, 'options', []), (option, key) => {
       return (
         <div className="checkbox" key={key}>
-          <label>
+          <div className="onoffswitch">
             <input
               type="checkbox"
+              className="onoffswitch-checkbox"
               value={option.value}
               checked={_.indexOf(selectedValue, option.value) > -1}
               onChange={(e) => { this.onChange(e, option.value); }}
-
+              id={'myonoff-' + field.name + option.value}
               />
-            {' '}
-            {option.desc}
-          </label>
+            <label className="onoffswitch-label" htmlFor={'myonoff-' + field.name + option.value}></label>
+          </div>
+          {' '}
+          {option.desc}
         </div>
       );
     });
@@ -80,11 +82,20 @@ export default class CheckboxListType extends Component {
     const {field} = this.props;
     const options = _.map(_.get(field, 'options', []), (option, key) => {
       return (
-        <p className="form-control-static" key={key}>
-          {_.indexOf(selectedValue, option.value) > -1 ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+        <div className="checkbox" key={key}>
+          <div className="onoffswitch">
+            <input
+              type="checkbox"
+              className="onoffswitch-checkbox"
+              value={option.value}
+              checked={_.indexOf(selectedValue, option.value) > -1}
+              id={'myonoff-' + field.name + option.value}
+            />
+            <label className="onoffswitch-label" htmlFor={'myonoff-' + field.name + option.value}></label>
+          </div>
           {' '}
           {option.desc}
-        </p>
+        </div>
       );
     });
 

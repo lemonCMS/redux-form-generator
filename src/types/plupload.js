@@ -60,6 +60,18 @@ export default class PluploadType extends Component {
       dispatch(change(this.props.formName, field.name, allFiles));
     };
 
+    const staticForm = _.get(this.props, 'static', false);
+
+    const delCol = (key) => {
+      if (staticForm === false) {
+        return (
+          <td>
+            <Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button>
+          </td>
+        );
+      }
+    }
+
     const renderTable = () => {
       const files = _.filter(properties.value, file => { return !file.deleted; });
       if (files.length > 0) {
@@ -68,7 +80,7 @@ export default class PluploadType extends Component {
             <thead>
             <tr>
               <th>Bestand</th>
-              {_.get(this.props, 'static', false) === false ? <th></th> : ''}
+              {staticForm === false ? <th></th> : ''}
             </tr>
             </thead>
             <tbody>
@@ -77,15 +89,7 @@ export default class PluploadType extends Component {
                 return (
                   <tr key={key}>
                     <td>{file.file_original_name} {file.deleted}</td>
-                    {() => {
-                      if (_.get(this.props, 'static', false) === false) {
-                        return (
-                          <td>
-                            <Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button>
-                          </td>
-                        );
-                      }
-                    }}
+                    {delCol(key)}
                   </tr>
                 );
               }

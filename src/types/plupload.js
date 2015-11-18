@@ -70,7 +70,7 @@ export default class PluploadType extends Component {
           </td>
         );
       }
-    }
+    };
 
     const renderTable = () => {
       const files = _.filter(properties.value, file => { return !file.deleted; });

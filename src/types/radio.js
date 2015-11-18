@@ -84,16 +84,24 @@ export default class RadioType extends Component {
     });
   }
 
+  handlePrevent(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
   handleChange(e) {
     if(e.keyCode === 13) {
       e.preventDefault();
+      e.stopPropagation();
     }
     this.setState({value: e.target.value});
   }
 
   searchBox() {
     if (!!this.props.field.searchable) {
-      return (<input type="text" defaultValue={this.state.value} onKeyDown={this.handleChange} className="form-control"/>);
+      return (<input type="text" defaultValue={this.state.value} onKeyDown={this.handlePrevent} onKeyUp={this.handleChange} className="form-control"/>);
     }
   }
 

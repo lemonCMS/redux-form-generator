@@ -12,13 +12,14 @@ export default class DropDownType extends Component {
     'dispatch': PropTypes.func.isRequired,
     'submit': PropTypes.func.isRequired,
     'formName': PropTypes.string.isRequired,
-    'formKey': PropTypes.string.isRequired
+    'formKey': PropTypes.string
   }
 
   constructor() {
     super();
     this.dropDownSelect = this.dropDownSelect.bind(this);
     this.dropDown = this.dropDown.bind(this);
+    this.searchBox = this.searchBox.bind(this);
   }
 
   dropDownSelect(name:string, item:Object) {
@@ -65,6 +66,7 @@ export default class DropDownType extends Component {
     const {dropDownTitle, menuItem} = this.dropDown();
     return (
       <DropdownButton key={this.props.field.name} className={_.get(this.props.field, 'className')}
+                      onClick={(e) => { e.preventDefault(); }}
                       bsSize={_.get(this.props.field, 'bsSize', this.props.size)}
                       bsStyle={_.get(this.props.field, 'bsStyle', 'primary')}
                       title={_.get(this.state, ['dropDownTitle', this.props.field.name]) || dropDownTitle}

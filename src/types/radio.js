@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
-// import {Input, FormControls} from 'react-bootstrap';
+import {Row, Col} from 'react-bootstrap';
 
 export default class RadioType extends Component {
 
@@ -15,31 +15,85 @@ export default class RadioType extends Component {
   constructor() {
     super();
     this.options = this.options.bind(this);
+    this.radioButtons = this.radioButtons.bind(this);
+    this.filtered = this.filtered.bind(this);
+    this.searchBox = this.searchBox.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      value: ''
+    }
+  }
+
+  filtered(options) {
+    const {value} = this.state;
+    const strValue = String(value).toLowerCase();
+    if(value !== '') {
+      return _.filter(options, (option) => {
+        return _.includes(String(option.desc).toLowerCase(), strValue);
+      })
+    }
+    return options;
   }
 
   options() {
     const {field, properties} = this.props;
     const selectedValue = String(properties.value || properties.defaultValue);
+    const filtered = this.filtered(_.get(field, 'options', []));
+
     if (field.type === 'radio') {
-      return _.map(_.get(field, 'options', []), (option, key) => {
-        return (
-          <div key={key}>
-            <label>
-              <input
-                name={field.name}
-                type="radio"
-                value={option.value}
-                onChange={this.props.properties.onChange}
-                onFocus={this.props.properties.onFocus}
-                onUpdate={this.props.properties.onUpdate}
-                checked={selectedValue === String(option.value)}
-                />
-              {' '}
-              {option.desc}
-            </label>
-          </div>
-        );
-      });
+
+      if(!!field.chunks) {
+        const split = Math.ceil(filtered.length / field.chunks);
+        const chunks = () => {
+          const chunkData = _.chunk(filtered, split );
+          return _.map(chunkData, (data, key) => {
+            return (
+              <Col key={key} md={ Math.round(12 / field.chunks) }>
+                {this.radioButtons(field.name, data, selectedValue)}
+              </Col>
+            );
+          });
+        };
+
+        return (<Row>{chunks()}</Row>);
+      }
+
+      return this.radioButtons(field.name, filtered, selectedValue);
+    }
+  }
+
+  radioButtons(name, data, selectedValue) {
+    return _.map(data, (option, key) => {
+      return (
+        <div key={key}>
+          <label>
+            <input
+              name={name}
+              type="radio"
+              value={option.value}
+              onChange={this.props.properties.onChange}
+              onFocus={this.props.properties.onFocus}
+              onUpdate={this.props.properties.onUpdate}
+              checked={selectedValue === String(option.value)}
+              />
+            {' '}
+            {option.desc}
+          </label>
+        </div>
+      );
+    });
+  }
+
+  handleChange(e) {
+    if(e.keyCode === 13) {
+      e.preventDefault();
+    }
+    this.setState({value: e.target.value});
+  }
+
+  searchBox() {
+    if (!!this.props.field.searchable) {
+      return (<input type="text" defaultValue={this.state.value} onKeyDown={this.handleChange} className="form-control"/>);
     }
   }
 
@@ -78,6 +132,7 @@ export default class RadioType extends Component {
       <div key={field.name} className={getClass('form-group')}>
         {label()}
         <div className={field.wrapperClassName}>
+          {this.searchBox()}
           {this.options()}
           {help()}
         </div>

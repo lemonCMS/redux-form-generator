@@ -90,6 +90,7 @@ export default class CheckboxListTypeiOs extends Component {
               value={option.value}
               checked={_.indexOf(selectedValue, option.value) > -1}
               id={'myonoff-' + field.name + option.value}
+              readOnly
             />
             <label className="onoffswitch-label" htmlFor={'myonoff-' + field.name + option.value}></label>
           </div>

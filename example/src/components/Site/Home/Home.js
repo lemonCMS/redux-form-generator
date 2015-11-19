@@ -3,10 +3,11 @@ import React, {PropTypes} from 'react';
 import {connect} from 'react-redux';
 import {mapDispatchToProps} from 'utils/functions';
 import Helmet from 'react-helmet';
-import DynamicForm from 'redux-form-generator';
+import Resource from './Resource';
+import DynamicForm from 'include/DynamicForm';
 import {update, clearNetworkState} from 'redux/modules/example/actions';
 
-const fields = () => {
+const fields = (resource) => {
   return ([
     {
       name: 'picture',
@@ -29,6 +30,19 @@ const fields = () => {
       placeholder: 'Voorletters',
       labelClassName: 'col-md-2',
       wrapperClassName: 'col-md-10'
+    },
+    {
+      name: 'resource',
+      label: 'Resource',
+      type: 'resource',
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10',
+      callResource: resource,
+      list: [
+        {value: 1, desc: 'Optie 1'},
+        {value: 2, desc: 'Optie 2'},
+        {value: 3, desc: 'Optie 3'}
+      ]
     },
     {
       name: 'firstname',
@@ -54,6 +68,26 @@ const fields = () => {
       labelClassName: 'col-md-2',
       wrapperClassName: 'col-md-10'
     },
+    {
+      name: 'searchAble',
+      label: 'Fruits',
+      type: 'radio',
+      searchable: true,
+      chunks: 3,
+      options: [
+        {value: 1, desc: 'apple'},
+        {value: 2, desc: 'banana'},
+        {value: 3, desc: 'pinapple'},
+        {value: 4, desc: 'orange'},
+        {value: 5, desc: 'grapes'},
+        {value: 6, desc: 'kiwi'},
+        {value: 7, desc: 'pear'},
+        {value: 8, desc: 'citron'}
+      ],
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10'
+    },
+
     {
       name: 'email',
       label: 'E-mail',
@@ -93,6 +127,12 @@ class Home extends React.Component {
     this.getActionState = this.getActionState.bind(this);
     this.clearActionState = this.clearActionState.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.renderResource = this.renderResource.bind(this);
+    this.showResource = this.showResource.bind(this);
+    this.closeResource = this.closeResource.bind(this);
+    this.state = {
+      showResource: false
+    };
   }
 
   // Return the state of your dispatched action
@@ -131,7 +171,37 @@ class Home extends React.Component {
     });
   }
 
+  showResource(values, list, cb) {
+    this.setState({
+      resourceValues: values,
+      resourceList: list,
+      resourceCB: cb
+    }, () => {
+      console.log(this.state);
+
+      this.setState({
+        showResource: true
+      });
+    });
+
+/*
+    this.setState({
+      showResource: true
+    }, () => { this.setState({resource: this.renderResource(values, list, cb)}); });
+*/
+  }
+
+  closeResource() {
+    this.setState({showResource: false});
+  }
+
+  renderResource() {
+    return (<Resource show={this.state.showResource} close={this.closeResource} values={_.clone(this.state.resourceValues)} list={_.clone(this.state.resourceList)} callBack={this.state.resourceCB}/>);
+  }
+
   render() {
+    console.log('HOME STATE', this.state);
+
     return (
       <div>
         <Helmet
@@ -144,12 +214,13 @@ class Home extends React.Component {
           checkKey={'userEdit'}
           formName="userEdit"
           formClass="form-horizontal"
-          fieldsNeeded={fields()}
-          initialValues={{}}
+          fieldsNeeded={fields(this.showResource)}
+          initialValues={{resource: [1, 2, 3]}}
           onSubmit={this.handleSubmit}
           getActionState={this.getActionState}
           clearActionState={this.clearActionState}
           />
+        {this.renderResource()}
       </div>
     );
   }

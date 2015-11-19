@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import {mapDispatchToProps} from './utils/functions';
 import {Row, Col} from 'react-bootstrap';
 import Pending from './Pending';
-import {GenInput, GenPlupload, GenMessage, GenDropDown, GenButton, GenSubmit, GenStatic, GenFile, GenRadio, GenCheckboxList, GenCheckboxListiOs}
+import {GenInput, GenPlupload, GenMessage, GenDropDown, GenButton, GenSubmit, GenStatic, GenFile, GenRadio, GenCheckboxList, GenCheckboxListiOs, GenExternal}
   from './types';
 
 @connect(()=>({}), mapDispatchToProps)
@@ -135,8 +135,11 @@ class BaseForm extends Component {
           return <GenCheckboxList static={this.props.static} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'checkboxListiOs':
           return <GenCheckboxListiOs static={this.props.static} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
+        case 'external':
+          return <GenExternal static={this.props.static} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         default:
           return <GenInput static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
+
       }
     }
   }

@@ -21,16 +21,16 @@ export default class RadioType extends Component {
     this.handleChange = this.handleChange.bind(this);
     this.state = {
       value: ''
-    }
+    };
   }
 
   filtered(options) {
     const {value} = this.state;
     const strValue = String(value).toLowerCase();
-    if(value !== '') {
+    if (value !== '') {
       return _.filter(options, (option) => {
         return _.includes(String(option.desc).toLowerCase(), strValue);
-      })
+      });
     }
     return options;
   }
@@ -54,7 +54,6 @@ export default class RadioType extends Component {
             );
           });
         };
-
         return (<Row>{chunks()}</Row>);
       }
 
@@ -92,7 +91,7 @@ export default class RadioType extends Component {
   }
 
   handleChange(e) {
-    if(e.keyCode === 13) {
+    if (e.keyCode === 13) {
       e.preventDefault();
       e.stopPropagation();
     }

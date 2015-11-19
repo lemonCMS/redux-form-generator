@@ -13,3 +13,4 @@ export {default as GenStatic} from './static';
 export {default as GenRadio} from './radio';
 export {default as GenCheckboxList} from './checkboxList';
 export {default as GenCheckboxListiOs} from './checkboxListiOs';
+export {default as GenExternal} from './external';

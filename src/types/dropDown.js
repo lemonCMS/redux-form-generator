@@ -19,7 +19,6 @@ export default class DropDownType extends Component {
     super();
     this.dropDownSelect = this.dropDownSelect.bind(this);
     this.dropDown = this.dropDown.bind(this);
-    this.searchBox = this.searchBox.bind(this);
   }
 
   dropDownSelect(name:string, item:Object) {

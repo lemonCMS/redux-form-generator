@@ -29,14 +29,12 @@ export default class Html extends Component {
       <html lang="en-us">
         <head>
           <meta charSet="utf-8"/>
-          {head.title.toComponent()}
-          {head.meta.toComponent()}
-          {head.link.toComponent()}
-
           <link rel="shortcut icon" href="/favicon.ico" />
           <link href={cdn + 'font-awesome/4.4.0/css/font-awesome.min.css'}
                 media="screen, projection" rel="stylesheet" type="text/css" />
-
+          {head.title.toComponent()}
+          {head.meta.toComponent()}
+          {head.link.toComponent()}
         </head>
         <body>
           <div id="reactdata" dangerouslySetInnerHTML={{__html: content}}/>

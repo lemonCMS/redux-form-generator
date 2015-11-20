@@ -6,14 +6,14 @@ import Helmet from 'react-helmet';
 import Resource from './Resource';
 import DynamicForm from 'include/DynamicForm';
 import {update, clearNetworkState} from 'redux/modules/example/actions';
+import validate from './validate';
 
 const fields = (resource) => {
   return ([
     {
       name: 'picture',
-      label: 'Foto',
+      label: 'Picture',
       type: 'plupload',
-      placeholder: 'Bestand',
       labelClassName: 'col-md-2',
       wrapperClassName: 'col-md-10',
       url: '/',
@@ -25,9 +25,33 @@ const fields = (resource) => {
 
     {
       name: 'initials',
-      label: 'Voorletters',
+      label: 'Initals',
       type: 'text',
-      placeholder: 'Voorletters',
+      placeholder: 'Initals',
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10'
+    },
+    {
+      name: 'firstname',
+      label: 'Firstname',
+      type: 'text',
+      placeholder: 'Firstname',
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10'
+    },
+    {
+      name: 'middlename',
+      label: 'Middlename',
+      type: 'text',
+      placeholder: 'Middelname',
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10'
+    },
+    {
+      name: 'lastname',
+      label: 'Lastname',
+      type: 'text',
+      placeholder: 'Lastname',
       labelClassName: 'col-md-2',
       wrapperClassName: 'col-md-10'
     },
@@ -39,37 +63,13 @@ const fields = (resource) => {
       wrapperClassName: 'col-md-10',
       callResource: resource,
       list: [
-        {value: 1, desc: 'Optie 1'},
-        {value: 2, desc: 'Optie 2'},
-        {value: 3, desc: 'Optie 3'}
+        {value: 1, desc: 'Item 1'},
+        {value: 2, desc: 'Item 2'},
+        {value: 3, desc: 'Item 3'}
       ]
     },
     {
-      name: 'firstname',
-      label: 'Voornamen',
-      type: 'text',
-      placeholder: 'Voornamen',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'middlename',
-      label: 'Tussenvoegsel',
-      type: 'text',
-      placeholder: 'Tussenvoegsel',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'lastname',
-      label: 'Achternaam',
-      type: 'text',
-      placeholder: 'Achternaam',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'searchAble',
+      name: 'fruits',
       label: 'Fruits',
       type: 'radio',
       searchable: true,
@@ -87,7 +87,25 @@ const fields = (resource) => {
       labelClassName: 'col-md-2',
       wrapperClassName: 'col-md-10'
     },
-
+    {
+      name: 'fruitsCheckbox',
+      label: 'Fruits multiple',
+      type: 'checkboxList',
+      searchable: true,
+      chunks: 3,
+      options: [
+        {value: 1, desc: 'apple'},
+        {value: 2, desc: 'banana'},
+        {value: 3, desc: 'pinapple'},
+        {value: 4, desc: 'orange'},
+        {value: 5, desc: 'grapes'},
+        {value: 6, desc: 'kiwi'},
+        {value: 7, desc: 'pear'},
+        {value: 8, desc: 'citron'}
+      ],
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10'
+    },
     {
       name: 'email',
       label: 'E-mail',
@@ -101,11 +119,11 @@ const fields = (resource) => {
         col: [
           {
             md: 10, mdOffset: 2, children: [
-              {type: 'success', message: 'Het formulier is opgeslagen'},
-              {type: 'error', message: 'Er zijn fouten opgetreden, controleer het formulier.'}
+              {type: 'success', message: 'The form is saved.'},
+              {type: 'error', message: 'There was an error.'}
             ]
           },
-          {md: 10, mdOffset: 2, children: [{type: 'submit', name: 'submit', value: 'versturen'}]}
+          {md: 10, mdOffset: 2, children: [{type: 'submit', name: 'submit', value: 'send'}]}
         ]
       }
     }
@@ -151,7 +169,6 @@ class Home extends React.Component {
 
   // Params, values, dispatch
   // Use dispatch and return a promise
-
   handleSubmit(values, dispatch) {
 
     // Handle server returned errors
@@ -173,22 +190,11 @@ class Home extends React.Component {
 
   showResource(values, list, cb) {
     this.setState({
+      showResource: true,
       resourceValues: values,
       resourceList: list,
       resourceCB: cb
-    }, () => {
-      console.log(this.state);
-
-      this.setState({
-        showResource: true
-      });
     });
-
-/*
-    this.setState({
-      showResource: true
-    }, () => { this.setState({resource: this.renderResource(values, list, cb)}); });
-*/
   }
 
   closeResource() {
@@ -200,22 +206,28 @@ class Home extends React.Component {
   }
 
   render() {
-    console.log('HOME STATE', this.state);
-
     return (
       <div>
         <Helmet
-          title="Site"
+          title="reduc-form-generator"
           titleTemplate="MySite.com - %s"
           link={[{'rel': 'stylesheet', 'href': 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css', 'type': 'text/css', 'media': 'screen'}]}
           />
-        <h1>Home</h1>
+        <h1>reduc form generator example</h1>
+        <p>Use the example with chrome or firefox.</p>
+        <p>
+          Get the source on <a href="https://github.com/lemonCMS/redux-form-generator">github.com</a>
+        </p>
+        <p>
+          Get the package on <a href="https://www.npmjs.com/package/redux-form-generator">npmjs.com</a>
+        </p>
         <DynamicForm
           checkKey={'userEdit'}
           formName="userEdit"
           formClass="form-horizontal"
           fieldsNeeded={fields(this.showResource)}
-          initialValues={{resource: [1, 2, 3]}}
+          initialValues={{resource: [1, 2, 3], fruits: 4}}
+          validate={validate}
           onSubmit={this.handleSubmit}
           getActionState={this.getActionState}
           clearActionState={this.clearActionState}

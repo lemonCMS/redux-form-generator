@@ -95,7 +95,7 @@
     "react-cookie": "^0.4.1",
     "react-document-meta": "2.0.0",
     "react-dom": "0.14.2",
-    "react-helmet": "^2.1.1",
+    "react-helmet": "^2.2.0",
     "react-inline-css": "2.0.0",
     "react-intl": "^2.0.0-pr-3",
     "react-plupload": "0.0.*",
@@ -113,7 +113,7 @@
     "superagent": "1.4.0",
     "url-loader": "0.5.6",
     "validator": "^4.2.1",
-    "webpack-isomorphic-tools": "1.0.2"
+    "webpack-isomorphic-tools": "2.2.15"
   },
   "devDependencies": {
     "autoprefixer-loader": "^3.1.0",
@@ -129,9 +129,9 @@
     "css-loader": "^0.21.0",
     "eslint": "1.8.0",
     "eslint-config-airbnb": "0.1.0",
-    "eslint-loader": "^1.1.1",
-    "eslint-plugin-import": "^0.8.1",
-    "eslint-plugin-react": "^3.6.3",
+    "eslint-loader": "^1.0.0",
+    "eslint-plugin-import": "^0.8.0",
+    "eslint-plugin-react": "^3.9.0",
     "extract-text-webpack-plugin": "^0.9.0",
     "font-awesome": "^4.4.0",
     "font-awesome-webpack": "0.0.4",
@@ -156,7 +156,7 @@
     "sass-loader": "^3.1.1",
     "strip-loader": "^0.1.0",
     "style-loader": "^0.13.0",
-    "webpack": "^1.12.2",
+    "webpack": "^1.12.6",
     "webpack-dev-middleware": "^1.2.0",
     "webpack-hot-middleware": "^2.4.1"
   },

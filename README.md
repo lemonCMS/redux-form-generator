@@ -13,6 +13,9 @@ So if you need file upload please follow the instructions over there for install
 The is a small example included, this example had no working backend
 Use with the chromebrowser, IE will fail in the example.
 
+[online](http://redux-form-generator.babyblox.nl)
+
+
 ````
 git clone https://github.com/lemonCMS/redux-form-generator.git
 cd redux-form-generator/example

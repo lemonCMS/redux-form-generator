@@ -68,7 +68,7 @@ export default class InputType extends Component {
         name="search"
         bsSize={thisSize}
         {...extraProps}
-        {...this.props.field}
+        {..._.omit(this.props.field, ['label'])}
         {...this.props.properties}
         buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
         buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}

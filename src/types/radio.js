@@ -39,7 +39,7 @@ export default class RadioType extends Component {
 
   radioButtonWrite(name, option, selectedValue, key) {
     return (
-      <div className="checkbox" key={key}>
+      <div className="radio" key={key}>
         <label>
           <input
             name={name}

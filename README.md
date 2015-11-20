@@ -131,3 +131,11 @@ Punt in your react render component the following code
 
 #Help wanted
 Help wanted to make this package stable!
+
+
+###PM2
+Go into the example directory.
+and run
+````
+pm2 start "/usr/bin/npm" -f --name "app-redux-form-generator" -- run start
+````

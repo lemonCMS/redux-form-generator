@@ -65,7 +65,7 @@ export default class CheckboxListType extends Component {
 
   options() {
     const {field, properties} = this.props;
-    const selectedValue = String(properties.value || properties.defaultValue);
+    const selectedValue = properties.value || properties.defaultValue;
     const filtered = this.filtered(_.get(field, 'options', []));
 
     if (filtered.length === 0) {

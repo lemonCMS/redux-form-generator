@@ -57,12 +57,19 @@ export default class DropDownType extends Component {
       }
     });
     return {dropDownTitle, menuItem};
-
   }
 
   render() {
-
     const {dropDownTitle, menuItem} = this.dropDown();
+
+    if (this.props.static) {
+      return (
+        <div>
+          {dropDownTitle}
+        </div>
+      );
+    }
+
     return (
       <DropdownButton key={this.props.field.name} className={_.get(this.props.field, 'className')}
                       onClick={(e) => { e.preventDefault(); }}

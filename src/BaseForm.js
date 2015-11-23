@@ -4,8 +4,11 @@ import {connect} from 'react-redux';
 import {mapDispatchToProps} from './utils/functions';
 import {Row, Col} from 'react-bootstrap';
 import Pending from './Pending';
-import {GenInput, GenPlupload, GenMessage, GenDropDown, GenButton, GenSubmit, GenStatic, GenFile, GenRadio, GenCheckboxList, GenCheckboxListiOs, GenResource}
-  from './types';
+import {
+  GenRte, GenInput, GenPlupload, GenMessage, GenDropDown,
+  GenButton, GenSubmit, GenStatic, GenFile, GenRadio,
+  GenCheckboxList, GenCheckboxListiOs, GenResource, GenDateTime
+  } from './types';
 
 @connect(()=>({}), mapDispatchToProps)
 class BaseForm extends Component {
@@ -137,9 +140,12 @@ class BaseForm extends Component {
           return <GenCheckboxListiOs static={this.props.static} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'resource':
           return <GenResource static={this.props.static} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
+        case 'rte':
+          return <GenRte static={this.props.static} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} addField={this.addField} formName={this.props.formName} formKey={this.props.formKey}/>;
+        case'dateTime':
+          return <GenDateTime static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         default:
           return <GenInput static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
-
       }
     }
   }

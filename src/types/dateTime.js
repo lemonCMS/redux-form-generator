@@ -17,7 +17,7 @@ export default class InputType extends Component {
     super();
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      date: moment().format('x')
+      date: null
     }
   }
 
@@ -74,6 +74,13 @@ export default class InputType extends Component {
       );
     }
 
+    const props = {};
+    if(this.state.date === null) {
+      props.defaultText = '';
+    } else {
+      props.dateTime = this.state.date;
+    }
+
     return (
       <div key={field.name} className={getClass('form-group')}>
         {label()}
@@ -83,8 +90,7 @@ export default class InputType extends Component {
             bsSize={thisSize}
             {...this.props.field}
             {...this.props.properties}
-            dateTime={this.state.date}
-            onChange={this.handleChange}
+            {...props}
             >
           </DateTimeField>
           {help()}

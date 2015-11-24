@@ -13,6 +13,24 @@ export default class InputType extends Component {
     'static': PropTypes.bool
   }
 
+  constructor() {
+    super();
+    this.handleChange = this.handleChange.bind(this);
+    this.state = {
+      date: moment().format('x')
+    }
+  }
+
+  componentWillMount() {
+    if (!_.isUndefined(_.get(this.props, 'properties.defaultValue'))) {
+      this.setState({date: _.get(this.props, 'properties.defaultValue')});
+    }
+  }
+
+  handleChange = (newDate) => {
+    return this.setState({date: newDate});
+  }
+
   render() {
     const thisSize = _.get(this.props.field, 'bsSize', this.props.size);
     const {field} = this.props;
@@ -62,10 +80,11 @@ export default class InputType extends Component {
         <div className={field.wrapperClassName}>
           <DateTimeField
             key={this.props.field.name}
-            name="search"
             bsSize={thisSize}
             {...this.props.field}
             {...this.props.properties}
+            dateTime={this.state.date}
+            onChange={this.handleChange}
             >
           </DateTimeField>
           {help()}

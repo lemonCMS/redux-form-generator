@@ -168,7 +168,7 @@ export default class CheckboxListType extends Component {
     };
 
     const help = () => {
-      if (_.has(this.props.properties, 'error')) {
+      if (this.props.properties.touched && _.has(this.props.properties, 'error')) {
         return (<span className="help-block">{this.props.properties.error}</span>);
       }
     };

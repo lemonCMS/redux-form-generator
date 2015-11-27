@@ -1,6 +1,5 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
-import {Input, FormControls} from 'react-bootstrap';
 import {change} from 'redux-form';
 import TinyMCE from 'react-tinymce';
 
@@ -9,9 +8,12 @@ export default class InputType extends Component {
   static propTypes = {
     'field': PropTypes.object.isRequired,
     'properties': PropTypes.object.isRequired,
+    'dispatch': PropTypes.func.isRequired,
     'size': PropTypes.string,
     'addField': PropTypes.func.isRequired,
-    'static': PropTypes.bool
+    'static': PropTypes.bool,
+    'formName': PropTypes.string,
+    'formKey': PropTypes.string
   }
 
   constructor() {

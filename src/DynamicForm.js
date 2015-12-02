@@ -11,6 +11,7 @@ class DynamicForm extends Component {
     formName: PropTypes.string.isRequired,
     formKey: PropTypes.string,
     fieldsNeeded: PropTypes.array.isRequired,
+    formClass: PropTypes.string,
     initialValues: PropTypes.object,
     onSubmit: PropTypes.func,
     getActionState: PropTypes.func,
@@ -43,6 +44,7 @@ class DynamicForm extends Component {
     })(BaseForm);
 
     return (<DynamicInnerForm
+      formClass={this.props.formClass}
       static={this.props.static}
       formName={this.props.formName}
       formKey={this.props.formKey || null}

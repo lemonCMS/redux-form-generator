@@ -41,8 +41,8 @@ export default class SelectType extends Component {
         bsSize={thisSize}
         {..._.omit(this.props.field, ['value', 'label'])}
         {..._.omit(this.props.properties, ['value', 'defaultValue'])}
-        buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
-        buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
+        buttonBefore={this.props.addField(0, _.get(this.props.field, 'buttonBefore', {}), thisSize)}
+        buttonAfter={this.props.addField(0, _.get(this.props.field, 'buttonAfter', {}), thisSize)}
         >
         {value === true ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i> }
         {' '}
@@ -57,8 +57,8 @@ export default class SelectType extends Component {
         {...this.props.field}
         value={this.props.properties.defaultValue || this.props.properties.value}
         {..._.omit(this.props.properties, ['value', 'defaultValue'])}
-        buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
-        buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
+        buttonBefore={this.props.addField(0, _.get(this.props.field, 'buttonBefore', {}), thisSize)}
+        buttonAfter={this.props.addField(0, _.get(this.props.field, 'buttonAfter', {}), thisSize)}
         >{this.options()}</FormControls.Static>);
     }
 
@@ -70,8 +70,8 @@ export default class SelectType extends Component {
         {...extraProps}
         {...this.props.field}
         {...this.props.properties}
-        buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
-        buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
+        buttonBefore={this.props.addField(0, _.get(this.props.field, 'buttonBefore', {}), thisSize)}
+        buttonAfter={this.props.addField(0, _.get(this.props.field, 'buttonAfter', {}), thisSize)}
         >
         {this.options()}
       </Input>

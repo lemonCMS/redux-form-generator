@@ -33,8 +33,8 @@ export default class FileType extends Component {
         onChange={this.props.properties.onChange}
         onFocus={this.props.properties.onFocus}
         onUpdate={this.props.properties.onUpdate}
-        buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
-        buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
+        buttonBefore={this.props.addField(0, _.get(this.props.field, 'buttonBefore', {}), thisSize)}
+        buttonAfter={this.props.addField(0, _.get(this.props.field, 'buttonAfter', {}), thisSize)}
         />
     );
   }

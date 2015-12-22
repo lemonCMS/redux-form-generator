@@ -2,7 +2,7 @@ import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import {mapDispatchToProps} from './utils/functions';
-import {Row, Col} from 'react-bootstrap';
+import {Row, Col, Tabs, Tab} from 'react-bootstrap';
 import Pending from './Pending';
 import {
   GenRte, GenInput, GenPlupload, GenMessage, GenDropDown,
@@ -37,6 +37,8 @@ class BaseForm extends Component {
     this.addField = this.addField.bind(this);
     this.row = this.row.bind(this);
     this.col = this.col.bind(this);
+    this.tabs = this.tabs.bind(this);
+    this.tab = this.tab.bind(this);
     this.submitForm = this.submitForm.bind(this);
     this.submit = this.submit.bind(this);
     this.state = {displayErrors: false};
@@ -59,6 +61,50 @@ class BaseForm extends Component {
   submitForm() {
     this.refs.button.click();
   }
+
+  tabs(field, key, size) {
+    // Hide fields that are only visible in static mode
+    if (!this.props.static && !!field.tabs.showOnStatic) {
+      return false;
+    }
+    // Hide fields that are only visible in edit mode
+    if (!!this.props.static && !!field.tabs.hideOnStatic) {
+      return false;
+    }
+
+    return (
+      <Tabs key={key} {..._.omit(field, 'tab')}>
+        {_.map(field, (tabs) => {
+          const thisSize = _.get(tabs, 'bsSize', size);
+          return this.tab(tabs.tab, thisSize);
+        })}
+      </Tabs>
+    );
+  }
+
+  tab(tabs, size) {
+    return _.map(tabs, (tab, key)=>{
+      const thisSize = _.get(tab, 'bsSize', size);
+
+      // Hide fields that are only visible in static mode
+      if (!this.props.static && !!tab.showOnStatic) {
+        return false;
+      }
+      // Hide fields that are only visible in edit mode
+      if (!!this.props.static && !!tab.hideOnStatic) {
+        return false;
+      }
+
+      return (
+        <Tab key={key} eventKey={key} {..._.omit(col, 'children')}>
+          {_.map(_.omit(col.children, ['hideOnStatic']), (child)=>{
+            return this.addField(child, thisSize);
+          })}
+        </Tab>
+      );
+    });
+  }
+
 
   row(field, key, size) {
     // Hide fields that are only visible in static mode
@@ -131,7 +177,7 @@ class BaseForm extends Component {
         case 'static':
           return <GenStatic static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'plupload':
-          return <GenPlupload static={this.props.static} key={field.name} field={field} dispatch={this.props.dispatch} formName={this.props.formName} properties={properties} addField={this.addField}/>; // return this.plupload(field);
+          return <GenPlupload static={this.props.static} key={field.name} field={field} formKey={this.props.formKey} dispatch={this.props.dispatch} formName={this.props.formName} properties={properties} addField={this.addField}/>; // return this.plupload(field);
         case 'radio':
           return <GenRadio static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'checkboxList':
@@ -158,7 +204,6 @@ class BaseForm extends Component {
     const {pending} = this.props.getActionState();
     const {fieldsNeeded} = this.props;
     const handleSubmit = this.props.handleSubmit(this.props.submit);
-
     return (
       <form onSubmit={(e) => { this.submit(); handleSubmit(e); }} ref="form" className={_.get(this.props, 'formClass', 'form-horizontal')}>
         <input type="button" ref="button" onClick={(e) => { this.submit(); handleSubmit(e); }} className="hidden" />
@@ -170,6 +215,8 @@ class BaseForm extends Component {
                 return this.addField(field, size);
               } else if (field.hasOwnProperty('row')) {
                 return this.row(field, key, size);
+              } else if (field.hasOwnProperty('tabs')) {
+                return this.tabs(field, key, size);
               }
             })}
           </div>

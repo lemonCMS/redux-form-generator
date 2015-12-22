@@ -8,132 +8,71 @@ import DynamicForm from 'include/DynamicForm';
 import {update, clearNetworkState} from 'redux/modules/example/actions';
 import validate from './validate';
 
-const fields = (resource) => {
+const fields = () => {
   return ([
     {
-      name: 'picture',
-      label: 'Picture',
-      type: 'plupload',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10',
-      url: '/',
-      headers: {
-        Authorization: 'Bearer laravelAutToken'
-      },
-      multi_selection: false,
-    },
-
-    {
-      name: 'initials',
-      label: 'Initals',
-      type: 'text',
-      placeholder: 'Initals',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'firstname',
-      label: 'Firstname',
-      type: 'text',
-      placeholder: 'Firstname',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'middlename',
-      label: 'Middlename',
-      type: 'text',
-      placeholder: 'Middelname',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'lastname',
-      label: 'Lastname',
-      type: 'text',
-      placeholder: 'Lastname',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'resource',
-      label: 'Resource',
-      type: 'resource',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10',
-      callResource: resource,
-      list: [
-        {value: 1, desc: 'Item 1'},
-        {value: 2, desc: 'Item 2'},
-        {value: 3, desc: 'Item 3'}
-      ]
-    },
-    {
-      name: 'fruits',
-      label: 'Fruits',
-      type: 'radio',
-      searchable: true,
-      chunks: 3,
-      options: [
-        {value: 1, desc: 'apple'},
-        {value: 2, desc: 'banana'},
-        {value: 3, desc: 'pinapple'},
-        {value: 4, desc: 'orange'},
-        {value: 5, desc: 'grapes'},
-        {value: 6, desc: 'kiwi'},
-        {value: 7, desc: 'pear'},
-        {value: 8, desc: 'citron'}
-      ],
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'fruitsCheckbox',
-      label: 'Fruits multiple',
-      type: 'checkboxList',
-      searchable: true,
-      chunks: 3,
-      options: [
-        {value: 1, desc: 'apple'},
-        {value: 2, desc: 'banana'},
-        {value: 3, desc: 'pinapple'},
-        {value: 4, desc: 'orange'},
-        {value: 5, desc: 'grapes'},
-        {value: 6, desc: 'kiwi'},
-        {value: 7, desc: 'pear'},
-        {value: 8, desc: 'citron'}
-      ],
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'email',
-      label: 'E-mail',
-      type: 'text',
-      placeholder: 'E-mail',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      row: {
-        col: [
+      tabs: {
+        bsStyle: 'pills',
+        tab: [
           {
-            md: 10, mdOffset: 2, children: [
-              {type: 'success', message: 'The form is saved.'},
-              {type: 'error', message: 'There was an error.'}
+            title: 'Tab 1', children: [
+              {
+                name: 'email',
+                label: 'E-mail',
+                type: 'text',
+                placeholder: 'E-mail',
+                labelClassName: 'col-md-2',
+                wrapperClassName: 'col-md-10'
+              },
+              {
+                row: {
+                  col: [
+                    {
+                      md: 10, mdOffset: 2, children: [
+                        {type: 'success', message: 'The form is saved.'},
+                        {type: 'error', message: 'There was an error.'}
+                      ]
+                    },
+                    {md: 10, mdOffset: 2, children: [{type: 'button', name: 'submit', value: 'send'}]}
+                  ]
+                }
+              }
             ]
           },
-          {md: 10, mdOffset: 2, children: [{type: 'submit', name: 'submit', value: 'send'}]}
+          {
+            title: 'Tab 2', disabled: true, children: [
+              {
+                name: 'email2',
+                label: 'E-mail 2',
+                type: 'text',
+                placeholder: 'E-mail',
+                labelClassName: 'col-md-2',
+                wrapperClassName: 'col-md-10'
+              }
+            ]
+          },
+          {
+            title: 'Tab 3', disabled: true, children: [
+              {
+                name: 'email3',
+                label: 'E-mail 3',
+                type: 'text',
+                placeholder: 'E-mail',
+                labelClassName: 'col-md-2',
+                wrapperClassName: 'col-md-10'
+              }
+            ]
+          }
         ]
       }
-    }
+    },
+
   ]);
 };
 
 @connect(state=>({
   'example': state.example
-}), mapDispatchToProps)
-class Home extends React.Component {
+}), mapDispatchToProps) class Home extends React.Component {
 
   static propTypes = {
     'dispatch': PropTypes.func,
@@ -202,7 +141,9 @@ class Home extends React.Component {
   }
 
   renderResource() {
-    return (<Resource show={this.state.showResource} close={this.closeResource} values={_.clone(this.state.resourceValues)} list={_.clone(this.state.resourceList)} callBack={this.state.resourceCB}/>);
+    return (
+      <Resource show={this.state.showResource} close={this.closeResource} values={_.clone(this.state.resourceValues)}
+                list={_.clone(this.state.resourceList)} callBack={this.state.resourceCB}/>);
   }
 
   render() {
@@ -213,17 +154,22 @@ class Home extends React.Component {
           titleTemplate="MySite.com - %s"
           link={[{'rel': 'stylesheet', 'href': 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css', 'type': 'text/css', 'media': 'screen'}]}
           />
+
         <h1>reduc form generator example</h1>
+
         <p>Use the example with chrome or firefox.</p>
+
         <p>
           Get the source on <a href="https://github.com/lemonCMS/redux-form-generator">github.com</a>
         </p>
+
         <p>
           Get the package on <a href="https://www.npmjs.com/package/redux-form-generator">npmjs.com</a>
         </p>
         <DynamicForm
           checkKey={'userEdit'}
           formName="userEdit"
+          formKey="lala"
           formClass="form-horizontal"
           fieldsNeeded={fields(this.showResource)}
           initialValues={{resource: [1, 2, 3], fruits: 4}}

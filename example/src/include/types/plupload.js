@@ -51,13 +51,25 @@ export default class PluploadType extends Component {
         allFiles.push(uploadResponse.result);
       }
 
-      dispatch(change(this.props.formName, field.name, allFiles));
+      const changeConst = change(this.props.formName, field.name, allFiles);
+      this.props.dispatch({
+        ...changeConst,
+        'key': this.props.formKey || undefined
+      });
+
+      // dispatch(change(this.props.formName, field.name, allFiles));
 
     };
 
     const fileDelete = (index) => {
       _.set(allFiles, [index], _.merge(_.get(allFiles, [index]), {deleted: 1}));
-      dispatch(change(this.props.formName, field.name, allFiles));
+      // dispatch(change(this.props.formName, field.name, allFiles));
+      const changeConst = change(this.props.formName, field.name, allFiles);
+      this.props.dispatch({
+        ...changeConst,
+        'key': this.props.formKey || undefined
+      });
+
     };
 
     const staticForm = _.get(this.props, 'static', false);

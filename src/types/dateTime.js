@@ -64,11 +64,17 @@ export default class InputType extends Component {
     };
 
     if (this.props.static === true) {
+      let value = '';
+      let dateTime = moment(this.props.properties.defaultValue || this.props.properties.value, 'x');
+      if (dateTime.isValid()) {
+        value = dateTime.format('YYYY-MM-DD');
+      }
+
       return(
         <div key={field.name} className={getClass('form-group')}>
           {label()}
           <div className={field.wrapperClassName}>
-            {moment(this.props.properties.defaultValue || this.props.properties.value, 'x').format('YYYY-MM-DD')}
+            <p className="form-control-static">{value}</p>
           </div>
         </div>
       );

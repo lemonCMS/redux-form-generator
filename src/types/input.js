@@ -15,6 +15,7 @@ export default class InputType extends Component {
   constructor() {
     super();
     this.options = this.options.bind(this);
+    this.getValue = this.getValue.bind(this);
   }
 
   options() {
@@ -23,6 +24,12 @@ export default class InputType extends Component {
         return <option key={key} value={option.value}>{option.desc}</option>;
       });
     }
+  }
+
+  getValue() {
+    const options = _.get(this.props.field, 'options', []);
+    const value = this.props.properties.defaultValue || this.props.properties.value;
+    return _.get(options, [_.findIndex(options, 'value', value), 'desc'], '');
   }
 
   render() {
@@ -48,6 +55,18 @@ export default class InputType extends Component {
           {' '}
           {this.props.field.label}
         </FormControls.Static>);
+    }
+
+    if (this.props.static === true && this.props.field.type === 'select' ) {
+      return (<FormControls.Static
+        bsSize={thisSize}
+        value={this.getValue()}
+        {..._.omit(this.props.field, ['value'])}
+        {..._.omit(this.props.properties, ['value', 'defaultValue'])}
+        buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
+        buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
+      >
+      </FormControls.Static>);
     }
 
 

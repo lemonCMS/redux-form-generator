@@ -16,3 +16,4 @@ export {default as GenCheckboxList} from './checkboxList';
 export {default as GenCheckboxListiOs} from './checkboxListiOs';
 export {default as GenResource} from './resource';
 export {default as GenDateTime} from './dateTime';
+export {default as GenPLain} from './plain';

@@ -1,6 +1,6 @@
 {
   "name": "redux-form-generator",
-  "version": "0.0.25",
+  "version": "0.0.26",
   "description": "Generate forms with redux-form",
   "main": "lib/DynamicForm.js",
   "scripts": {

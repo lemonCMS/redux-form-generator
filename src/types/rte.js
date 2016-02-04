@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
-import {change} from 'redux-form';
+import {change, changeWithKey} from 'redux-form';
 import TinyMCE from 'react-tinymce';
 
 export default class InputType extends Component {
@@ -22,11 +22,12 @@ export default class InputType extends Component {
   }
 
   handleEditorChange(e) {
-    const changeConst = change(this.props.formName, this.props.field.name, e.target.getContent());
-    this.props.dispatch({
-      ...changeConst,
-      'key': this.props.formKey || undefined
-    });
+
+    if (_.has(this.props, 'formKey')) {
+      this.props.dispatch(changeWithKey(this.props.formName, this.props.formKey, this.props.field.name, e.target.getContent()));
+    } else {
+      this.props.dispatch(change(this.props.formName, this.props.field.name, e.target.getContent()));
+    }
   }
 
   render() {

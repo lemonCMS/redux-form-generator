@@ -188,7 +188,7 @@ class BaseForm extends Component {
           return <GenResource static={this.props.static} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'rte':
           return <GenRte static={this.props.static} dispatch={this.props.dispatch} key={field.name} field={field} size={size} properties={properties} addField={this.addField} formName={this.props.formName} formKey={this.props.formKey}/>;
-        case'dateTime':
+        case 'dateTime':
           return <GenDateTime static={this.props.static} key={field.name} field={field} size={size} properties={properties} addField={this.addField}/>;
         case 'react':
           return field.component();

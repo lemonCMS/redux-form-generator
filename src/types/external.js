@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
-import {change} from 'redux-form';
+import {change, changeWithKey} from 'redux-form';
 
 export default class CheckboxListType extends Component {
 
@@ -38,11 +38,11 @@ export default class CheckboxListType extends Component {
       values.splice(_.indexOf(values, value), 1);
     }
 
-    const changeConst = change(this.props.formName, this.props.field.name, _.uniq(values));
-    this.props.dispatch({
-      ...changeConst,
-      'key': this.props.formKey || undefined
-    });
+    if (_.has(this.props, 'formKey')) {
+      this.props.dispatch(changeWithKey(this.props.formName, this.props.formKey, this.props.field.name, _.uniq(values)));
+    } else {
+      this.props.dispatch(change(this.props.formName, this.props.field.name, _.uniq(values)));
+    }
   }
 
   options() {

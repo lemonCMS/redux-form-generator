@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
 import {DropdownButton, MenuItem, } from 'react-bootstrap';
-import {change} from 'redux-form';
+import {change, changeWithKey} from 'redux-form';
 
 export default class DropDownType extends Component {
 
@@ -25,11 +25,12 @@ export default class DropDownType extends Component {
     this.setState(_.set(Object.assign({}, this.state), ['dropDownTitle', name], item.desc || item.default));
 
     return new Promise((resolve) => {
-      const changeConst = change(this.props.formName, name, item.field);
-      resolve(this.props.dispatch({
-        ...changeConst,
-        'key': this.props.formKey || undefined
-      }));
+      if (_.has(this.props, 'formKey')) {
+        resolve(this.props.dispatch(changeWithKey(this.props.formName, this.props.formKey, name, item.field)));
+      } else {
+        resolve(this.props.dispatch(change(this.props.formName, name, item.field)));
+      }
+
     }).then(()=> {
       if (!!this.props.field.submit && typeof this.props.submit === 'function') {
         this.props.submit();

@@ -26,8 +26,6 @@ export default class InputType extends Component {
   }
 
   render() {
-    console.log('HIER', this.props);
-
     const thisSize = _.get(this.props.field, 'bsSize', this.props.size);
     const extraProps = {};
     if (this.props.properties.touched && this.props.properties.error) {

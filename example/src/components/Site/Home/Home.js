@@ -4,75 +4,56 @@ import {connect} from 'react-redux';
 import {mapDispatchToProps} from 'utils/functions';
 import Helmet from 'react-helmet';
 import Resource from './Resource';
-import DynamicForm from 'include/DynamicForm';
+import DynamicForm from 'redux-form-generator';
 import {update, clearNetworkState} from 'redux/modules/example/actions';
 import validate from './validate';
 
 const fields = () => {
   return ([
     {
-      tabs: {
-        bsStyle: 'pills',
-        tab: [
+      name: 'email',
+      label: 'E-mail',
+      type: 'text',
+      placeholder: 'E-mail',
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10'
+    },
+    {
+      name: 'email2',
+      label: 'E-mail 2',
+      type: 'text',
+      placeholder: 'E-mail',
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10'
+    },
+    {
+      name: 'email3',
+      label: 'E-mail 3',
+      type: 'text',
+      placeholder: 'E-mail',
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10'
+    },
+    {
+      row: {
+        col: [
           {
-            title: 'Tab 1', children: [
-              {
-                name: 'email',
-                label: 'E-mail',
-                type: 'text',
-                placeholder: 'E-mail',
-                labelClassName: 'col-md-2',
-                wrapperClassName: 'col-md-10'
-              },
-              {
-                row: {
-                  col: [
-                    {
-                      md: 10, mdOffset: 2, children: [
-                        {type: 'success', message: 'The form is saved.'},
-                        {type: 'error', message: 'There was an error.'}
-                      ]
-                    },
-                    {md: 10, mdOffset: 2, children: [{type: 'button', name: 'submit', value: 'send'}]}
-                  ]
-                }
-              }
+            md: 10, mdOffset: 2, children: [
+              {type: 'success', message: 'The form is saved.'},
+              {type: 'error', message: 'There was an error.'}
             ]
           },
-          {
-            title: 'Tab 2', disabled: true, children: [
-              {
-                name: 'email2',
-                label: 'E-mail 2',
-                type: 'text',
-                placeholder: 'E-mail',
-                labelClassName: 'col-md-2',
-                wrapperClassName: 'col-md-10'
-              }
-            ]
-          },
-          {
-            title: 'Tab 3', disabled: true, children: [
-              {
-                name: 'email3',
-                label: 'E-mail 3',
-                type: 'text',
-                placeholder: 'E-mail',
-                labelClassName: 'col-md-2',
-                wrapperClassName: 'col-md-10'
-              }
-            ]
-          }
+          {md: 10, mdOffset: 2, children: [{type: 'submit', name: 'submit', value: 'send'}]}
         ]
       }
-    },
-
+    }
   ]);
 };
 
 @connect(state=>({
   'example': state.example
-}), mapDispatchToProps) class Home extends React.Component {
+}), mapDispatchToProps)
+class Home extends React.Component {
 
   static propTypes = {
     'dispatch': PropTypes.func,
@@ -113,17 +94,17 @@ const fields = () => {
     // Handle server returned errors
     return new Promise((resolve, reject) => {
       dispatch(update(values))
-        .then((ret)=> {
+          .then((ret)=> {
 
-          // For the example alway force an error
-          reject({email: 'Already in use'});
+            // For the example always force an error
+            reject({email: 'Already in use'});
 
-          if (_.has(ret, 'error')) {
-            reject(ret.error);
-          } else {
-            resolve();
-          }
-        });
+            if (_.has(ret, 'error')) {
+              reject(ret.error);
+            } else {
+              resolve();
+            }
+          });
     });
   }
 
@@ -142,44 +123,44 @@ const fields = () => {
 
   renderResource() {
     return (
-      <Resource show={this.state.showResource} close={this.closeResource} values={_.clone(this.state.resourceValues)}
-                list={_.clone(this.state.resourceList)} callBack={this.state.resourceCB}/>);
+        <Resource show={this.state.showResource} close={this.closeResource} values={_.clone(this.state.resourceValues)}
+                  list={_.clone(this.state.resourceList)} callBack={this.state.resourceCB}/>);
   }
 
   render() {
     return (
-      <div>
-        <Helmet
-          title="reduc-form-generator"
-          titleTemplate="MySite.com - %s"
-          link={[{'rel': 'stylesheet', 'href': 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css', 'type': 'text/css', 'media': 'screen'}]}
+        <div>
+          <Helmet
+              title="reduc-form-generator"
+              titleTemplate="MySite.com - %s"
+              link={[{'rel': 'stylesheet', 'href': 'https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css', 'type': 'text/css', 'media': 'screen'}]}
           />
 
-        <h1>reduc form generator example</h1>
+          <h1>reduc form generator example</h1>
 
-        <p>Use the example with chrome or firefox.</p>
+          <p>Use the example with chrome or firefox.</p>
 
-        <p>
-          Get the source on <a href="https://github.com/lemonCMS/redux-form-generator">github.com</a>
-        </p>
+          <p>
+            Get the source on <a href="https://github.com/lemonCMS/redux-form-generator">github.com</a>
+          </p>
 
-        <p>
-          Get the package on <a href="https://www.npmjs.com/package/redux-form-generator">npmjs.com</a>
-        </p>
-        <DynamicForm
-          checkKey={'userEdit'}
-          formName="userEdit"
-          formKey="lala"
-          formClass="form-horizontal"
-          fieldsNeeded={fields(this.showResource)}
-          initialValues={{resource: [1, 2, 3], fruits: 4}}
-          validate={validate}
-          onSubmit={this.handleSubmit}
-          getActionState={this.getActionState}
-          clearActionState={this.clearActionState}
+          <p>
+            Get the package on <a href="https://www.npmjs.com/package/redux-form-generator">npmjs.com</a>
+          </p>
+          <DynamicForm
+              checkKey={'userEdit'}
+              formName="userEdit"
+              formKey="lala"
+              formClass="form-horizontal"
+              fieldsNeeded={fields(this.showResource)}
+              initialValues={{resource: [1, 2, 3], fruits: 4}}
+              validate={validate}
+              onSubmit={this.handleSubmit}
+              getActionState={this.getActionState}
+              clearActionState={this.clearActionState}
           />
-        {this.renderResource()}
-      </div>
+          {this.renderResource()}
+        </div>
     );
   }
 }

@@ -5,7 +5,7 @@
   "main": "lib/DynamicForm.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel-node ./tools/buildBabel.js",
+    "build": "babel src --out-dir lib",
     "lint": "eslint -c .eslintrc src"
   },
   "repository": {

@@ -11,6 +11,24 @@ import validate from './validate';
 const fields = () => {
   return ([
     {
+      name: 'selectbox',
+      label: 'Selectbox',
+      type: 'select',
+      labelClassName: 'col-md-2',
+      wrapperClassName: 'col-md-10',
+      options: [
+        {value: 'home', desc: 'Home'},
+        {value: 'zoeken', desc: 'Zoeken'},
+        {value: 'contact', desc: 'Contact'},
+        {value: 'voorwaarden', desc: 'Voorwaarden'},
+        {value: 'dashboard-overzicht', desc: 'Dashboard/Overzicht'},
+        {value: 'dashboard-registreer', desc: 'Dashboard/Registreer'},
+        {value: 'dashboard-affiliates', desc: 'Dashboard/Affiliates Koppelen'},
+        {value: 'dashboard-wijzigen', desc: 'Dashboard/Wijzigen'},
+        {value: 'dashboard-account', desc: 'Dashboard/Account'}
+      ]
+    },
+    {
       name: 'email',
       label: 'E-mail',
       type: 'text',
@@ -153,11 +171,12 @@ class Home extends React.Component {
               formKey="lala"
               formClass="form-horizontal"
               fieldsNeeded={fields(this.showResource)}
-              initialValues={{resource: [1, 2, 3], fruits: 4}}
+              initialValues={{resource: [1, 2, 3], fruits: 4, selectbox: 'dashboard-affiliates'}}
               validate={validate}
               onSubmit={this.handleSubmit}
               getActionState={this.getActionState}
               clearActionState={this.clearActionState}
+              static
           />
           {this.renderResource()}
         </div>

@@ -29,7 +29,7 @@ export default class InputType extends Component {
   getValue() {
     const options = _.get(this.props.field, 'options', []);
     const value = this.props.properties.defaultValue || this.props.properties.value;
-    return _.get(options, [_.findIndex(options, 'value', value), 'desc'], '');
+    return _.get(options, [_.findIndex(options, ['value', value]), 'desc'], '');
   }
 
   render() {

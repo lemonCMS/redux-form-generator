@@ -1,11 +1,7 @@
-import React, { Component, PropTypes } from 'react';
-import { PropTypes as historyPropTypes } from 'react-router';
+import React, {Component, PropTypes} from 'react';
+import {PropTypes as historyPropTypes} from 'react-router';
 
 class App extends Component {
-
-  constructor(context, props) {
-    super(context, props);
-  }
 
   render() {
     return (

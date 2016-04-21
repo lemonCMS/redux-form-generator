@@ -2,7 +2,7 @@ import _ from 'lodash';
 
 export function mapDispatchToProps(dispatch) {
   return {
-    dispatch,
+    dispatch
   };
 }
 
@@ -22,5 +22,3 @@ export function filterFields(fields, fieldName = 'name', extra = ['page']) {
   mapper(fields);
   return fieldNames;
 }
-
-

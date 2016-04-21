@@ -33,7 +33,6 @@ export default class InputType extends Component {
   render() {
     const thisSize = _.get(this.props.field, 'bsSize', this.props.size);
     const {field} = this.props;
-
     const getClass = (classNames = '') => {
       let ret = classNames;
       if (thisSize === 'large') {
@@ -80,7 +79,7 @@ export default class InputType extends Component {
         {label()}
         <div className={field.wrapperClassName}>
           <TinyMCE
-            content={this.props.properties.defaultValue || this.props.properties.value}
+            content={this.props.properties.initialValue || this.props.properties.value}
             {...this.props.field}
             onChange={this.handleEditorChange}
             />

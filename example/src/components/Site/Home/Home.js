@@ -176,7 +176,6 @@ class Home extends React.Component {
               onSubmit={this.handleSubmit}
               getActionState={this.getActionState}
               clearActionState={this.clearActionState}
-              static
           />
           {this.renderResource()}
         </div>

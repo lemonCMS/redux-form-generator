@@ -1,6 +1,6 @@
-import { expect } from 'chai';
+import {expect} from 'chai';
 import React from 'react';
-import { div } from 'react-dom';
+import {div} from 'react-dom';
 import getDataDependencies from '../getDataDependencies';
 
 describe('getDataDependencies', () => {

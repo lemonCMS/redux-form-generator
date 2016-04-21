@@ -24,7 +24,7 @@ function formatUrl(path) {
 class _ApiClient {
   constructor() {
     methods.forEach((method) =>
-      this[method] = (path, { params, data, headers, formData } = {}) => new Promise((resolve, reject) => {
+      this[method] = (path, {params, data, headers, formData} = {}) => new Promise((resolve, reject) => {
         const request = superagent[method](formatUrl(path));
         if (formData) {
 
@@ -76,7 +76,7 @@ class _ApiClient {
           request.send(data);
         }
 
-        request.end((err, { body } = {}) => err ? reject(body || err) : resolve(body));
+        request.end((err, {body} = {}) => { return (err ? reject(body || err) : resolve(body)); });
       }));
   }
 }

@@ -9,7 +9,7 @@ export default class FileType extends Component {
     'properties': PropTypes.object.isRequired,
     'size': PropTypes.string,
     'addField': PropTypes.func.isRequired
-  }
+  };
 
   render() {
     const thisSize = _.get(this.props.field, 'bsSize', this.props.size);

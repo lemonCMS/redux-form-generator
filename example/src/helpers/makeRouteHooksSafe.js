@@ -1,4 +1,4 @@
-import { createRoutes } from 'react-router/lib/RouteUtils';
+import {createRoutes} from 'react-router/lib/RouteUtils';
 
 // Wrap the hooks so they don't fire if they're called before
 // the store is initialised. This only happens when doing the first

@@ -13,7 +13,7 @@ export default class CheckboxListTypeiOs extends Component {
     'formKey': PropTypes.string,
     'addField': PropTypes.func.isRequired,
     'static': PropTypes.bool
-  }
+  };
 
   constructor() {
     super();

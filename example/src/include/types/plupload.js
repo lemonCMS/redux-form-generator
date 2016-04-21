@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
-import {change} from 'redux-form';
+import {change, changeWithKey} from 'redux-form';
 import {Button, Table} from 'react-bootstrap';
 import Plupload from 'react-plupload';
 
@@ -10,6 +10,7 @@ export default class PluploadType extends Component {
     'field': PropTypes.object.isRequired,
     'properties': PropTypes.object.isRequired,
     'size': PropTypes.string,
+    'formKey': PropTypes.string,
     'formName': PropTypes.string.isRequired,
     'dispatch': PropTypes.func.isRequired
   };
@@ -51,25 +52,20 @@ export default class PluploadType extends Component {
         allFiles.push(uploadResponse.result);
       }
 
-      const changeConst = change(this.props.formName, field.name, allFiles);
-      this.props.dispatch({
-        ...changeConst,
-        'key': this.props.formKey || undefined
-      });
-
-      // dispatch(change(this.props.formName, field.name, allFiles));
-
+      if (_.has(this.props, 'formKey')) {
+        dispatch(changeWithKey(this.props.formName, this.props.formKey, field.name, allFiles));
+      } else {
+        dispatch(change(this.props.formName, field.name, allFiles));
+      }
     };
 
     const fileDelete = (index) => {
       _.set(allFiles, [index], _.merge(_.get(allFiles, [index]), {deleted: 1}));
-      // dispatch(change(this.props.formName, field.name, allFiles));
-      const changeConst = change(this.props.formName, field.name, allFiles);
-      this.props.dispatch({
-        ...changeConst,
-        'key': this.props.formKey || undefined
-      });
-
+      if (_.has(this.props, 'formKey')) {
+        dispatch(changeWithKey(this.props.formName, this.props.formKey, field.name, allFiles));
+      } else {
+        dispatch(change(this.props.formName, field.name, allFiles));
+      }
     };
 
     const staticForm = _.get(this.props, 'static', false);

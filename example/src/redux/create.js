@@ -1,4 +1,4 @@
-import { createStore as _createStore, applyMiddleware, compose } from 'redux';
+import {createStore as _createStore, applyMiddleware, compose} from 'redux';
 import createMiddleware from './middleware/clientMiddleware';
 import transitionMiddleware from './middleware/transitionMiddleware';
 
@@ -7,7 +7,7 @@ export default function createStore(reduxReactRouter, getRoutes, createHistory, 
 
   let finalCreateStore;
   if (__DEVELOPMENT__ && __CLIENT__ && __DEVTOOLS__) {
-    const { persistState } = require('redux-devtools');
+    const {persistState} = require('redux-devtools');
     const DevTools = require('../containers/DevTools/DevTools');
     finalCreateStore = compose(
       applyMiddleware(...middleware),
@@ -18,7 +18,7 @@ export default function createStore(reduxReactRouter, getRoutes, createHistory, 
     finalCreateStore = applyMiddleware(...middleware)(_createStore);
   }
 
-  finalCreateStore = reduxReactRouter({ getRoutes, createHistory })(finalCreateStore);
+  finalCreateStore = reduxReactRouter({getRoutes, createHistory})(finalCreateStore);
 
   const reducer = require('./modules/reducer');
   const store = finalCreateStore(reducer, data);

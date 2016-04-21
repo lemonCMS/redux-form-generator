@@ -10,7 +10,7 @@ export default class InputType extends Component {
     'size': PropTypes.string,
     'addField': PropTypes.func.isRequired,
     'static': PropTypes.bool
-  }
+  };
 
   constructor() {
     super();

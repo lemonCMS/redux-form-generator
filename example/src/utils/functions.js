@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import { bindActionCreators } from 'redux';
-import { pushState } from 'redux-router';
+import {bindActionCreators} from 'redux';
+import {pushState} from 'redux-router';
 const queryString = require('query-string');
 
 export function stateMapper(state, pathname, name, obj, deep = 0) {
@@ -21,9 +21,9 @@ export function stateMapper(state, pathname, name, obj, deep = 0) {
   return _.omit(params, (value)=>{ return !value; });
 }
 
-export function pickDeep(collection, predicate, thisArg) {
+export function pickDeep(collection, predicate, thisArg, ...args) {
 
-  const keys = _.flatten(_.rest(arguments));
+  const keys = _.flatten(_.rest(args));
   const newPredicate = (_.isFunction(predicate) ? _.callback(predicate, thisArg) : (key) => { return _.contains(keys, key); });
 
   return _.transform(collection, (memo, val, key) => {

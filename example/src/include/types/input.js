@@ -10,11 +10,12 @@ export default class InputType extends Component {
     'size': PropTypes.string,
     'addField': PropTypes.func.isRequired,
     'static': PropTypes.bool
-  }
+  };
 
   constructor() {
     super();
     this.options = this.options.bind(this);
+    this.getValue = this.getValue.bind(this);
   }
 
   options() {
@@ -23,6 +24,12 @@ export default class InputType extends Component {
         return <option key={key} value={option.value}>{option.desc}</option>;
       });
     }
+  }
+
+  getValue() {
+    const options = _.get(this.props.field, 'options', []);
+    const value = this.props.properties.defaultValue || this.props.properties.value;
+    return _.get(options, [_.findIndex(options, ['value', value]), 'desc'], '');
   }
 
   render() {
@@ -41,13 +48,25 @@ export default class InputType extends Component {
         bsSize={thisSize}
         {..._.omit(this.props.field, ['value', 'label'])}
         {..._.omit(this.props.properties, ['value', 'defaultValue'])}
-        buttonBefore={this.props.addField(0, _.get(this.props.field, 'buttonBefore', {}), thisSize)}
-        buttonAfter={this.props.addField(0, _.get(this.props.field, 'buttonAfter', {}), thisSize)}
+        buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
+        buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
         >
           {value === true ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i> }
           {' '}
           {this.props.field.label}
         </FormControls.Static>);
+    }
+
+    if (this.props.static === true && this.props.field.type === 'select' ) {
+      return (<FormControls.Static
+        bsSize={thisSize}
+        value={this.getValue()}
+        {..._.omit(this.props.field, ['value'])}
+        {..._.omit(this.props.properties, ['value', 'defaultValue'])}
+        buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
+        buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
+      >
+      </FormControls.Static>);
     }
 
 
@@ -57,8 +76,8 @@ export default class InputType extends Component {
       {...this.props.field}
       value={this.props.properties.defaultValue || this.props.properties.value}
       {..._.omit(this.props.properties, ['value', 'defaultValue'])}
-      buttonBefore={this.props.addField(0, _.get(this.props.field, 'buttonBefore', {}), thisSize)}
-      buttonAfter={this.props.addField(0, _.get(this.props.field, 'buttonAfter', {}), thisSize)}
+      buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
+      buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
       >{this.options()}</FormControls.Static>);
     }
 
@@ -70,8 +89,8 @@ export default class InputType extends Component {
         {...extraProps}
         {...this.props.field}
         {...this.props.properties}
-        buttonBefore={this.props.addField(0, _.get(this.props.field, 'buttonBefore', {}), thisSize)}
-        buttonAfter={this.props.addField(0, _.get(this.props.field, 'buttonAfter', {}), thisSize)}
+        buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
+        buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
         >
         {this.options()}
       </Input>

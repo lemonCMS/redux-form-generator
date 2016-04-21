@@ -12,7 +12,7 @@ export default class MessageType extends Component {
     'invalid': PropTypes.bool.isRequired,
     'pristine': PropTypes.bool.isRequired,
     'displayErrors': PropTypes.bool.isRequired
-  }
+  };
 
   render() {
     const {success, failed} = this.props.getActionState();

@@ -1,33 +1,33 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
-import DateTimeField from 'react-bootstrap-datetimepicker';
-import moment from 'moment';
+import {change, changeWithKey} from 'redux-form';
+import TinyMCE from 'react-tinymce';
+
 export default class InputType extends Component {
 
   static propTypes = {
     'field': PropTypes.object.isRequired,
     'properties': PropTypes.object.isRequired,
+    'dispatch': PropTypes.func.isRequired,
     'size': PropTypes.string,
     'addField': PropTypes.func.isRequired,
-    'static': PropTypes.bool
-  };
+    'static': PropTypes.bool,
+    'formName': PropTypes.string,
+    'formKey': PropTypes.string
+  }
 
   constructor() {
     super();
-    this.handleChange = this.handleChange.bind(this);
-    this.state = {
-      date: null
-    };
+    this.handleEditorChange = this.handleEditorChange.bind(this);
   }
 
-  componentWillMount() {
-    if (!_.isUndefined(_.get(this.props, 'properties.defaultValue'))) {
-      this.setState({date: _.get(this.props, 'properties.defaultValue')});
+  handleEditorChange(e) {
+
+    if (_.has(this.props, 'formKey')) {
+      this.props.dispatch(changeWithKey(this.props.formName, this.props.formKey, this.props.field.name, e.target.getContent()));
+    } else {
+      this.props.dispatch(change(this.props.formName, this.props.field.name, e.target.getContent()));
     }
-  }
-
-  handleChange = (newDate) => {
-    return this.setState({date: newDate});
   }
 
   render() {
@@ -62,40 +62,27 @@ export default class InputType extends Component {
       }
     };
 
-    if (this.props.static === true) {
-      let value = '';
-      const dateTime = moment(this.props.properties.defaultValue || this.props.properties.value, 'x');
-      if (dateTime.isValid()) {
-        value = dateTime.format('YYYY-MM-DD');
-      }
+    const createMarkup = (data) => { return {__html: data}; };
 
+    if (this.props.static) {
       return (
         <div key={field.name} className={getClass('form-group')}>
           {label()}
           <div className={field.wrapperClassName}>
-            <p className="form-control-static">{value}</p>
+            <div dangerouslySetInnerHTML={createMarkup(this.props.properties.defaultValue || this.props.properties.value)}></div>
           </div>
         </div>
       );
-    }
-
-    const props = {};
-    if (this.state.date === null) {
-      props.defaultText = '';
-    } else {
-      props.dateTime = this.state.date;
     }
 
     return (
       <div key={field.name} className={getClass('form-group')}>
         {label()}
         <div className={field.wrapperClassName}>
-          <DateTimeField
-            key={this.props.field.name}
-            bsSize={thisSize}
+          <TinyMCE
+            content={this.props.properties.defaultValue || this.props.properties.value}
             {...this.props.field}
-            {...this.props.properties}
-            {...props}
+            onChange={this.handleEditorChange}
             />
           {help()}
         </div>

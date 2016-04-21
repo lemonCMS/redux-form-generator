@@ -1,6 +1,6 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
-import {DropdownButton, MenuItem, } from 'react-bootstrap';
+import {DropdownButton, MenuItem} from 'react-bootstrap';
 import {change, changeWithKey} from 'redux-form';
 
 export default class DropDownType extends Component {
@@ -12,8 +12,9 @@ export default class DropDownType extends Component {
     'dispatch': PropTypes.func.isRequired,
     'submit': PropTypes.func.isRequired,
     'formName': PropTypes.string.isRequired,
-    'formKey': PropTypes.string
-  }
+    'formKey': PropTypes.string,
+    'static': PropTypes.boolean
+  };
 
   constructor() {
     super();

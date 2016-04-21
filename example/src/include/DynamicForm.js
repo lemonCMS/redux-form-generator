@@ -1,6 +1,6 @@
 import _ from 'lodash';
-import React, { Component, PropTypes } from 'react';
-import { reduxForm } from 'redux-form';
+import React, {Component, PropTypes} from 'react';
+import {reduxForm} from 'redux-form';
 import BaseForm from './BaseForm';
 import {filterFields} from './utils/functions';
 
@@ -11,6 +11,7 @@ class DynamicForm extends Component {
     formName: PropTypes.string.isRequired,
     formKey: PropTypes.string,
     fieldsNeeded: PropTypes.array.isRequired,
+    formClass: PropTypes.string,
     initialValues: PropTypes.object,
     onSubmit: PropTypes.func,
     getActionState: PropTypes.func,
@@ -30,7 +31,7 @@ class DynamicForm extends Component {
   }
 
   render() {
-    const { formName, fieldsNeeded } = this.props;
+    const {formName, fieldsNeeded} = this.props;
     const DynamicInnerForm = reduxForm({
       form: formName,
       fields: filterFields(fieldsNeeded),
@@ -43,6 +44,7 @@ class DynamicForm extends Component {
     })(BaseForm);
 
     return (<DynamicInnerForm
+      formClass={this.props.formClass}
       static={this.props.static}
       formName={this.props.formName}
       formKey={this.props.formKey || null}

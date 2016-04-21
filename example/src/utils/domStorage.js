@@ -1,4 +1,4 @@
-import { default as _ } from 'lodash';
+import {default as _} from 'lodash';
 // var _ = require('lodash');
 
 class DomStorage {

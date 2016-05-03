@@ -1,0 +1,1 @@
+cd /var/www/react-plupload/ && npm run build && cd /var/www/redux-form-generator/ && npm run build && cd /var/www/webshop/webapp/ && rm -rf node_modules/redux-form-generator/ && rm -rf node_modules/react-plupload && npm install && npm run dev

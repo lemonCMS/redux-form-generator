@@ -68,7 +68,7 @@ export default class InputType extends Component {
         <div key={field.name} className={getClass('form-group')}>
           {label()}
           <div className={field.wrapperClassName}>
-            <div dangerouslySetInnerHTML={createMarkup(this.props.properties.defaultValue || this.props.properties.value)}></div>
+            <div dangerouslySetInnerHTML={createMarkup(this.props.properties.initialValue || this.props.properties.value)}></div>
           </div>
         </div>
       );

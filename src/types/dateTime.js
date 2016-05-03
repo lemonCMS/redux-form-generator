@@ -21,8 +21,8 @@ export default class InputType extends Component {
   }
 
   componentWillMount() {
-    if (!_.isUndefined(_.get(this.props, 'properties.defaultValue'))) {
-      this.setState({date: _.get(this.props, 'properties.defaultValue')});
+    if (!_.isUndefined(_.get(this.props, 'properties.initialValue'))) {
+      this.setState({date: _.get(this.props, 'properties.initialValue')});
     }
   }
 
@@ -64,7 +64,7 @@ export default class InputType extends Component {
 
     if (this.props.static === true) {
       let value = '';
-      const dateTime = moment(this.props.properties.defaultValue || this.props.properties.value, 'x');
+      const dateTime = moment(this.props.properties.initialValue || this.props.properties.value, 'x');
       if (dateTime.isValid()) {
         value = dateTime.format('YYYY-MM-DD');
       }

@@ -28,7 +28,7 @@ export default class SelectType extends Component {
 
   getValue() {
     const options = _.get(this.props.field, 'options', []);
-    const value = this.props.properties.defaultValue || this.props.properties.value;
+    const value = this.props.properties.initialValue || this.props.properties.value;
     return _.get(options, [_.findIndex(options, 'value', value), 'desc'], '');
   }
 
@@ -47,8 +47,8 @@ export default class SelectType extends Component {
       return (<FormControls.Static
         bsSize={thisSize}
         {...this.props.field}
-        value={this.props.properties.defaultValue || this.props.properties.value}
-        {..._.omit(this.props.properties, ['value', 'defaultValue'])}
+        value={this.props.properties.initialValue || this.props.properties.value}
+        {..._.omit(this.props.properties, ['value', 'initialValue'])}
         buttonBefore={this.props.addField(_.get(this.props.field, 'buttonBefore', {}), thisSize)}
         buttonAfter={this.props.addField(_.get(this.props.field, 'buttonAfter', {}), thisSize)}
         defaultValue={this.getValue()}

@@ -52,7 +52,7 @@ export default class DropDownType extends Component {
         menuItem.push(<MenuItem key={key} onSelect={select}>{item.default}</MenuItem>);
         menuItem.push(<MenuItem key={key + '_div'} divider/>);
       } else {
-        if (_.get(this.props, ['properties', 'defaultValue']) === item.field) {
+        if (_.get(this.props, ['properties', 'initialValue']) === item.field) {
           dropDownTitle = item.desc;
         }
         menuItem.push(<MenuItem key={key} onSelect={select}>{item.desc}</MenuItem>);

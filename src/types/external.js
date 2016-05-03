@@ -47,7 +47,7 @@ export default class CheckboxListType extends Component {
 
   options() {
     const {properties} = this.props;
-    const selectedValue = properties.value || properties.defaultValue;
+    const selectedValue = properties.value || properties.initialValue;
 
     if (this.props.static === true) {
       return this.optionsStatic(selectedValue);

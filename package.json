@@ -1,6 +1,6 @@
 {
   "name": "redux-form-generator",
-  "version": "0.0.31",
+  "version": "0.1.0",
   "description": "Generate forms with redux-form",
   "main": "lib/DynamicForm.js",
   "scripts": {
@@ -24,12 +24,12 @@
   "license": "BSD-2-Clause",
   "dependencies": {
     "babel-cli": "^6.8.0",
-    "react-bootstrap": "^0.28.5"
+    "react-bootstrap": "^0.29.3"
   },
   "devDependencies": {
     "lodash": "4.11.1",
     "react-redux": "4.4.5",
-    "redux": "3.5 .1",
+    "redux": "3.5.1",
     "redux-form": "5.1.1",
     "output-file-sync": "^1.1.1",
     "babel-core": "6.8.0",

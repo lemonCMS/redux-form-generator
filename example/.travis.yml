@@ -4,6 +4,7 @@ node_js:
   - "0.12"
   - "4.0"
   - "4"
+  - "stable"
 
 sudo: false
 
@@ -14,3 +15,4 @@ before_script:
 script:
   - npm run lint
   - npm test
+  - npm run test-node

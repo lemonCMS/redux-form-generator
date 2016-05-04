@@ -2,6 +2,7 @@ import _ from 'lodash';
 import superagent from 'superagent';
 import config from '../config';
 import cookie from 'react-cookie';
+import qs from 'qs';
 
 const methods = ['get', 'post', 'put', 'patch', 'del'];
 
@@ -9,7 +10,7 @@ function formatUrl(path) {
   const adjustedPath = path[0] !== '/' ? '/' + path : path;
   if (__SERVER__) {
     // Prepend host and port of the API server to the path.
-    return 'http://localhost:' + config.apiPort + '/api' + adjustedPath;
+    return 'http://' + config.apiHost + ':' + config.apiPort + '/api' + adjustedPath;
   }
   // Prepend `/api` to relative URL, to proxy to API server.
   return '/api' + adjustedPath;
@@ -21,10 +22,10 @@ function formatUrl(path) {
  *
  * Remove it at your own risk.
  */
-class _ApiClient {
+export default class _ApiClient {
   constructor() {
     methods.forEach((method) =>
-      this[method] = (path, {params, data, headers, formData} = {}) => new Promise((resolve, reject) => {
+      this[method] = (path, {params, formData, data, headers} = {}) => new Promise((resolve, reject) => {
         const request = superagent[method](formatUrl(path));
         if (formData) {
 
@@ -38,20 +39,25 @@ class _ApiClient {
                   }
                 });
               } else if (value) {
-                fD.append(key, value);
+                if (typeof value === 'object') {
+                  fD.append(key, JSON.stringify(value));
+                } else {
+                  fD.append(key, value);
+                }
+
               }
             });
             request.send(fD);
-          } else {
-            console.log('IE 9 FALLBACK', formData);
-            _.map(formData, (value, key)=> {
-              console.log(key, value);
-            });
           }
         }
 
         if (params) {
-          request.query(params);
+          // console.log('PARAMS BINNEN API', params);
+
+          params.time = Date.now().toString();
+          request.query(qs.stringify(params, {encode: false}));
+        } else {
+          request.query([Date.now().toString()]);
         }
 
         const token = cookie.load('token');
@@ -71,6 +77,11 @@ class _ApiClient {
             }
           }
         }
+
+        // IE cache headers
+        request.set('X-Requested-With', 'XMLHttpRequest');
+        request.set('Expires', '-1');
+        request.set('Cache-Control', 'no-cache,no-store,must-revalidate,max-age=-1,private');
 
         if (data) {
           request.send(data);

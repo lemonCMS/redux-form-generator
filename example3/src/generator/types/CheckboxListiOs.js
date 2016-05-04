@@ -1,8 +1,10 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
 import {change, changeWithKey} from 'redux-form';
+import connectToWrap from './Wrap';
 
-export default class CheckboxListTypeiOs extends Component {
+@connectToWrap()
+class CheckboxListTypeiOs extends Component {
 
   static propTypes = {
     'field': PropTypes.object.isRequired,
@@ -24,14 +26,33 @@ export default class CheckboxListTypeiOs extends Component {
     this.optionsStatic = this.optionsStatic.bind(this);
   }
 
+  componentWillMount() {
+    this.setState(
+      {
+        options: _.map(_.get(this.props, 'field.options', []), (obj) => {
+          obj.value = String(obj.value);
+          return obj;
+        }),
+        selected: _.map(_.get(this.props, 'properties.value') || _.get(this.props, 'properties.initialValue') || [], String)
+      }
+    );
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState(
+      {
+        options: _.map(_.get(nextProps, 'field.options', []), (obj) => {
+          obj.value = String(obj.value);
+          return obj;
+        }),
+        selected: _.map(_.get(nextProps, 'properties.value') || _.get(nextProps, 'properties.initialValue') || [], String)
+      }
+    );
+  }
 
   onChange(e, value) {
-    const {properties} = this.props;
-    let values = _.get(properties, 'value') || _.get(properties, 'initialValue', []);
+    const values = this.state.selected;
 
-    if (typeof values !== 'object') {
-      values = [values];
-    }
     if (e.target.checked === true) {
       values.push(value);
     } else {
@@ -46,13 +67,10 @@ export default class CheckboxListTypeiOs extends Component {
   }
 
   options() {
-    const {properties} = this.props;
-    const selectedValue = properties.value || properties.defaultValue;
-
     if (this.props.static === true) {
-      return this.optionsStatic(selectedValue);
+      return this.optionsStatic(this.state.selected);
     }
-    return this.optionsWrite(selectedValue);
+    return this.optionsWrite(this.state.selected);
   }
 
   optionsWrite(selectedValue) {
@@ -65,7 +83,7 @@ export default class CheckboxListTypeiOs extends Component {
               type="checkbox"
               className="onoffswitch-checkbox"
               value={option.value}
-              checked={_.indexOf(selectedValue, option.value) > -1}
+              checked={_.indexOf(selectedValue, String(option.value)) > -1}
               onChange={(e) => { this.onChange(e, option.value); }}
               id={'myonoff-' + field.name + option.value}
               />
@@ -88,7 +106,7 @@ export default class CheckboxListTypeiOs extends Component {
               type="checkbox"
               className="onoffswitch-checkbox"
               value={option.value}
-              checked={_.indexOf(selectedValue, option.value) > -1}
+              checked={_.indexOf(selectedValue, String(option.value)) > -1}
               id={'myonoff-' + field.name + option.value}
               readOnly
             />
@@ -108,45 +126,12 @@ export default class CheckboxListTypeiOs extends Component {
   }
 
   render() {
-    const thisSize = _.get(this.props.field, 'bsSize', this.props.size);
-    const {field} = this.props;
-    const getClass = (classNames = '') => {
-      let ret = classNames;
-      if (thisSize === 'large') {
-        ret = ret + ' form-group-lg';
-      }
-
-      if (thisSize === 'small') {
-        ret = ret + ' form-group-sm';
-      }
-
-      if (this.props.properties.touched && this.props.properties.error) {
-        return ret + ' has-error';
-      }
-      return ret;
-    };
-
-    const help = () => {
-      if (this.props.properties.touched && _.has(this.props.properties, 'error')) {
-        return (<span className="help-block">{this.props.properties.error}</span>);
-      }
-    };
-
-    const label = () => {
-      if (!!field.label) {
-        return (<label className={'control-label ' + _.get(field, 'labelClassName')}>{field.label}</label>);
-      }
-    };
-
     return (
-      <div key={field.name} className={getClass('form-group')}>
-        {label()}
-        <div className={field.wrapperClassName}>
-          {this.options()}
-          {help()}
-        </div>
+      <div>
+        {this.options()}
       </div>
     );
   }
 }
 
+export default CheckboxListTypeiOs;

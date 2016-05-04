@@ -13,7 +13,7 @@ export default class DropDownType extends Component {
     'submit': PropTypes.func.isRequired,
     'formName': PropTypes.string.isRequired,
     'formKey': PropTypes.string,
-    'static': PropTypes.boolean
+    'static': PropTypes.bool
   };
 
   constructor() {
@@ -24,12 +24,11 @@ export default class DropDownType extends Component {
 
   dropDownSelect(name:string, item:Object) {
     this.setState(_.set(Object.assign({}, this.state), ['dropDownTitle', name], item.desc || item.default));
-
     return new Promise((resolve) => {
       if (_.has(this.props, 'formKey')) {
-        resolve(this.props.dispatch(changeWithKey(this.props.formName, this.props.formKey, name, item.field)));
+        resolve(this.props.dispatch(changeWithKey(this.props.formName, this.props.formKey, name, item.value)));
       } else {
-        resolve(this.props.dispatch(change(this.props.formName, name, item.field)));
+        resolve(this.props.dispatch(change(this.props.formName, name, item.value)));
       }
 
     }).then(()=> {
@@ -52,7 +51,7 @@ export default class DropDownType extends Component {
         menuItem.push(<MenuItem key={key} onSelect={select}>{item.default}</MenuItem>);
         menuItem.push(<MenuItem key={key + '_div'} divider/>);
       } else {
-        if (_.get(this.props, ['properties', 'defaultValue']) === item.field) {
+        if (_.get(this.props, ['properties', 'initialValue']) === item.value) {
           dropDownTitle = item.desc;
         }
         menuItem.push(<MenuItem key={key} onSelect={select}>{item.desc}</MenuItem>);

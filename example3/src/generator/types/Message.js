@@ -1,4 +1,4 @@
-import _ from 'lodash';
+import _get from 'lodash/get';
 import React, {Component, PropTypes} from 'react';
 import {Alert} from 'react-bootstrap';
 
@@ -21,7 +21,7 @@ export default class MessageType extends Component {
       ((field.type === 'success' && success && valid === true) || (field.type === 'error' && (failed || (invalid === true))))) {
       const style = field.type === 'success' ? 'success' : 'danger';
       return (
-        <Alert bsStyle={style} bsSize={_.get(field, 'bsSize', size)}>{field.message}</Alert>
+        <Alert bsStyle={style} bsSize={_get(field, 'bsSize', size)}>{field.message}</Alert>
       );
     }
 

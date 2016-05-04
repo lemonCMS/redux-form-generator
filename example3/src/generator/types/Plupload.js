@@ -1,15 +1,16 @@
 import _ from 'lodash';
 import React, {Component, PropTypes} from 'react';
+import connectToWrap from './Wrap';
 import {change, changeWithKey} from 'redux-form';
 import {Button, Table} from 'react-bootstrap';
 import Plupload from 'react-plupload';
 
-export default class PluploadType extends Component {
+@connectToWrap()
+class PluploadType extends Component {
 
   static propTypes = {
     'field': PropTypes.object.isRequired,
     'properties': PropTypes.object.isRequired,
-    'size': PropTypes.string,
     'formKey': PropTypes.string,
     'formName': PropTypes.string.isRequired,
     'dispatch': PropTypes.func.isRequired
@@ -18,7 +19,7 @@ export default class PluploadType extends Component {
   render() {
     const {properties, field, dispatch} = this.props;
 
-    let allFiles = properties.value || [];
+    let allFiles = properties.value || properties.initialVale || [];
     const extraProps = {};
     if (properties.touched && properties.error) {
       extraProps.bsStyle = 'error';
@@ -113,31 +114,22 @@ export default class PluploadType extends Component {
         return (
           <Plupload
             key={field.name}
-            id="plupload"
-            runtimes="html5"
-            multipart
-            chunk_size="1mb"
-            url={field.url}
-            multi_selection={_.get(field, 'multi_selection', true)}
-            flash_swf_url={_.get(field, 'flash_swf_url', '/plupload-2.1.8/js/Moxie.swf')}
+            {...this.props.field.conf}
             onFilesAdded={addedFiles}
             onStateChanged={stateChange}
             onFileUploaded={fileUploaded}
-            autoUpload
-            headers={field.headers || {}}
             />
         );
       }
     };
 
     return (
-      <div key={field.name} className="form-group">
-        <label className={field.labelClassName + ' control-label'}>{field.label}</label>
-        <div className={field.wrapperClassName}>
-          {plupload()}
-          {renderTable()}
-        </div>
+      <div>
+        {plupload()}
+        {renderTable()}
       </div>
     );
   }
 }
+
+export default PluploadType;

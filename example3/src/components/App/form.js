@@ -1,32 +1,6 @@
-export default function form() {
+export default function form(resource) {
 
   return ([
-/*    {
-      name: 'type',
-      label: 'Pagina type',
-      type: 'select',
-      placeholder: 'Menu titel',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10',
-      options: [
-        {value: 'home', desc: 'Home'},
-        {value: 'generic', desc: 'Generic'},
-        {value: 'zoeken', desc: 'Zoeken'},
-        {value: 'contact', desc: 'Contact'},
-        {value: 'register', desc: 'Registreren'},
-        {value: 'verify', desc: 'Registratie bevestigen'},
-        {value: 'login', desc: 'Login'},
-        {value: 'logout', desc: 'Uitloggen'},
-        {value: 'password', desc: 'Wachtwoord vergeten'},
-        {value: 'password-reset', desc: 'Wachtwoord herstel'},
-        {value: 'dashboard-overzicht', desc: 'Dashboard/Overzicht'},
-        {value: 'dashboard-registreer', desc: 'Dashboard/Registreer'},
-        {value: 'dashboard-affiliates', desc: 'Dashboard/Affiliates Koppelen'},
-        {value: 'dashboard-gegevens', desc: 'Dashboard/Gegevens'},
-        {value: 'dashboard-invoices', desc: 'Dashboard/Facturen'},
-        {value: 'dashboard-leads', desc: 'Dashboard/Leads'}
-      ]
-    },*/
     {
       name: 'field_1',
       label: 'Field 1',
@@ -84,8 +58,89 @@ export default function form() {
       name: 'field_4',
       label: 'Field 4',
       type: 'radio',
-      bsSize: 'large',
       placeholder: 'Field 4',
+      labelSize: {
+        md: 2
+      },
+      fieldSize: {
+        md: 10
+      },
+      options: [
+        {value: 1, desc: 'Value 1'},
+        {value: 2, desc: 'Value 2'},
+        {value: 3, desc: 'Value 3'},
+        {value: 4, desc: 'Value 4'},
+        {value: 5, desc: 'Value 5'}
+      ],
+      chunks: 3,
+      searchable: true
+    },
+    {
+      name: 'field_5',
+      label: 'Field 5',
+      helper: 'How are you today?',
+      type: 'textarea',
+      placeholder: 'Field 5',
+      labelSize: {
+        md: 2
+      },
+      fieldSize: {
+        md: 10
+      }
+    },
+    {
+      name: 'field_6',
+      label: 'Field 6',
+      type: 'checkbox',
+      bsSize: 'large',
+      placeholder: 'Field 6',
+      labelSize: {
+        md: 2
+      },
+      fieldSize: {
+        md: 10
+      },
+      options: [
+        {value: 1, desc: 'Value 1'},
+        {value: 2, desc: 'Value 2'},
+        {value: 3, desc: 'Value 3'},
+        {value: 4, desc: 'Value 4'},
+        {value: 5, desc: 'Value 5'}
+      ],
+      chunks: 3,
+      searchable: true
+    },
+    {
+      row: {
+        col: [
+          {
+            md: 10,
+            mdOffset: 2,
+            children: [
+              {type: 'html', message: '<strong>Checkbox without label</strong>'}
+            ]
+          }
+        ]
+      }
+    },
+    {
+      name: 'field_6_1',
+      type: 'checkbox',
+      bsSize: 'large',
+      fieldSize: {
+        mdOffset: 2,
+        md: 10
+      },
+      options: [
+        {value: 1, desc: 'Value 1'},
+      ]
+    },
+    {
+      name: 'field_6_2',
+      label: 'Field 6.2',
+      type: 'checkboxListiOs',
+      bsSize: 'large',
+      placeholder: 'Field 6',
       labelSize: {
         md: 2
       },
@@ -96,111 +151,95 @@ export default function form() {
         {value: '1', desc: 'Value 1'},
         {value: '2', desc: 'Value 2'},
         {value: '3', desc: 'Value 3'},
-        {value: '4', desc: 'Value 4'}
+        {value: '4', desc: 'Value 4'},
+        {value: '5', desc: 'Value 5'}
+      ],
+      chunks: 3,
+      searchable: true
+    },
+    {
+      name: 'field_7',
+      label: 'Field 7',
+      type: 'text',
+      bsSize: 'large',
+      placeholder: 'Field 7',
+      buttonAfter: {
+        name: 'field_7_1',
+        label: 'Field 7_1',
+        type: 'dropDown',
+        items: [
+          {value: '1', desc: 'Value 1'},
+          {value: '2', desc: 'Value 2'},
+          {value: '3', desc: 'Value 3'}
+        ]
+      },
+      labelSize: {
+        md: 2
+      },
+      fieldSize: {
+        md: 10
+      }
+    },
+    {
+      name: 'field_8',
+      label: 'Field 8',
+      helper: 'How are you today?',
+      type: 'rte',
+      placeholder: 'Field 8',
+      conf: {
+        readonly: true
+      },
+      labelSize: {
+        md: 2
+      },
+      fieldSize: {
+        md: 10
+      }
+    },
+    {
+      name: 'field_9',
+      label: 'Field 9',
+      type: 'resource',
+      callResource: resource,
+      list: [
+        {value: 1, desc: 'Item 1'},
+        {value: 2, desc: 'Item 2'},
+        {value: 3, desc: 'Item 3'}
       ]
     },
-
-    /* {
-      name: 'slug',
-      label: 'Slug',
-      type: 'static',
-      placeholder: 'Slug',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
     {
-      name: 'page_title',
-      label: 'Pagina titel',
-      type: 'text',
-      placeholder: 'Pagina titel',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'header',
-      label: 'Header',
-      type: 'text',
-      placeholder: 'Header',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'sub_header',
-      label: 'Sub-header',
-      type: 'text',
-      placeholder: 'Sub-header',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'active',
-      label: 'Actief',
-      type: 'checkbox',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-offset-2 col-md-10'
-    },
-    {
-      'name': 'keywords',
-      'label': 'Keywords',
-      'type': 'textarea',
-      'placeholder': 'Inhoud',
-      'labelClassName': 'col-md-2',
-      'wrapperClassName': 'col-md-10',
-
-    },
-    {
-      name: 'description',
-      label: 'Description',
-      type: 'textarea',
-      placeholder: 'Inhoud',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10'
-    },
-    {
-      name: 'html',
-      label: 'Inhoud',
-      type: 'rte',
-      placeholder: 'Inhoud',
-      labelClassName: 'col-md-2',
-      wrapperClassName: 'col-md-10',
-      config: {
-        height: '250px',
-        entity_encoding: 'raw',
-        plugins: [
-          'advlist autolink lists link image charmap print preview anchor',
-          'searchreplace visualblocks code fullscreen',
-          'insertdatetime media table contextmenu paste code template'
-        ],
-        formats: {
-          custom_format: {block: 'h1', attributes: {title: 'Header'}, styles: {color: 'red'}},
-          italic: {inline: 'i', 'classes': 'italic'},
-        },
-        style_formats: [
-          {title: 'h1', block: 'h1'},
-          {title: 'h2', block: 'h2'},
-          {title: 'h3', block: 'h3'},
-          {title: 'h4', block: 'h4'},
-          {title: 'h5', block: 'h5'},
-          {title: 'h6', block: 'h6'},
-          {title: 'p', block: 'p'},
-          {title: 'div', block: 'div'},
-          {title: 'container', block: 'div', classes: 'container', wrapper: true, merge_siblings: false},
-          {title: 'container-fluid', block: 'div', classes: 'container-fluid', wrapper: true, merge_siblings: false},
-          {title: 'pre', block: 'pre'},
-          {title: 'section', block: 'section', wrapper: true, merge_siblings: false},
-          {title: 'article', block: 'article', wrapper: true, merge_siblings: false},
-          {title: 'blockquote', block: 'blockquote', wrapper: true},
-          {title: 'header', block: 'header', wrapper: true},
-          {title: 'hgroup', block: 'hgroup', wrapper: true},
-          {title: 'aside', block: 'aside', wrapper: true},
-          {title: 'figure', block: 'figure', wrapper: true}
-        ],
-        verify_html: false,
-        end_container_on_empty_block: true,
-        toolbar1: 'insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image',
-        toolbar2: 'print preview media | forecolor backcolor emoticons insert',
+      name: 'field_10',
+      label: 'Field 10',
+      type: 'plupload',
+      conf: {
+        id: 'plupload',
+        runtimes: 'html5',
+        multipart: true,
+        chunk_size: '1mb',
+        url: '/',
+        multi_selection: false,
+        flash_swf_url: '/plupload-2.1.8/js/Moxie.swf',
+        autoUpload: true,
+        headers: {Authorization: 'Bearer laravelAutToken'}
       }
-    },*/
+    },
+    {
+      name: 'field_11',
+      label: 'Field 11',
+      type: 'dateTime',
+      placeholder: 'DateTime',
+      bsSize: 'large',
+      conf: {
+        format: 'x',
+        inputFormat: 'YYYY-MM-DD'
+      },
+      labelSize: {
+        md: 2
+      },
+      fieldSize: {
+        md: 10
+      }
+    },
     {
       row: {
         hideOnStatic: true,

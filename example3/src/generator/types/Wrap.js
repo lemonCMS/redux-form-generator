@@ -117,11 +117,19 @@ export default function connectToWrapper() {
           );
         }
 
+        const label = () => {
+          if (_.has(this.props, 'field.label')) {
+            return (
+                <Col componentClass={ControlLabel} {...labelSize()}>
+                  {this.props.field.label}
+                </Col>
+            );
+          }
+        };
+
         return (
           <FormGroup validationState={validationState()} {...thisSize()}>
-            <Col componentClass={ControlLabel} {...labelSize()}>
-              {this.props.field.label}
-            </Col>
+            {label()}
             <Col {...fieldSize()}>
               <WrappedComponent {...this.props} />
               {validationMsg()}

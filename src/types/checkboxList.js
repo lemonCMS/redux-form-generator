@@ -32,6 +32,7 @@ export default class CheckboxListType extends Component {
     };
   }
 
+
   onChange(e, value) {
     const {properties} = this.props;
     let values = _.get(properties, 'value') || _.get(properties, 'initialValue', []);
@@ -50,7 +51,6 @@ export default class CheckboxListType extends Component {
     } else {
       this.props.dispatch(change(this.props.formName, this.props.field.name, _.uniq(values)));
     }
-
   }
 
   filtered(options) {

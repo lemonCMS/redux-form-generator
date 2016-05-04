@@ -1,4 +1,3 @@
-const _get = require('lodash/get');
 import React, {Component, PropTypes} from 'react';
 import ReactDOM from 'react-dom/server';
 import serialize from 'serialize-javascript';
@@ -34,8 +33,10 @@ export default class Html extends Component {
           {head.meta.toComponent()}
           {head.script.toComponent()}
           <link rel="shortcut icon" href="/favicon.ico" />
+          <link rel="stylesheet" href="/CheckboxListTypeiOs.css" />
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossOrigin="anonymous" />
           <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossOrigin="anonymous" />
+          <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
           <meta name="viewport" content="width=device-width, initial-scale=1" />
           {/* styles (will be present only in production with webpack extract text plugin) */}
           {Object.keys(assets.styles).map((style, key) =>
@@ -53,7 +54,7 @@ export default class Html extends Component {
           <div id="reactdata" dangerouslySetInnerHTML={{__html: content}}/>
           <script src="https://code.jquery.com/jquery-2.2.3.min.js" integrity="sha256-a23g1Nt4dtEYOj7bR+vTu7+T8VP13humZFBJNIYoEJo=" crossOrigin="anonymous"></script>
           <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/plupload/2.1.8/plupload.full.min.js"></script>
 
           <script dangerouslySetInnerHTML={{__html: `window.__data=${serialize(store.getState())};`}} />
           <script dangerouslySetInnerHTML={{__html: `window.__i18n=${serialize(i18n)};`}} />

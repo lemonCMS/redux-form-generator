@@ -4,7 +4,7 @@ import connectToWrap from './Wrap';
 import {FormControl} from 'react-bootstrap';
 
 @connectToWrap()
-class TextType extends Component {
+class PasswordType extends Component {
 
   static propTypes = {
     'field': PropTypes.object.isRequired,
@@ -26,8 +26,7 @@ class TextType extends Component {
 
     if (this.props.static === true) {
       return (
-          <FormControl.Static type="text" placeholder={_.get(this.props.field, 'placeholder', '')}
-          >
+          <FormControl.Static type="text">
             {value()}
           </FormControl.Static>
       );
@@ -41,5 +40,5 @@ class TextType extends Component {
   }
 }
 
-export default TextType;
+export default PasswordType;
 

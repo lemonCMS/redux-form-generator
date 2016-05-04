@@ -82,6 +82,7 @@ export default class InputType extends Component {
             content={this.props.properties.initialValue || this.props.properties.value}
             {...this.props.field}
             onChange={this.handleEditorChange}
+            readOnly
             />
           {help()}
         </div>

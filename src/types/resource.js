@@ -48,7 +48,7 @@ export default class Resource extends Component {
 
   options() {
     const {properties} = this.props;
-    const selectedValue = properties.value || properties.defaultValue;
+    const selectedValue = properties.value || properties.initialValue;
     return this.optionsStatic(selectedValue);
   }
 
@@ -88,7 +88,7 @@ export default class Resource extends Component {
     const thisSize = _.get(this.props.field, 'bsSize', this.props.size);
     const {field} = this.props;
     const {properties} = this.props;
-    const selectedValue = properties.value || properties.defaultValue || [];
+    const selectedValue = properties.value || properties.initialValue || [];
 
     const getClass = (classNames = '') => {
       let ret = classNames;

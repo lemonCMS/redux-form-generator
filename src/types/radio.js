@@ -78,7 +78,7 @@ export default class RadioType extends Component {
 
   options() {
     const {field, properties} = this.props;
-    const selectedValue = String(properties.value || properties.defaultValue);
+    const selectedValue = String(properties.value || properties.initialValue);
     const filtered = this.filtered(_.get(field, 'options', []));
 
     if (filtered.length === 0) {

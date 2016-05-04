@@ -66,7 +66,7 @@ export default class CheckboxListType extends Component {
 
   options() {
     const {field, properties} = this.props;
-    const selectedValue = properties.value || properties.defaultValue;
+    const selectedValue = properties.value || properties.initialValue;
     const filtered = this.filtered(_.get(field, 'options', []));
 
     if (filtered.length === 0) {
@@ -145,7 +145,7 @@ export default class CheckboxListType extends Component {
 
   searchBox() {
     if (!!this.props.field.searchable && !this.props.static) {
-      return (<input type="text" placeholder="search" defaultValue={this.state.value} onKeyDown={this.handlePrevent} onKeyUp={this.handleChange} className="form-control"/>);
+      return (<input type="text" placeholder="search" initialValue={this.state.value} onKeyDown={this.handlePrevent} onKeyUp={this.handleChange} className="form-control"/>);
     }
   }
 

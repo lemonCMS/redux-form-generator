@@ -1,6 +1,15 @@
 #redux-form-generator
 Generate forms in your application.
 
+#Warning
+Breaking changes
+
+##0.0x Release for use with react-bootstrap <= 0.28.x
+
+##0.1.x Release from use with react-bootstrap >=0.29.x
+
+
+
 ##Installation
 ````
 npm install --save redux-form-generator

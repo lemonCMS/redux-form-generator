@@ -4,6 +4,7 @@ import DynamicForm from '../../generator/DynamicForm';
 import Resource from './Resource';
 import form from './form';
 import validate from './validate';
+import Helmet from 'react-helmet';
 
 class App extends Component {
 
@@ -46,6 +47,9 @@ class App extends Component {
   render() {
     return (
       <div className="container">
+        <Helmet
+          title="Redux form generator - Example"
+        />
         <h1>FormElements</h1>
         <DynamicForm
           checkKey={'forms'}

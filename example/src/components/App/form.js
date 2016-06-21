@@ -249,7 +249,8 @@ export default function form(resource) {
               {type: 'error', message: 'Er zijn fouten opgetreden, controleer het formulier.'}
             ]
           },
-          {hideOnStatic: true, md: 10, mdOffset: 2, children: [{type: 'submit', name: 'submit', value: 'versturen'}]}
+          {hideOnStatic: true, md: 10, mdOffset: 2, children: [{type: 'submit', name: 'submit', value: 'versturen'}]},
+          {hideOnStatic: true, md: 10, mdOffset: 2, children: [{type: 'button', name: 'submit', value: 'test', onClick: () => {console.log('test click');}}]}
         ]
       }
     }

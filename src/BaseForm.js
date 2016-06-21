@@ -149,6 +149,7 @@ class BaseForm extends Component {
           return (<CheckboxListiOsNode static={this.props.static} formName={this.props.formName}
                                      formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name}
                                      field={field} size={size} properties={properties} addField={this.addField}/>);
+        case 'jsx':
         case 'react':
           return field.component();
         case 'radio':

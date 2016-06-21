@@ -9,7 +9,8 @@ export default class ButtonType extends Component {
     'size': PropTypes.string,
     'addField': PropTypes.func.isRequired,
     'pending': PropTypes.bool,
-    'static': PropTypes.bool
+    'static': PropTypes.bool,
+    'properties': PropTypes.object
   };
 
   render() {
@@ -26,6 +27,7 @@ export default class ButtonType extends Component {
         {...thisSize()}
         type={this.props.field.type}
         bsStyle={_.get(this.props, 'field.style', 'primary')}
+        {...this.props.properties}
         >{this.props.field.value}</Button>
     );
   }

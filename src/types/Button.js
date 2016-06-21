@@ -27,7 +27,7 @@ export default class ButtonType extends Component {
         {...thisSize()}
         type={this.props.field.type}
         bsStyle={_.get(this.props, 'field.style', 'primary')}
-        {...this.props.properties}
+        {..._.omit(...this.props.field, ['type', 'value', 'name'])}
         >{this.props.field.value}</Button>
     );
   }

@@ -102,7 +102,7 @@ class RadioType extends Component {
     if (index > -1 && _.has(options, [index, 'desc'])) {
       return (
         <span>
-          <i className="fa fa-dot-circle-o"></i>,
+          <i className="fa fa-dot-circle-o"></i>
           {' '}
           {_.get(options, [index, 'desc'], '-')}
         </span>

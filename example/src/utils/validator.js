@@ -10,3 +10,7 @@ validator.isPhoneNumber = (str) => {
 };
 
 export default validator;
+
+export const VALIDATE_ERROR_MANDATORY = 'Dit veld is verplicht';
+export const VALIDATE_ERROR_EMAIL = 'Voer een geldig e-mailadres in';
+export const VALIDATE_ERROR_PHONENUMBER = 'Voer een geldig telefoonnummer in';

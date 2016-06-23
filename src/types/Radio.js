@@ -101,11 +101,11 @@ class RadioType extends Component {
     const index = _.findIndex(options, ['value', value]);
     if (index > -1 && _.has(options, [index, 'desc'])) {
       return (
-        [
+        <span>
           <i className="fa fa-dot-circle-o"></i>,
-          ' ',
-          _.get(options, [index, 'desc'], '-')
-        ]
+          {' '}
+          {_.get(options, [index, 'desc'], '-')}
+        </span>
       );
     }
   }

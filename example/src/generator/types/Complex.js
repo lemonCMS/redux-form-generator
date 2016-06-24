@@ -34,7 +34,7 @@ class Complex extends React.Component {
       <Row>
         <Col componentClass={ControlLabel} {...labelSize()}>{this.props.field.label}</Col>
         <Col {...fieldSize()}>
-          <button onClick={() => this.props.properties.addField()} className={'btn btn-default ' + _.get(this.props.field.addBtn, 'className')}>{this.props.field.addBtn.label}</button>
+          <button type="button" onClick={() => this.props.properties.addField()} className={'btn btn-default ' + _.get(this.props.field.addBtn, 'className')}>{this.props.field.addBtn.label}</button>
           {this.props.properties.length > 0 && this.props.properties.map((child, index) =>
             <div key={index} className="redux-form-complex">
               {this.props.field.fields.length > 0 && this.props.field.fields.map((field, fieldIndex) => {

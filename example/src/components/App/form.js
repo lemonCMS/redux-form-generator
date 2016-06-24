@@ -1,6 +1,29 @@
 export default function form(resource) {
   return ([
     {
+      name: 'complex[]',
+      label: 'complex',
+      type: 'complex',
+      labelSize: {
+        md: 0
+      },
+      fieldSize: {
+        md: 12
+      },
+      addBtn: {label: 'Add field'},
+      removeBtn: {wrapperClassName: 'clearfix', label: 'remove', className: 'pull-right clearfix'},
+      fields: [
+        {name: 'complex[].test1', label: 'Test 1', type: 'select', options: [
+          {value: '1', desc: 'Value 1'},
+          {value: '2', desc: 'Value 2'},
+          {value: '3', desc: 'Value 3'},
+          {value: '4', desc: 'Value 4'}
+        ]},
+        {name: 'complex[].test2', label: 'Test 2', type: 'text'},
+        {name: 'complex[].test3', label: 'Test 3', type: 'text'},
+      ]
+    },
+    {
       name: 'field_1',
       label: 'Field 1',
       helper: 'How are you today?',

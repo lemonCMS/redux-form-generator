@@ -68,7 +68,11 @@ class App extends Component {
             field_7_1: '2',
             field_8: '<h1>Header</h1><p>Paragraph</p>',
             field_9: [1, 2, 3],
-            field_11: 1576752960000
+            field_11: 1576752960000,
+            complex: [
+              {test1: 'kaas'},
+              {test2: 'Chips'}
+            ]
           }}
           validate={validate}
           onSubmit={this.handleSubmit}

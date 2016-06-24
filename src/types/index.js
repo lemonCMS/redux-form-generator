@@ -15,3 +15,4 @@ export {default as PlainNode} from './Plain';
 export {default as FileNode} from './File';
 export {default as CheckboxListiOsNode} from './CheckboxListiOs';
 export {default as MessageNode} from './Message';
+export {default as ComplexNode} from './Complex';

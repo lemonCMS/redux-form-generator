@@ -1,6 +1,6 @@
 {
   "javascript": {
-    "main": "http://localhost:3001/dist/main-970b695bdd7938edd78f.js",
+    "main": "http://localhost:3001/dist/main-0424f81eb4755a77b64d.js",
     "vendor": "http://localhost:3001/dist/vendor.bundle.js"
   },
   "styles": {},

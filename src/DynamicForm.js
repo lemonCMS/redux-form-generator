@@ -4,6 +4,10 @@ import {reduxForm} from 'redux-form';
 import BaseForm from './BaseForm';
 import {filterFields} from './utils/functions';
 
+RegExp.quote = (str) => {
+  return str.replace(/([.?*+^$[\]\\(){}|-])/g, '\\$1');
+};
+
 class DynamicForm extends Component {
 
   static propTypes = {

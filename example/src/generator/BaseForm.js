@@ -6,7 +6,7 @@ import {Form, Row, Col} from 'react-bootstrap';
 import Pending from './Pending';
 import {
   TextNode, SelectNode, RadioNode, TextareaNode, CheckboxNode, DropDownNode,
-  RteNode, ResourceNode, PluploadNode, DateTimeNode, PasswordNode, MessageNode,
+  RteNode, ResourceNode, ResourceNode2, PluploadNode, DateTimeNode, PasswordNode, MessageNode,
   FileNode, SubmitNode, ButtonNode, PlainNode, CheckboxListiOsNode, StaticNode,
   ComplexNode,
 } from './types';
@@ -153,6 +153,9 @@ class BaseForm extends Component {
         case 'resource':
           return (<ResourceNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
                                 addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
+        case 'resource2':
+          return (<ResourceNode2 static={this.props.static} key={field.name} field={field} size={size} properties={properties}
+                                addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
         case 'plupload':
           return (<PluploadNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
                                 addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
@@ -245,6 +248,9 @@ class BaseForm extends Component {
         case 'resource':
           return (<ResourceNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
                            addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
+        case 'resource2':
+          return (<ResourceNode2 static={this.props.static} key={field.name} field={field} size={size} properties={properties}
+                                addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
         case 'plupload':
           return (<PluploadNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
                                 addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);

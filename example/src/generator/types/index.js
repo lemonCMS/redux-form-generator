@@ -9,6 +9,7 @@ export {default as CheckboxNode} from './Checkbox';
 export {default as DropDownNode} from './DropDown';
 export {default as RteNode} from './Rte';
 export {default as ResourceNode} from './Resource';
+export {default as ResourceNode2} from './Resource2';
 export {default as PluploadNode} from './Plupload';
 export {default as DateTimeNode} from './DateTime';
 export {default as PlainNode} from './Plain';

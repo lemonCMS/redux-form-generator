@@ -1,3 +1,6 @@
+import React from 'react';
+import TestResource from './TestResource';
+
 export default function form(resource) {
   return ([
     {
@@ -219,7 +222,7 @@ export default function form(resource) {
       }
     },
     {
-      name: 'field_9',
+      name: 'field_9_1',
       label: 'Field 9',
       type: 'resource',
       callResource: resource,
@@ -229,6 +232,19 @@ export default function form(resource) {
         {value: 3, desc: 'Item 3'}
       ]
     },
+
+    {
+      name: 'field_9_2',
+      label: 'Field 9',
+      type: 'resource2',
+      resource: (props) => <TestResource {...props}/>,
+      list: [
+        {value: 1, desc: 'Item 1'},
+        {value: 2, desc: 'Item 2'},
+        {value: 3, desc: 'Item 3'},
+      ]
+    },
+
     {
       name: 'field_10',
       label: 'Field 10',

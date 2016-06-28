@@ -40,8 +40,8 @@ class App extends Component {
                 list={_clone(this.state.resourceList)} callBack={this.state.resourceCB}/>);
   }
 
-  handleSubmit() {
-    console.log('Submit data');
+  handleSubmit(values) {
+    console.log('Submit data', values);
   }
 
   render() {
@@ -67,7 +67,8 @@ class App extends Component {
             field_7: 'some test field',
             field_7_1: '2',
             field_8: '<h1>Header</h1><p>Paragraph</p>',
-            field_9: [1, 2, 3],
+            field_9_1: [1, 2, 3],
+            field_9_2: [1, 2, 3],
             field_11: 1576752960000,
             complex: [
               {test1: 'kaas'},

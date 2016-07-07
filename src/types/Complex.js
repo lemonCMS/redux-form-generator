@@ -34,7 +34,12 @@ class Complex extends React.Component {
       <Row>
         <Col componentClass={ControlLabel} {...labelSize()}>{this.props.field.label}</Col>
         <Col {...fieldSize()}>
-          <button type="button" onClick={() => this.props.properties.addField()} className={'btn btn-default ' + _.get(this.props.field.addBtn, 'className')}>{this.props.field.addBtn.label}</button>
+          {this.props.static === false &&
+            <button type="button" onClick={() => this.props.properties.addField({})}
+                  className={'btn btn-default ' + _.get(this.props.field.addBtn, 'className')}>
+              {this.props.field.addBtn.label}
+            </button>
+          }
           {this.props.properties.length > 0 && this.props.properties.map((child, index) =>
             <div key={index} className="redux-form-complex">
               {this.props.field.fields.length > 0 && this.props.field.fields.map((field, fieldIndex) => {
@@ -45,12 +50,15 @@ class Complex extends React.Component {
                  </div>
                 );
               })}
-              <div className={_.get(this.props.field.removeBtn, 'wrapperClassName')}>
-                <button type="button" className={'btn btn-danger ' + _.get(this.props.field.removeBtn, 'className')} onClick={() => {
-                  this.props.properties.removeField(index);
-                }}><i/> {this.props.field.removeBtn.label}
-                </button>
-              </div>
+
+              {this.props.static === false &&
+                <div className={_.get(this.props.field.removeBtn, 'wrapperClassName')}>
+                  <button type="button" className={'btn btn-danger ' + _.get(this.props.field.removeBtn, 'className')} onClick={() => {
+                    this.props.properties.removeField(index);
+                  }}><i/> {this.props.field.removeBtn.label}
+                  </button>
+                </div>
+              }
             </div>
           )}
         </Col>

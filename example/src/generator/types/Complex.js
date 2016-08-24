@@ -83,7 +83,7 @@ class Complex extends React.Component {
               </div>
             </div>
           )}
-          <div key={index} className="redux-form-complex redux-form-complex-btn-add">
+          <div className="redux-form-complex redux-form-complex-btn-add">
             <button
               type="button"
               onClick={() => this.props.properties.addField()}

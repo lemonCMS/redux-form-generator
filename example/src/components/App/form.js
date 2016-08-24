@@ -7,6 +7,7 @@ export default function form(resource) {
       name: 'complex[]',
       label: 'complex',
       type: 'complex',
+      collapsed: true,
       labelSize: {
         md: 0
       },
@@ -258,7 +259,7 @@ export default function form(resource) {
         multi_selection: false,
         flash_swf_url: '/plupload-2.1.8/js/Moxie.swf',
         autoUpload: true,
-        headers: {Authorization: 'Bearer laravelAutToken'}
+        headers: {Authorization: 'Bearer laravelAuthToken'}
       }
     },
     {

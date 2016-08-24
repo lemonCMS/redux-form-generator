@@ -70,9 +70,9 @@ class Complex extends React.Component {
               {this.props.field.fields.length > 0 && this.props.field.fields.map((field, fieldIndex) => {
                 const re = new RegExp(RegExp.quote(this.props.field.name + '.'), 'g');
                 return (
-                 <div key={fieldIndex}>
-                   {this.props.addComplexField(field, this.props.size, child[field.name.replace(re, '')])}
-                 </div>
+                  <div key={fieldIndex}>
+                    {this.props.addComplexField(field, this.props.size, child[field.name.replace(re, '')])}
+                  </div>
                 );
               })}
               <div className={_.get(this.props.field.removeBtn, 'wrapperClassName')}>
@@ -83,12 +83,14 @@ class Complex extends React.Component {
               </div>
             </div>
           )}
-          <button
-            type="button"
-            onClick={() => this.props.properties.addField()}
-            className={'btn btn-default ' + _.get(this.props.field.addBtn, 'className')}>
+          <div key={index} className="redux-form-complex redux-form-complex-btn-add">
+            <button
+              type="button"
+              onClick={() => this.props.properties.addField()}
+              className={'btn btn-default ' + _.get(this.props.field.addBtn, 'className')}>
               {this.props.field.addBtn.label}
             </button>
+          </div>
         </Col>
       </Row>
     );

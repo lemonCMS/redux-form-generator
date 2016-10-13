@@ -17,8 +17,6 @@ export default class MessageType extends Component {
   render() {
     const {success, failed} = this.props.getActionState();
     const {field, size, valid, invalid} = this.props;
-    console.log(this.props, this.props.getActionState());
-
     if (this.props.displayErrors === true &&
       ((field.type === 'success' && success && valid === true) || (field.type === 'error' && (failed || (invalid === true))))) {
       const style = field.type === 'success' ? 'success' : 'danger';

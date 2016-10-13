@@ -155,7 +155,7 @@ class BaseForm extends Component {
                                 addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
         case 'resource2':
           return (<ResourceNode2 static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                                addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
+                                 addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
         case 'plupload':
           return (<PluploadNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
                                 addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
@@ -165,7 +165,6 @@ class BaseForm extends Component {
       }
     }
   }
-
 
   addField(field, size) {
     // Hide fields that are only visible in static mode
@@ -177,7 +176,9 @@ class BaseForm extends Component {
       return false;
     }
 
-    const createMarkup = (data) => { return {__html: data}; };
+    const createMarkup = (data) => {
+      return {__html: data};
+    };
 
     if (!_.isEmpty(field)) {
       const properties = this.props.fields[String(field.name).replace(/[\[\]']+/g, '')];
@@ -185,72 +186,72 @@ class BaseForm extends Component {
       switch (field.type) {
         case 'complex':
           return (<ComplexNode static={this.props.static} key={field.name} field={field} size={size}
-                              properties={properties} addComplexField={this.addComplexField}/>);
+                               properties={properties} addComplexField={this.addComplexField}/>);
         case 'submit':
           return (<SubmitNode static={this.props.static} key={field.name} field={field} size={size}
-                            properties={properties} addField={this.addField}/>);
+                              properties={properties} addField={this.addField}/>);
         case 'button':
           return (<ButtonNode static={this.props.static} key={field.name} field={field} size={size}
-                            properties={properties} addField={this.addField}/>);
+                              properties={properties} addField={this.addField}/>);
         case 'html':
-          return (<div dangerouslySetInnerHTML={createMarkup(field.message)} />);
+          return (<div dangerouslySetInnerHTML={createMarkup(field.message)}/>);
 
         case 'success':
         case 'error':
           return (<MessageNode static={this.props.static} key={field.type} displayErrors={this.state.displayErrors}
-                             field={field} size={size} properties={properties} valid={this.props.valid}
-                             invalid={this.props.invalid} pristine={this.props.pristine}
-                             getActionState={this.props.getActionState}/>); // return this.message(field, size);
+                               field={field} size={size} properties={properties} valid={this.props.valid}
+                               invalid={this.props.invalid} pristine={this.props.pristine}
+                               getActionState={this.props.getActionState}/>); // return this.message(field, size);
         case 'static':
           return (<StaticNode static={this.props.static} key={field.name} field={field} size={size}
-                            properties={properties} addField={this.addField}/>);
+                              properties={properties} addField={this.addField}/>);
         case 'checkboxListiOs':
           return (<CheckboxListiOsNode static={this.props.static} formName={this.props.formName}
-                                     formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name}
-                                     field={field} size={size} properties={properties} addField={this.addField}/>);
+                                       formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name}
+                                       field={field} size={size} properties={properties} addField={this.addField}/>);
         case 'jsx':
         case 'react':
           return field.component();
         case 'radio':
           return (<RadioNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                              addField={this.addField}/>);
+                             addField={this.addField}/>);
         case 'checkbox':
           return (<CheckboxNode static={this.props.static} formName={this.props.formName}
                                 formKey={this.props.formKey} dispatch={this.props.dispatch} key={field.name}
                                 field={field} size={size} properties={properties} addField={this.addField}/>);
         case 'select':
           return (<SelectNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                            addField={this.addField}/>);
+                              addField={this.addField}/>);
         case 'text':
           return (<TextNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
                             addField={this.addField}/>);
         case 'password':
           return (<PasswordNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                            addField={this.addField}/>);
+                                addField={this.addField}/>);
         case 'file':
           return (<FileNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
                             addField={this.addField}/>);
         case 'plain':
           return (<PlainNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                            addField={this.addField}/>);
+                             addField={this.addField}/>);
         case 'dateTime':
           return (<DateTimeNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                            addField={this.addField}/>);
+                                addField={this.addField}/>);
         case 'textarea':
           return (<TextareaNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                            addField={this.addField}/>);
+                                addField={this.addField}/>);
         case 'dropDown':
           return (<DropDownNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
                                 addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
         case 'rte':
           return (<RteNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                                addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
+                           addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
         case 'resource':
           return (<ResourceNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                           addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
+                                addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
         case 'resource2':
           return (<ResourceNode2 static={this.props.static} key={field.name} field={field} size={size} properties={properties}
-                                addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
+                                 addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
         case 'plupload':
           return (<PluploadNode static={this.props.static} key={field.name} field={field} size={size} properties={properties}
                                 addField={this.addField} submit={this.submitForm} formName={this.props.formName} formKey={this.props.formKey} dispatch={this.props.dispatch}/>);
@@ -270,9 +271,15 @@ class BaseForm extends Component {
     const {fieldsNeeded} = this.props;
     const handleSubmit = this.props.handleSubmit(this.props.submit);
     return (
-      <Form onSubmit={(e) => { this.submit(); handleSubmit(e); }} ref="form"
+      <Form onSubmit={(e) => {
+        this.submit();
+        handleSubmit(e);
+      }} ref="form"
             horizontal={_.get(this.props, 'formClass', 'form-horizontal') === 'form-horizontal'}>
-        <input type="button" ref="button" onClick={(e) => { this.submit(); handleSubmit(e); }} className="hidden"/>
+        <input type="button" ref="button" onClick={(e) => {
+          this.submit();
+          handleSubmit(e);
+        }} className="hidden"/>
         <Pending state={pending || false}>
           <div formKey={this.props.formKey}>
             {_.map(fieldsNeeded, (field, key) => {

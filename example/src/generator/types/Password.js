@@ -33,7 +33,7 @@ class PasswordType extends Component {
     }
 
     return (
-      <FormControl type="text" placeholder={_.get(this.props.field, 'placeholder', '')}
+      <FormControl type="password" placeholder={_.get(this.props.field, 'placeholder', '')}
           {...this.props.properties}
       />
     );

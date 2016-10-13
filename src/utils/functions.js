@@ -12,6 +12,11 @@ export function filterFields(fields, fieldName = 'name', extra = ['page']) {
   const mapper = (allFields) => {
     _.map(allFields, (field, key)=>{
       if (key === fieldName) {
+        if (new RegExp(RegExp.quote('[]') + '$').test(field)) {
+          const complexName = field.replace('[]', '') + '_collapsed';
+          fieldNames.push(complexName);
+        }
+
         fieldNames.push(field);
       } else if (_.isObject(field)) {
         mapper(field);

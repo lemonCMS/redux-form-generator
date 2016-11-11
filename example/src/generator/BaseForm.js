@@ -11,7 +11,7 @@ import {
   ComplexNode,
 } from './types';
 
-@connect(()=>({}), mapDispatchToProps)
+@connect(() => ({}), mapDispatchToProps)
 class BaseForm extends Component {
 
   static propTypes = {
@@ -74,7 +74,7 @@ class BaseForm extends Component {
 
     return (
       <Row key={key}>
-        {_.map(field, (row, keyRow)=> {
+        {_.map(field, (row, keyRow) => {
           const thisSize = _.get(row, 'bsSize', size);
           return (
             <div key={keyRow}>
@@ -87,7 +87,7 @@ class BaseForm extends Component {
   }
 
   col(cols, size) {
-    return _.map(cols, (col, key)=> {
+    return _.map(cols, (col, key) => {
       const thisSize = _.get(col, 'bsSize', size);
 
       // Hide fields that are only visible in static mode
@@ -101,7 +101,7 @@ class BaseForm extends Component {
 
       return (
         <Col key={key} {..._.omit(col, 'children')}>
-          {_.map(_.omit(col.children, ['hideOnStatic']), (child, keyCol)=> {
+          {_.map(_.omit(col.children, ['hideOnStatic']), (child, keyCol) => {
             return (
               <div key={keyCol}>
                 {this.addField(child, thisSize)}
@@ -186,7 +186,8 @@ class BaseForm extends Component {
       switch (field.type) {
         case 'complex':
           return (<ComplexNode static={this.props.static} key={field.name} field={field} size={size}
-                               properties={properties} addComplexField={this.addComplexField}/>);
+                               properties={properties} addComplexField={this.addComplexField} formName={this.props.formName} formKey={this.props.formKey}
+                               dispatch={this.props.dispatch}/>);
         case 'submit':
           return (<SubmitNode static={this.props.static} key={field.name} field={field} size={size}
                               properties={properties} addField={this.addField}/>);

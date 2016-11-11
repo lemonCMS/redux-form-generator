@@ -1,7 +1,7 @@
 import _ from 'lodash';
 import React from 'react';
 import {Row, Col, ControlLabel} from 'react-bootstrap';
-// import {change, changeWithKey} from 'redux-form';
+import {change, changeWithKey} from 'redux-form';
 
 class Complex extends React.Component {
 
@@ -44,6 +44,13 @@ class Complex extends React.Component {
       if (this.state.collapsed === false) {
         state = true;
       }
+      const complexName = this.props.field.name.replace('[]', '') + '_collapsed';
+      if (_.has(this.props, 'formKey')) {
+        this.props.dispatch(changeWithKey(this.props.formName, this.props.formKey, complexName, state));
+      } else {
+        this.props.dispatch(change(this.props.formName, complexName, state));
+      }
+
       this.setState({'collapsed': state});
     };
 
@@ -100,6 +107,9 @@ class Complex extends React.Component {
 Complex.propTypes = {
   properties: React.PropTypes.array,
   addComplexField: React.PropTypes.func,
+  dispatch: React.PropTypes.func,
+  formName: React.PropTypes.string,
+  formKey: React.PropTypes.string,
   size: React.PropTypes.string,
   field: React.PropTypes.object
 };

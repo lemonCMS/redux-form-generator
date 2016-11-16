@@ -32,9 +32,13 @@ class TextType extends Component {
       );
     }
 
+    const spread = _.pick(this.props.field, ['disabled', 'placeholder']);
+
     return (
-      <FormControl type="text" placeholder={_.get(this.props.field, 'placeholder', '')}
-          {...this.props.properties}
+      <FormControl
+        type="text"
+        {...spread}
+        {...this.props.properties}
       />
     );
   }

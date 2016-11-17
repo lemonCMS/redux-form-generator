@@ -21,6 +21,7 @@ class DynamicForm extends Component {
     getActionState: PropTypes.func,
     clearActionState: PropTypes.func,
     validate: PropTypes.func,
+    destroyOnUnmount: PropTypes.bool,
     success: PropTypes.bool,
     static: PropTypes.bool
   };
@@ -44,7 +45,8 @@ class DynamicForm extends Component {
           return this.props.validate(values);
         }
         return {};
-      }
+      },
+      destroyOnUnmount: _.get(this.props, 'destroyOnUnmount', true),
     })(BaseForm);
 
     return (<DynamicInnerForm

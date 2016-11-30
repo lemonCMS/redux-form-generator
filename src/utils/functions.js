@@ -18,7 +18,7 @@ export function filterFields(fields, fieldName = 'name', extra = ['page']) {
         }
 
         fieldNames.push(field);
-      } else if (_.isObject(field)) {
+      } else if (_.isObject(field) && key !== 'desc') {
         mapper(field);
       }
     });

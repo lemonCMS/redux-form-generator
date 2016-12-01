@@ -73,7 +73,7 @@ class BaseForm extends Component {
     }
 
     return (
-      <Row key={key}>
+      <Row key={key} {..._.pluck(col, 'className')}>
         {_.map(field, (row, keyRow) => {
           const thisSize = _.get(row, 'bsSize', size);
           return (

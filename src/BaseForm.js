@@ -285,10 +285,12 @@ class BaseForm extends Component {
           <div formKey={this.props.formKey}>
             {_.map(fieldsNeeded, (field, key) => {
               const size = _.get(field, 'bsSize', 'medium');
-              if (field.hasOwnProperty('name')) {
-                return this.addField(field, size);
-              } else if (field.hasOwnProperty('row')) {
-                return this.row(field, key, size);
+              if(field) {
+                if (field.hasOwnProperty('name')) {
+                  return this.addField(field, size);
+                } else if (field.hasOwnProperty('row')) {
+                  return this.row(field, key, size);
+                }
               }
             })}
           </div>

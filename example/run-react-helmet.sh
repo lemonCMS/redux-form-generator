@@ -1,1 +1,0 @@
-cd ../github/react-helmet/ && npm run compile && cd ../../webapp && rm -rf node_modules/react-helmet/ && npm install && npm run dev

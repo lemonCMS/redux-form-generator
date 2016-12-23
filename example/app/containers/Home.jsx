@@ -1,0 +1,395 @@
+import _get from 'lodash/get';
+import _flatten from 'lodash/flatten';
+import _map from 'lodash/map';
+import React from 'react';
+import {connect} from 'react-redux';
+import {load} from 'reducers/store';
+import Form from '../components/Form/Form';
+import TestResource from './TestResource';
+
+@connect(
+  state => ({
+    values: _get(state.store, 'values.list', {})
+  }))
+class Home extends React.Component {
+
+  componentWillMount() {
+    // this.props.dispatch(load('values', '/menu', {}));
+  }
+
+  render() {
+    return (
+      <div>
+        <button onClick={() => {
+          this.props.dispatch(load('values', '/values', {}));
+        }}>
+          click
+        </button>
+
+        <Form
+          locale="en_US"
+          name="maxi"
+          fields={
+            [
+              {
+                name: 'costs',
+                type: 'complex',
+                label: 'Beschikbare types en prijzen',
+                panel: {
+                  header: 'Header'
+                },
+                addBtn: {label: 'Model type toevoegen'},
+                removeBtn: {
+                  bsStyle: 'danger',
+                  bsSize: 'xsmall'
+                },
+                moveBtn: {
+                  bsStyle: 'primary',
+                  bsSize: 'xsmall'
+                },
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                collapsed: true,
+                children: [
+                  {
+                    row: {
+                      col: [
+                        {
+                          md: 4,
+                          children: [
+                            {
+                              name: 'valx1',
+                              label: 'Prijs eerste periode',
+                              type: 'text',
+                              bsSize: 'small',
+                              placeholder: 'xxx',
+                              labelSize: {md: 6},
+                              fieldSize: {md: 6}
+                            },
+                          ]
+                        },
+                        {
+                          md: 4,
+                          children: [
+                            {
+                              name: 'valx2',
+                              label: 'Prijs eerste periode',
+                              type: 'text',
+                              bsSize: 'small',
+                              placeholder: 'xxx',
+                              labelSize: {md: 6},
+                              fieldSize: {md: 6}
+                            },
+                          ]
+                        },
+                        {
+                          md: 4,
+                          children: [
+                            {
+                              name: 'valx3',
+                              label: 'Prijs eerste periode',
+                              type: 'text',
+                              bsSize: 'small',
+                              placeholder: 'xxx',
+                              labelSize: {md: 6},
+                              fieldSize: {md: 6}
+                            },
+                          ]
+                        },
+                        {
+                          md: 4,
+                          children: [
+                            {
+                              name: 'valx4',
+                              label: 'Prijs eerste periode',
+                              type: 'text',
+                              bsSize: 'small',
+                              placeholder: 'xxx',
+                              labelSize: {md: 6},
+                              fieldSize: {md: 6}
+                            },
+                          ]
+                        },
+                        {
+                          md: 4,
+                          children: [
+                            {
+                              name: 'valx5',
+                              label: 'Prijs eerste periode',
+                              type: 'text',
+                              bsSize: 'small',
+                              placeholder: 'xxx',
+                              labelSize: {md: 6},
+                              fieldSize: {md: 6}
+                            },
+                          ]
+                        },
+                        {
+                          md: 4,
+                          children: [
+                            {
+                              name: 'valx6',
+                              label: 'Prijs eerste periode',
+                              type: 'text',
+                              bsSize: 'small',
+                              placeholder: 'xxx',
+                              labelSize: {md: 6},
+                              fieldSize: {md: 6}
+                            },
+                          ]
+                        }
+
+                      ]
+                    }
+                  },
+                  {
+                    name: 'costs2',
+                    type: 'complex',
+                    label: 'Beschikbare types en prijzen',
+                    addBtn: {label: 'Model type toevoegen'},
+                    removeBtn: {
+                      bsStyle: 'danger',
+                      bsSize: 'xsmall'
+                    },
+                    moveBtn: {
+                      bsStyle: 'primary',
+                      bsSize: 'xsmall'
+                    },
+                    labelSize: {md: 4},
+                    fieldSize: {md: 8},
+                    collapsed: true,
+                    children: [
+                      {
+                        name: 'valx7',
+                        label: 'Prijs eerste periode',
+                        type: 'text',
+                        bsSize: 'small',
+                        placeholder: 'xxx',
+                        labelSize: {md: 6},
+                        fieldSize: {md: 6}
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                name: 'resource',
+                label: 'Resource',
+                type: 'resource',
+                help: 'hoi',
+                bsSize: 'large',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                resource: (props) => <TestResource {...props}/>,
+                list: [
+                  {value: 1, desc: 'Item 1'},
+                  {value: 2, desc: 'Item 2'},
+                  {value: 3, desc: 'Item 3'},
+                ]
+              },
+              {
+                name: 'name',
+                bsSize: 'large',
+                label: 'Titel',
+                type: 'text',
+                addonBefore: '@',
+                addonAfter: '#',
+                placeholder: 'Omschrijving',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                buttonBefore: {
+                  name: 'room-checkbox-dropdown-append',
+                  type: 'dropDown',
+                  placeholder: 'Start text',
+                  items: [
+                    {value: 0, desc: 'Room -1'},
+                    {value: 1, desc: 'Kamer 1'},
+                    {value: 2, desc: 'Kamer 2'},
+                    {value: 3, desc: 'Kamer 3'},
+                    {value: 4, desc: 'Kamer 4'}
+                  ],
+                }
+              },
+              {
+                name: 'password',
+                label: 'Wachtwoord',
+                type: 'password',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                buttonAfter: {
+                  type: 'button',
+                  value: 'Button after'
+                }
+              },
+              {
+                name: 'datetime',
+                label: 'DateTime',
+                type: 'datetime',
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+              {
+                name: 'textarea',
+                label: 'Textarea',
+                rows: 10,
+                type: 'textarea',
+                placeholder: 'Omschrijving',
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+              {
+                name: 'rte',
+                label: 'TinyMCE',
+                rows: 10,
+                type: 'rte',
+                placeholder: 'TinyMCE',
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+              {
+                name: 'plupload',
+                label: 'Bestanden',
+                type: 'plupload',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                conf: {
+                  runtimes: 'html5',
+                  url: '/api/upload'
+                }
+              },
+              {
+                name: 'room',
+                label: 'Kamernummer',
+                help: 'Wel kamernummer heeft u?',
+                type: 'select',
+                placeholder: 'Omschrijving',
+                options: [
+                  {value: 1, desc: 'Kamer 1'},
+                  {value: 2, desc: 'Kamer 2'},
+                  {value: 3, desc: 'Kamer 3'},
+                  {value: 4, desc: 'Kamer 4'}
+                ],
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+              {
+                name: 'room-radio',
+                label: 'Kamernummer',
+                help: 'Wel kamernummer heeft u? radio',
+                type: 'radio',
+                filter: true,
+                placeholder: 'Omschrijving',
+                options: [
+                  {value: 1, desc: 'Kamer 1'},
+                  {value: 2, desc: 'Kamer 2'},
+                  {value: 3, desc: 'Kamer 3'},
+                  {value: 4, desc: 'Kamer 4'}
+                ],
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+              {
+                name: 'room-checkbox',
+                label: 'Kamernummer',
+                help: 'Wel kamernummer heeft u?',
+                type: 'checkbox',
+                placeholder: 'Omschrijving',
+                filter: true,
+                filter_norecords: 'Er zijn geen resultaten',
+                filter_placeholder: 'Doorzoek de lijst',
+                chunks: 3,
+                options: [
+                  {value: 0, desc: 'Room -1'},
+                  {value: 1, desc: 'Kamer 1'},
+                  {value: 2, desc: 'Kamer 2'},
+                  {value: 3, desc: 'Kamer 3'},
+                  {value: 4, desc: 'Kamer 4'},
+                  {value: 10, desc: 'Room -1'},
+                  {value: 11, desc: 'Kamer 1'},
+                  {value: 12, desc: 'Kamer 2'},
+                  {value: 13, desc: 'Kamer 3'},
+                  {value: 14, desc: 'Kamer 4'},
+                  {value: 20, desc: 'Room -1'},
+                  {value: 21, desc: 'Kamer 1'},
+                  {value: 22, desc: 'Kamer 2'},
+                  {value: 23, desc: 'Kamer 3'},
+                  {value: 24, desc: 'Kamer 4'}
+
+                ],
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+              {
+                name: 'room-checkbox-dropdown',
+                label: 'Kamernummer met fout',
+                help: 'Wel kamernummer heeft u?',
+                type: 'dropDown',
+                placeholder: 'Start text',
+                items: [
+                  {value: 0, desc: 'Room -1'},
+                  {value: 1, desc: 'Kamer 1'},
+                  {value: 2, desc: 'Kamer 2'},
+                  {value: 3, desc: 'Kamer 3'},
+                  {value: 4, desc: 'Kamer 4'}
+                ],
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+
+              {
+                row: {
+                  hideOnStatic: true,
+                  col: [
+                    {
+                      md: 10,
+                      mdOffset: 2,
+                      children: [
+                        {type: 'success', message: 'Het formulier is opgeslagen'},
+                        {type: 'error', message: 'Er zijn fouten opgetreden, controleer het formulier.'}
+                      ]
+                    },
+                    {
+                      hideOnStatic: true,
+                      md: 10,
+                      mdOffset: 2,
+                      children: [{type: 'submit', name: 'submit', value: 'versturen'}]
+                    },
+                    {
+                      hideOnStatic: true,
+                      md: 10,
+                      mdOffset: 2,
+                      children: [{
+                        type: 'button', name: 'submit', value: 'test', onClick: () => {
+                          console.log('Button click');
+                        }
+                      }]
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+
+          initialValues={this.props.values}
+          validate={(data) => {
+            console.log('VALIDATE', data);
+            return {
+              // 'room-checkbox-dropdown': 'verplicht'
+            };
+          }}
+          onSubmit={(data, dispatch) => {
+            console.log('Submit data', data, dispatch);
+          }}
+        />
+      </div>
+    );
+  }
+}
+
+Home.propTypes = {
+  'dispatch': React.PropTypes.func,
+  'values': React.PropTypes.object
+};
+Home.defaultProps = {};
+
+export default Home;

@@ -107,7 +107,7 @@ class Resource extends React.Component {
     const component = () => {
       const button = () => {
         if (!this.props.static) {
-          return (<Button onClick={this.openResource}>{_get(this.props, 'field.buttonResource', 'open')}</Button>);
+          return (<Button onClick={this.openResource} disabled={_get(this.props.field, 'disabled', false)}>{_get(this.props, 'field.buttonResource', 'open')}</Button>);
         }
       };
 

@@ -2,7 +2,7 @@
   "name": "redux-form-generator",
   "version": "6.0.0",
   "description": "Generate forms with redux-form",
-  "main": "lib/Form.jsx",
+  "main": "lib/Form.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "node_modules/.bin/babel src --out-dir lib",
@@ -23,11 +23,11 @@
   "author": "Raymond van Vuuren",
   "license": "MIT",
   "dependencies": {
-    "babel-cli": "^6.8.0",
-    "react-bootstrap": "^0.30.7",
-    "webpack": "^1.13.1"
+    "react-bootstrap": "^0.30.7"
   },
   "devDependencies": {
+    "babel-cli": "^6.8.0",
+    "webpack": "^1.13.1",
     "lodash": "4.17.2",
     "react-redux": "5.0.1",
     "redux": "3.6.0",

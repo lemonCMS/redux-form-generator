@@ -1,6 +1,4 @@
 import _get from 'lodash/get';
-import _flatten from 'lodash/flatten';
-import _map from 'lodash/map';
 import React from 'react';
 import {connect} from 'react-redux';
 import {load} from 'reducers/store';
@@ -31,6 +29,46 @@ class Home extends React.Component {
           name="maxi"
           fields={
             [
+              {
+                row: {
+                  col: [
+                    {
+                      md: 4,
+                      children: [
+                        {
+                          name: 'plain',
+                          type: 'plain',
+                          value: '<label class="control-label pull-right">Naam*</label>'
+                        }
+                      ]
+                    },
+                    {
+                      md: 3,
+                      children: [
+                        {
+                          name: 'firstname',
+                          type: 'text',
+                          disabled: true,
+                          placeholder: 'Voornaam',
+                          fieldSize: {md: 12}
+                        }
+                      ]
+                    },
+                    {
+                      md: 5,
+                      children: [
+                        {
+                          name: 'lastname',
+                          type: 'text',
+                          disabled: true,
+                          placeholder: 'Achternaam',
+                          fieldSize: {md: 12}
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
               {
                 name: 'costs',
                 type: 'complex',
@@ -176,6 +214,7 @@ class Home extends React.Component {
                 name: 'resource',
                 label: 'Resource',
                 type: 'resource',
+                disabled: true,
                 help: 'hoi',
                 bsSize: 'large',
                 labelSize: {md: 4},
@@ -191,6 +230,7 @@ class Home extends React.Component {
                 name: 'name',
                 bsSize: 'large',
                 label: 'Titel',
+                disabled: true,
                 type: 'text',
                 addonBefore: '@',
                 addonAfter: '#',
@@ -214,6 +254,7 @@ class Home extends React.Component {
                 name: 'password',
                 label: 'Wachtwoord',
                 type: 'password',
+                disabled: true,
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
                 buttonAfter: {
@@ -224,6 +265,7 @@ class Home extends React.Component {
               {
                 name: 'datetime',
                 label: 'DateTime',
+                disabled: true,
                 type: 'datetime',
                 labelSize: {md: 4},
                 fieldSize: {md: 8}
@@ -231,6 +273,7 @@ class Home extends React.Component {
               {
                 name: 'textarea',
                 label: 'Textarea',
+                disabled: true,
                 rows: 10,
                 type: 'textarea',
                 placeholder: 'Omschrijving',
@@ -241,6 +284,7 @@ class Home extends React.Component {
                 name: 'rte',
                 label: 'TinyMCE',
                 rows: 10,
+                disabled: true,
                 type: 'rte',
                 placeholder: 'TinyMCE',
                 labelSize: {md: 4},
@@ -249,6 +293,7 @@ class Home extends React.Component {
               {
                 name: 'plupload',
                 label: 'Bestanden',
+                disabled: true,
                 type: 'plupload',
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
@@ -260,6 +305,7 @@ class Home extends React.Component {
               {
                 name: 'room',
                 label: 'Kamernummer',
+                disabled: true,
                 help: 'Wel kamernummer heeft u?',
                 type: 'select',
                 placeholder: 'Omschrijving',
@@ -277,6 +323,7 @@ class Home extends React.Component {
                 label: 'Kamernummer',
                 help: 'Wel kamernummer heeft u? radio',
                 type: 'radio',
+                disabled: true,
                 filter: true,
                 placeholder: 'Omschrijving',
                 options: [
@@ -293,6 +340,7 @@ class Home extends React.Component {
                 label: 'Kamernummer',
                 help: 'Wel kamernummer heeft u?',
                 type: 'checkbox',
+                disabled: true,
                 placeholder: 'Omschrijving',
                 filter: true,
                 filter_norecords: 'Er zijn geen resultaten',
@@ -324,6 +372,7 @@ class Home extends React.Component {
                 label: 'Kamernummer met fout',
                 help: 'Wel kamernummer heeft u?',
                 type: 'dropDown',
+                disabled: true,
                 placeholder: 'Start text',
                 items: [
                   {value: 0, desc: 'Room -1'},

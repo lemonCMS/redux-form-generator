@@ -45,7 +45,10 @@ class WrapRte extends React.Component {
     const add = _pick(custom, ['placeholder', 'rows', 'cols', 'conf']);
     const component = () => {
 
-      if (this.props.static === true || _get(this.props.field, 'static', false) === true) {
+      if (this.props.static === true
+        || _get(this.props.field, 'static', false) === true
+        || _get(this.props.field, 'disabled', false) === true
+      ) {
         const createMarkup = (data) => {
           return {__html: data};
         };
@@ -54,6 +57,8 @@ class WrapRte extends React.Component {
           <samp className="tiny_mce_static" dangerouslySetInnerHTML={createMarkup(input.value)}/>
         );
       }
+
+
 
       return (<TinyMCE
         content={input.value}

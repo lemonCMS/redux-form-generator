@@ -15,7 +15,7 @@ class Input extends React.Component {
     return (
       <Button
         {...thisSize()}
-        {...(_pick(this.props.field, ['type', 'placeholder', 'bsStyle', 'onClick', 'onBlur', ]))}
+        {...(_pick(this.props.field, ['type', 'placeholder', 'bsStyle', 'onClick', 'onBlur', 'disabled']))}
       >
         {this.props.field.value}
       </Button>

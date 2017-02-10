@@ -1,5 +1,6 @@
 import React from 'react';
 import _has from 'lodash/has';
+import _isEmpty from 'lodash/isEmpty';
 import _map from 'lodash/map';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
@@ -66,8 +67,7 @@ class Wrap extends React.Component {
       }
     };
 
-
-    if (isStatic === true) {
+    if (isStatic === true || _get(this.props.field, 'disabled', false) === true) {
       return (
         <FormControl.Static>
           {dropDownTitle || _get(this.custom, 'placeholder')}
@@ -114,7 +114,7 @@ class Wrap extends React.Component {
       return {sm: 10};
     };
 
-    const add = _pick(custom, ['type', 'placeholder', 'rows', 'cols']);
+    const add = _pick(custom, ['type', 'placeholder', 'rows', 'cols', 'disabled']);
     if (add.type === 'select') {
       add.componentClass = 'select';
     }
@@ -141,6 +141,8 @@ class Wrap extends React.Component {
           }
         }
       }
+
+      console.log(add);
 
       switch (props.type) {
         case 'dropDown':
@@ -228,14 +230,22 @@ class Wrap extends React.Component {
       return getField();
     }
 
+    const getLabel = () => {
+      if (label && !_isEmpty(label)) {
+        return (
+          <Col componentClass={ControlLabel} {...labelSize()}>
+            {label}
+          </Col>
+        );
+      }
+    }
+
     return (
       <FormGroup
         {...thisSize()}
         validationState={validationState()}
       >
-        <Col componentClass={ControlLabel} {...labelSize()}>
-          {label}
-        </Col>
+        {getLabel()}
         <Col {...fieldSize()}>
           {getField()}
           {touched && error && <FormControl.Feedback />}

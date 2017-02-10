@@ -62,6 +62,7 @@ class WrapListMulti extends React.Component {
         <Checkbox
           key={key}
           name={`${this.input.name}[${key}]`}
+          disabled={_get(this.props.field, 'disabled', false)}
           value={option.value}
           checked={this.input.value.indexOf(option.value) !== -1}
           onChange={event => {
@@ -121,6 +122,7 @@ class WrapListMulti extends React.Component {
     if ((!!this.props.field.searchable || this.props.field.filter) && !this.props.static) {
       return (<input
         type="text"
+        disabled={_get(this.props.field, 'disabled', false)}
         placeholder={_get(this.props.field, 'filter_placeholder', _get(this.props.locale, 'filter.placeholder', 'Filter'))}
         defaultValue={this.state.value}
         onKeyDown={this.handlePrevent}

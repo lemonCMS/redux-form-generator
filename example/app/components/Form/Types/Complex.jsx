@@ -21,7 +21,7 @@ class Complex extends React.Component {
     };
   }
 
-  renderChildren(children, name, count, remove, move, complexIndex, removeBtn, size, staticField) {
+  renderChildren(children, name, count, remove, move, complexIndex, removeBtn, size, staticField, disabled) {
 
     const buttons = () => {
       const returnButtons = [];
@@ -32,6 +32,7 @@ class Complex extends React.Component {
                     onClick={() => move(complexIndex, complexIndex - 1)}
                     bsStyle={_get(this.props.field.moveBtn, 'bsStyle', 'default')}
                     bsSize={_get(this.props.field.moveBtn, 'bsSize', undefined)}
+                    disabled={disabled}
                     type="button"
             >
               <i className="fa fa-chevron-up"/>
@@ -44,6 +45,7 @@ class Complex extends React.Component {
                     onClick={() => move(complexIndex, complexIndex + 1)}
                     bsStyle={_get(this.props.field.moveBtn, 'bsStyle', 'default')}
                     bsSize={_get(this.props.field.moveBtn, 'bsSize', undefined)}
+                    disabled={disabled}
                     type="button"
             >
               <i className="fa fa-chevron-down"/>
@@ -56,6 +58,7 @@ class Complex extends React.Component {
                   onClick={() => remove(complexIndex)}
                   bsStyle={_get(this.props.field.removeBtn, 'bsStyle', 'danger')}
                   bsSize={_get(this.props.field.removeBtn, 'bsSize', undefined)}
+                  disabled={disabled}
                   type="button"
           >
             <i className="fa fa-trash" />
@@ -126,6 +129,8 @@ class Complex extends React.Component {
       );
     }
 
+    const disabled = _get(this.props.field, 'disabled', false);
+
     return (
       <Row className="rfg-cmplx rfg-cmplx-collapsed">
         <Col componentClass={ControlLabel} {...labelSize()}>
@@ -136,13 +141,14 @@ class Complex extends React.Component {
           {fields.map((field, key) => {
             return (
               <div key={key} className="rfg-cmplx-fields">
-                {this.renderChildren(children, field, fields.length, fields.remove, fields.move, key, removeBtn, size, staticField)}
+                {this.renderChildren(children, field, fields.length, fields.remove, fields.move, key, removeBtn, size, staticField, disabled)}
               </div>
             );
           })}
           <div className="rfg-cmplx-btn-add">
             {staticField !== true && <button type="button"
                                              onClick={() => fields.push({})}
+                                             disabled={disabled}
                                              className={'btn ' + _get(this.props.field.addBtn, 'className', 'btn-default')}
             >
               {addBtn.label}</button>

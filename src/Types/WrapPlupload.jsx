@@ -134,7 +134,7 @@ class WrapPlupload extends React.Component {
     };
 
     const component = () => {
-      const staticField = this.props.static || _get(this.props.field, 'static', false);
+      const staticField = this.props.static || _get(this.props.field, 'static', false) || _get(this.props.field, 'disabled', false);
       if (staticField === false) {
         return (<div>
           <Plupload
@@ -145,7 +145,6 @@ class WrapPlupload extends React.Component {
             onStateChanged={stateChange}
             onFileUploaded={fileUploaded}
           />
-
         </div>);
       }
     };

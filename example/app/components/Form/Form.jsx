@@ -1,5 +1,6 @@
 import React from 'react';
 import _get from 'lodash/get';
+import _has from 'lodash/has';
 import _clone from 'lodash/clone';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
@@ -20,6 +21,8 @@ import Rte from './Types/Rte';
 import Resource from './Types/Resource';
 import Message from './Types/Message';
 import Complex from './Types/Complex';
+import Plain from './Types/Plain';
+import locales from './locales';
 
 let locale = {};
 
@@ -27,14 +30,13 @@ const InnerForm = (props) => {
   const {handleSubmit} = props;
 
   if (typeof props.locale === 'string') {
-    locale = require('./locale');
-    console.log(locale);
-    if (!locale[props.locale]) {
+    if (!locales[props.locale]) {
       console.warn(`Redux form generator locale ${props.locale} not implemented`);
     } else {
-      locale = locale[props.locale];
+      locale = locales[props.locale];
     }
   }
+
   if (typeof props.locale === 'object') {
     locale = props.locale;
   }
@@ -116,6 +118,11 @@ const InnerForm = (props) => {
         return (<Button locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static}/>);
       case 'rte':
         return (<Rte locale={locale} key={key} field={field} size={size} static={props.static}/>);
+      case 'plain':
+        return (<Plain key={key} field={field} size={size}/>);
+      case 'jsx':
+      case 'react':
+        return field.component();
       case 'success':
       case 'error':
         return (<Message locale={locale}
@@ -164,6 +171,12 @@ class RenderForm extends React.Component {
   render() {
     const DynForm = reduxForm({
       form: this.props.name, // a unique identifier for this form
+      validate: (values)=> {
+        if (_has(this.props, 'validate')) {
+          return this.props.validate(values);
+        }
+        return {};
+      },
       destroyOnUnmount: _get(this.props, 'destroyOnUnmount', true),
     })(InnerForm);
     return (<DynForm

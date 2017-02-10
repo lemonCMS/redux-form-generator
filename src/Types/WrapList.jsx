@@ -56,6 +56,7 @@ class WrapList extends React.Component {
       return (
         <Radio
           key={key}
+          disabled={_get(this.props.field, 'disabled', false)}
           name={`${this.input.name}[${key}]`}
           value={option.value}
           checked={String(this.input.value) === String(option.value)}
@@ -103,6 +104,7 @@ class WrapList extends React.Component {
     if ((!!this.props.field.searchable || this.props.field.filter) && !this.props.static) {
       return (<input
         type="text"
+        disabled={_get(this.props.field, 'disabled', false)}
         placeholder={_get(this.props.field, 'filter_placeholder', _get(this.props.locale, 'filter.placeholder', 'Filter'))}
         defaultValue={this.state.value}
         onKeyDown={this.handlePrevent}

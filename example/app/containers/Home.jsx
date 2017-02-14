@@ -7,7 +7,8 @@ import TestResource from './TestResource';
 
 @connect(
   state => ({
-    values: _get(state.store, 'values.list', {})
+    values: _get(state.store, 'values.list', {}),
+    form: _get(state.form, 'maxi', {})
   }))
 class Home extends React.Component {
 
@@ -16,6 +17,16 @@ class Home extends React.Component {
   }
 
   render() {
+
+    const disabled = () => {
+      if (parseInt(_get(this.props, 'form.values.billing_other', 0), 10) === 1) {
+        return false;
+      }
+      return true;
+    };
+
+    console.log(disabled(), _get(this.props, 'form.values.billing_other', 0));
+
     return (
       <div>
         <button onClick={() => {
@@ -27,8 +38,140 @@ class Home extends React.Component {
         <Form
           locale="en_US"
           name="maxi"
+          updateOn={['billing_other']}
           fields={
             [
+              {
+                name: 'plain',
+                type: 'plain',
+                value: '<strong>Factuur gegevens</strong>'
+              },
+              {
+                name: 'order_number',
+                label: 'Bestelnummer',
+                type: 'text',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+              },
+              {
+                name: 'billing_other',
+                label: 'Ander adres*',
+                type: 'radio',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                options: [
+                  {'value': 0, 'desc': 'Nee'},
+                  {'value': 1, 'desc': 'Ja'}
+                ]
+              },
+              {
+                name: 'billing_email',
+                label: 'E-mailadres*',
+                disabled: () => { return {
+                  field: 'billing_other',
+                  value: 0
+                }},
+                help: 'Waar wilt u uw digitale facturen ontvangen',
+                type: 'text',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+              },
+              {
+                name: 'billing_division',
+                label: 'Afdeling*',
+                type: 'text',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+              },
+              {
+                row: {
+                  col: [
+                    {
+                      md: 4,
+                      children: [
+                        {
+                          name: 'plain',
+                          type: 'plain',
+                          value: '<div class="pull-right">Adres*</div>'
+                        }
+                      ]
+                    },
+                    {
+                      md: 6,
+                      children: [
+                        {
+                          name: 'billing_street',
+                          type: 'text',
+                          placeholder: 'Straatnaam',
+                          fieldSize: {md: 12}
+                        }
+                      ]
+                    },
+                    {
+                      md: 2,
+                      children: [
+                        {
+                          name: 'billing_housenumber',
+                          type: 'text',
+                          placeholder: 'Huisnummer',
+                          fieldSize: {md: 12}
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
+                row: {
+                  col: [
+                    {
+                      md: 4,
+                      children: [
+                        {
+                          name: 'plain',
+                          type: 'plain',
+                          value: '<div class="pull-right">Postcode*</div>'
+                        }
+                      ]
+                    },
+                    {
+                      md: 2,
+                      children: [
+                        {
+                          name: 'billing_postalcode',
+                          type: 'text',
+                          placeholder: 'Postcode',
+                          fieldSize: {md: 12}
+                        }
+                      ]
+                    },
+                    {
+                      md: 1,
+                      children: [
+                        {
+                          name: 'plain',
+                          type: 'plain',
+                          value: '<div class="pull-right">Plaats*</div>'
+                        }
+                      ]
+                    },
+                    {
+                      md: 5,
+                      children: [
+                        {
+                          name: 'billing_city',
+                          type: 'text',
+                          placeholder: 'Plaats',
+                          fieldSize: {md: 12}
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
+
+
+
               {
                 row: {
                   col: [
@@ -419,9 +562,10 @@ class Home extends React.Component {
             ]
           }
 
-          initialValues={this.props.values}
+          initialValues={{
+            billing_other: 0
+          }}
           validate={(data) => {
-            console.log('VALIDATE', data);
             return {
               // 'room-checkbox-dropdown': 'verplicht'
             };
@@ -437,7 +581,8 @@ class Home extends React.Component {
 
 Home.propTypes = {
   'dispatch': React.PropTypes.func,
-  'values': React.PropTypes.object
+  'values': React.PropTypes.object,
+  'form': React.PropTypes.object
 };
 Home.defaultProps = {};
 

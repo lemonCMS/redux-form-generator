@@ -12,10 +12,16 @@ class Input extends React.Component {
       }
     };
 
+    let disabled = false;
+    if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
+      disabled = this.props.checkDisabled(this.props.field.disabled());
+    }
+
     return (
       <Button
         {...thisSize()}
-        {...(_pick(this.props.field, ['type', 'placeholder', 'bsStyle', 'onClick', 'onBlur', 'disabled']))}
+        {...(_pick(this.props.field, ['type', 'placeholder', 'bsStyle', 'onClick', 'onBlur']))}
+        disabled={disabled}
       >
         {this.props.field.value}
       </Button>

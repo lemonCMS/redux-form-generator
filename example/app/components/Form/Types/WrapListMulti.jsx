@@ -53,6 +53,11 @@ class WrapListMulti extends React.Component {
   radioButtonList(list) {
     const staticField = this.props.static || _get(this.props.field, 'static', false);
 
+    let disabled = false;
+    if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
+      disabled = this.props.checkDisabled(this.props.field.disabled());
+    }
+
     return _map(list, (option, key) => {
       if (staticField === true) {
         return (<FormControl.Static key={key}>{option.desc}</FormControl.Static>);
@@ -62,7 +67,7 @@ class WrapListMulti extends React.Component {
         <Checkbox
           key={key}
           name={`${this.input.name}[${key}]`}
-          disabled={_get(this.props.field, 'disabled', false)}
+          disabled={disabled}
           value={option.value}
           checked={this.input.value.indexOf(option.value) !== -1}
           onChange={event => {
@@ -119,10 +124,15 @@ class WrapListMulti extends React.Component {
   }
 
   searchBox() {
+    let disabled = false;
+    if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
+      disabled = this.props.checkDisabled(this.props.field.disabled());
+    }
+
     if ((!!this.props.field.searchable || this.props.field.filter) && !this.props.static) {
       return (<input
         type="text"
-        disabled={_get(this.props.field, 'disabled', false)}
+        disabled={disabled}
         placeholder={_get(this.props.field, 'filter_placeholder', _get(this.props.locale, 'filter.placeholder', 'Filter'))}
         defaultValue={this.state.value}
         onKeyDown={this.handlePrevent}

@@ -104,10 +104,15 @@ class Resource extends React.Component {
       return {sm: 10};
     };
 
+    let disabled = false;
+    if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
+      disabled = this.props.checkDisabled(this.props.field.disabled());
+    }
+
     const component = () => {
       const button = () => {
         if (!this.props.static) {
-          return (<Button onClick={this.openResource} disabled={_get(this.props.field, 'disabled', false)}>{_get(this.props, 'field.buttonResource', 'open')}</Button>);
+          return (<Button onClick={this.openResource} disabled={disabled}>{_get(this.props, 'field.buttonResource', 'open')}</Button>);
         }
       };
 

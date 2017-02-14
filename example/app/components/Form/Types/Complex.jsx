@@ -129,7 +129,10 @@ class Complex extends React.Component {
       );
     }
 
-    const disabled = _get(this.props.field, 'disabled', false);
+    let disabled = false;
+    if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
+      disabled = this.props.checkDisabled(this.props.field.disabled());
+    }
 
     return (
       <Row className="rfg-cmplx rfg-cmplx-collapsed">

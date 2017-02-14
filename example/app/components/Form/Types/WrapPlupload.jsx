@@ -134,7 +134,12 @@ class WrapPlupload extends React.Component {
     };
 
     const component = () => {
-      const staticField = this.props.static || _get(this.props.field, 'static', false) || _get(this.props.field, 'disabled', false);
+      let disabled = false;
+      if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
+        disabled = this.props.checkDisabled(this.props.field.disabled());
+      }
+
+      const staticField = this.props.static || _get(this.props.field, 'static', false) || disabled;
       if (staticField === false) {
         return (<div>
           <Plupload

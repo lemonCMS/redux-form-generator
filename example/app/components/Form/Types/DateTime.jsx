@@ -56,6 +56,11 @@ class Input extends React.Component {
       }
     };
 
+    let disabled = false;
+    if (this.props.field && this.props.field.diabled && _isFunction(this.props.field.disabled)) {
+      disabled = this.props.checkDisabled(this.props.field.disabled());
+    }
+
     const component = () => {
       return(
         <DateTimeField
@@ -65,7 +70,7 @@ class Input extends React.Component {
           {...add}
           {...conf}
           inputProps={{
-            disabled: _get(this.props.field, 'disabled', false)
+            disabled: disabled
           }}
         />
       );

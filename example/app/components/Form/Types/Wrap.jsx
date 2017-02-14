@@ -5,6 +5,7 @@ import _map from 'lodash/map';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
 import _filter from 'lodash/filter';
+import _isFunction from 'lodash/isFunction';
 import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import InputGroup from 'react-bootstrap/lib/InputGroup';
@@ -67,7 +68,12 @@ class Wrap extends React.Component {
       }
     };
 
-    if (isStatic === true || _get(this.props.field, 'disabled', false) === true) {
+    let disabled = false;
+    if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
+      disabled = this.props.checkDisabled(this.props.field.disabled());
+    }
+
+    if (isStatic === true || disabled === true) {
       return (
         <FormControl.Static>
           {dropDownTitle || _get(this.custom, 'placeholder')}
@@ -114,9 +120,13 @@ class Wrap extends React.Component {
       return {sm: 10};
     };
 
-    const add = _pick(custom, ['type', 'placeholder', 'rows', 'cols', 'disabled']);
+    const add = _pick(custom, ['type', 'placeholder', 'rows', 'cols']);
     if (add.type === 'select') {
       add.componentClass = 'select';
+    }
+
+    if (custom.disabled && _isFunction(custom.disabled)) {
+      add.disabled = this.props.checkDisabled(custom.disabled());
     }
 
     const component = () => {
@@ -141,8 +151,6 @@ class Wrap extends React.Component {
           }
         }
       }
-
-      console.log(add);
 
       switch (props.type) {
         case 'dropDown':
@@ -266,7 +274,8 @@ Wrap.propTypes = {
   'size': React.PropTypes.string,
   'addField': React.PropTypes.func,
   'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object
+  'locale': React.PropTypes.object,
+  'checkDisabled': React.PropTypes.func
 };
 Wrap.defaultProps = {};
 

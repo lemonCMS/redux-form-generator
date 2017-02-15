@@ -25,8 +25,6 @@ class Home extends React.Component {
       return true;
     };
 
-    console.log(disabled(), _get(this.props, 'form.values.billing_other', 0));
-
     return (
       <div>
         <button onClick={() => {
@@ -38,7 +36,6 @@ class Home extends React.Component {
         <Form
           locale="en_US"
           name="maxi"
-          updateOn={['billing_other']}
           fields={
             [
               {
@@ -49,6 +46,7 @@ class Home extends React.Component {
               {
                 name: 'order_number',
                 label: 'Bestelnummer',
+                disabled: () => (true),
                 type: 'text',
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
@@ -169,9 +167,6 @@ class Home extends React.Component {
                   ]
                 }
               },
-
-
-
               {
                 row: {
                   col: [
@@ -427,7 +422,6 @@ class Home extends React.Component {
                 name: 'rte',
                 label: 'TinyMCE',
                 rows: 10,
-                disabled: true,
                 type: 'rte',
                 placeholder: 'TinyMCE',
                 labelSize: {md: 4},
@@ -442,7 +436,7 @@ class Home extends React.Component {
                 fieldSize: {md: 8},
                 conf: {
                   runtimes: 'html5',
-                  url: '/api/upload'
+                  url: '/'
                 }
               },
               {
@@ -527,7 +521,19 @@ class Home extends React.Component {
                 labelSize: {md: 4},
                 fieldSize: {md: 8}
               },
-
+              {
+                buttonToolbar: {
+                  md: 8,
+                  mdOffset: 4,
+                  children: [
+                    {type: 'submit', name: 'submit', value: 'versturen 1', bsStyle: 'primary'},
+                    {type: 'button', name: 'submit', value: 'test 2', onClick: () => {
+                        console.log('Button click');
+                      }
+                    }
+                  ]
+                }
+              },
               {
                 row: {
                   hideOnStatic: true,
@@ -539,22 +545,6 @@ class Home extends React.Component {
                         {type: 'success', message: 'Het formulier is opgeslagen'},
                         {type: 'error', message: 'Er zijn fouten opgetreden, controleer het formulier.'}
                       ]
-                    },
-                    {
-                      hideOnStatic: true,
-                      md: 10,
-                      mdOffset: 2,
-                      children: [{type: 'submit', name: 'submit', value: 'versturen'}]
-                    },
-                    {
-                      hideOnStatic: true,
-                      md: 10,
-                      mdOffset: 2,
-                      children: [{
-                        type: 'button', name: 'submit', value: 'test', onClick: () => {
-                          console.log('Button click');
-                        }
-                      }]
                     }
                   ]
                 }
@@ -563,7 +553,12 @@ class Home extends React.Component {
           }
 
           initialValues={{
-            billing_other: 0
+            billing_other: 0,
+            plupload: [
+              {file_original_name: 'fiel 1'},
+              {file_original_name: 'fiel 2'},
+              {file_original_name: 'fiel 3'}
+            ]
           }}
           validate={(data) => {
             return {

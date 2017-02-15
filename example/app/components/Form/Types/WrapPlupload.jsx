@@ -12,6 +12,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Plupload from 'react-plupload';
+import _isFunction from 'lodash/isFunction';
 
 class WrapPlupload extends React.Component {
 
@@ -28,6 +29,7 @@ class WrapPlupload extends React.Component {
 
   renderField(props) {
     const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
+    let allFiles = _get(props, 'input.value', []);
     this.input = input;
     this.custom = custom;
     const size = _get(this.props.field, 'bsSize', this.props.size);
@@ -51,25 +53,26 @@ class WrapPlupload extends React.Component {
     const fileUploaded = (plupload, file, response) => {
       const uploadResponse = JSON.parse(response.response);
       if (_get(custom, 'multi_selection', true) === false) {
-        this.setState({allFiles: [uploadResponse.result], changed: Date.now()}, () => {
-          this.input.onChange(this.state.allFiles);
+        allFiles = [uploadResponse.result];
+        this.setState({changed: Date.now()}, () => {
+          this.input.onChange(allFiles);
         });
       } else {
-        const files = _clone(this.state.allFiles);
+        const files = _clone(allFiles);
         files.push(uploadResponse.result);
-        this.setState({allFiles: files, changed: Date.now()}, () => {
+        allFiles = files;
+        this.setState({changed: Date.now()}, () => {
           this.input.onBlur();
-          this.input.onChange(this.state.allFiles);
+          this.input.onChange(allFiles);
         });
       }
     };
 
     const fileDelete = (index) => {
-      const files = _clone(this.state.allFiles);
-      files[index].deleted = 1;
-      this.setState({allFiles: files, changed: Date.now()}, () => {
+      allFiles[index].deleted = 1;
+      this.setState({changed: Date.now()}, () => {
         this.input.onBlur();
-        this.input.onChange(this.state.allFiles);
+        this.input.onChange(allFiles);
       });
     };
 

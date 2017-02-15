@@ -13,6 +13,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Checkbox from 'react-bootstrap/lib/Checkbox';
+import _isFunction from 'lodash/isFunction';
 
 class WrapListMulti extends React.Component {
 

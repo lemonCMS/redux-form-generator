@@ -2,9 +2,14 @@ import React from 'react';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import _clone from 'lodash/clone';
+import _isEmpty from 'lodash/isEmpty';
+import _find from 'lodash/find';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
 import _isEqual from 'lodash/isEqual';
+import _isBoolean from 'lodash/isBoolean';
+import _isString from 'lodash/isString';
+import _isObject from 'lodash/isObject';
 import Form from 'react-bootstrap/lib/Form';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -94,7 +99,6 @@ const InnerForm = (props) => {
     );
   };
 
-
   const addField = (field, key, size) => {
     if (Object.prototype.hasOwnProperty.call(field, 'row')) {
       return row(field, key, size);
@@ -140,7 +144,7 @@ const InnerForm = (props) => {
       case 'datetime':
         return (<DateTime locale={locale} key={key} field={field} size={size} static={props.static}/>);
       default:
-        return (<Input locale={locale} key={key} field={field} size={size} addField={addField} static={props.static}/>);
+        return (<Input checkDisabled={checkDisabled} locale={locale} key={key} field={field} size={size} addField={addField} static={props.static}/>);
     }
   };
 
@@ -155,6 +159,25 @@ const InnerForm = (props) => {
     });
   };
 
+  const checkDisabled = (args) => {
+    if (_isBoolean(args)) {
+      return args
+    } else if (_isObject(args)) {
+      const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+      if (value === args.value) {
+        return true;
+      }
+      return false;
+    } else if (_isString(args)) {
+      const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+      if (!isEmpty(value)) {
+        return true;
+      }
+
+      return false;
+    }
+  }
+
   return (
     <Form onSubmit={handleSubmit} horizontal>
       {fields()}
@@ -164,8 +187,12 @@ const InnerForm = (props) => {
 
 class RenderForm extends React.Component {
 
-  shouldComponentUpdate(nextProps) {
-    return !_isEqual(nextProps.initialValues, this.props.initialValues);
+   shouldComponentUpdate(nextProps) {
+    if (!_isEqual(nextProps.initialValues, this.props.initialValues)) {
+      return true;
+    }
+
+    return false;
   }
 
   render() {
@@ -178,12 +205,17 @@ class RenderForm extends React.Component {
         return {};
       },
       destroyOnUnmount: _get(this.props, 'destroyOnUnmount', true),
-    })(InnerForm);
+    })(connect((state, form) => {
+      return {
+        formValues: _get(state, `${form.formReducer}.${form.name}.values`, {})
+      };
+    })(InnerForm));
     return (<DynForm
       fields={this.props.fields}
       dispatch={this.props.dispatch}
       initialValues={this.props.initialValues}
       name={this.props.name}
+      formReducer={_get(this.props, 'formReducer' , 'form')}
       static={this.props.static}
       locale={this.props.locale}
       onSubmit={(data, dispatch) => {
@@ -201,6 +233,7 @@ RenderForm.propTypes = {
   'initialValues': React.PropTypes.object,
   'dispatch': React.PropTypes.func.isRequired,
   'onSubmit': React.PropTypes.func,
+  'updateOn': React.PropTypes.array,
   'static': React.PropTypes.bool,
   'destroyOnUnmount': React.PropTypes.bool,
   'locale': React.PropTypes.oneOfType([
@@ -209,6 +242,9 @@ RenderForm.propTypes = {
   ])
 };
 
-export default connect(() => ({}), (dispatch) => {
+
+export default connect(() => ({})
+, (dispatch) => {
   return {dispatch};
 })(RenderForm);
+

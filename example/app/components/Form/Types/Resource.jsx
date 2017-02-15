@@ -13,6 +13,7 @@ import Col from 'react-bootstrap/lib/Col';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import _isFunction from 'lodash/isFunction';
 
 class Resource extends React.Component {
   constructor() {

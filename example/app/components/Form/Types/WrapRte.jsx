@@ -8,6 +8,7 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import _isFunction from 'lodash/isFunction';
 
 class WrapRte extends React.Component {
 
@@ -45,14 +46,9 @@ class WrapRte extends React.Component {
     const add = _pick(custom, ['placeholder', 'rows', 'cols', 'conf']);
     const component = () => {
 
-      let disabled = false;
-      if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
-        disabled = this.props.checkDisabled(this.props.field.disabled());
-      }
-
       if (this.props.static === true
         || _get(this.props.field, 'static', false) === true
-        || disabled === true
+        || _get(this.props.field, 'disabled', false) === true
       ) {
         const createMarkup = (data) => {
           return {__html: data};

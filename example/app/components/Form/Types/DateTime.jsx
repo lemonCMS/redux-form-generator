@@ -11,6 +11,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import {Field} from 'redux-form';
+import _isFunction from 'lodash/isFunction';
 
 class Input extends React.Component {
 

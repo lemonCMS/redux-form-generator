@@ -9,6 +9,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
+import _isFunction from 'lodash/isFunction';
 
 class Complex extends React.Component {
 

@@ -12,6 +12,7 @@ class Input extends Wrap {
         size={this.props.size}
         static={this.props.static}
         locale={this.props.locale}
+        checkDisabled={this.props.checkDisabled}
       />
     );
   }
@@ -19,6 +20,7 @@ class Input extends Wrap {
 
 Input.propTypes = {
   'field': React.PropTypes.object,
+  'checkDisabled': React.PropTypes.func,
   'size': React.PropTypes.string,
   'static': React.PropTypes.bool,
   'addField': React.PropTypes.func,

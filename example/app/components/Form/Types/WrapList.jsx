@@ -13,6 +13,7 @@ import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import Radio from 'react-bootstrap/lib/Radio';
+import _isFunction from 'lodash/isFunction';
 
 class WrapList extends React.Component {
 

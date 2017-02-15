@@ -10,9 +10,11 @@ import _isEqual from 'lodash/isEqual';
 import _isBoolean from 'lodash/isBoolean';
 import _isString from 'lodash/isString';
 import _isObject from 'lodash/isObject';
+import _pick from 'lodash/pick';
 import Form from 'react-bootstrap/lib/Form';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import Input from './Types/Input';
@@ -99,9 +101,43 @@ const InnerForm = (props) => {
     );
   };
 
+  const buttonToolbar = (field, key, size) => {
+    const toolbar = field.buttonToolbar;
+    const thisSize = _get(toolbar, 'bsSize', size);
+    // Hide fields that are only visible in static mode
+    if (!props.static && !!toolbar.showOnStatic) {
+      return false;
+    }
+    // Hide fields that are only visible in edit mode
+    if (!!props.static && !!toolbar.hideOnStatic) {
+      return false;
+    }
+
+    return (
+      <Row key={key}>
+        <Col {..._pick(toolbar, ['lg', 'lgHidden', 'lgOffset', 'lgPull', 'lgPush',
+          'md', 'mdHidden', 'mdOffset', 'mdPull', 'mdPush',
+          'sm', 'smHidden', 'smOffset', 'smPull', 'smPush',
+          'xs', 'xsHidden', 'xsOffset', 'xsPull', 'xsPush',
+          'componentClass', 'bsClass'
+        ])}>
+          <ButtonToolbar>
+            {_map(_omit(toolbar.children, ['hideOnStatic']), (child, keyCol) => {
+              return addField(child, keyCol, thisSize)
+            })}
+          </ButtonToolbar>
+        </Col>
+      </Row>
+    );
+  };
+
   const addField = (field, key, size) => {
     if (Object.prototype.hasOwnProperty.call(field, 'row')) {
       return row(field, key, size);
+    }
+
+    if (Object.prototype.hasOwnProperty.call(field, 'buttonToolbar')) {
+      return buttonToolbar(field, key, size);
     }
 
     switch (field.type) {
@@ -155,12 +191,14 @@ const InnerForm = (props) => {
         return addField(field, key, size);
       } else if (Object.prototype.hasOwnProperty.call(field, 'row')) {
         return row(field, key, size);
+      } else if (Object.prototype.hasOwnProperty.call(field, 'buttonToolbar')) {
+        return buttonToolbar(field, key, size);
       }
     });
   };
 
   const checkDisabled = (args) => {
-    if (_.isBoolean(args)) {
+    if (_isBoolean(args)) {
       return args
     } else if (_isObject(args)) {
       const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
@@ -192,18 +230,7 @@ class RenderForm extends React.Component {
       return true;
     }
 
-    let update = false;
-    if (nextProps.updateOn && nextProps.updateOn.length > 0) {
-      _map(nextProps.updateOn, (field) => {
-        const initialValue = _get(this.props, ['initialValues', field]);
-        const thisValue = _get(this.props, ['values', field]);
-        const nextValue = _get(nextProps, ['values', field]);
-        if (nextValue !== undefined && nextValue !== thisValue) {
-          update = false;
-        }
-      });
-    }
-    return update;
+    return false;
   }
 
   render() {
@@ -215,7 +242,7 @@ class RenderForm extends React.Component {
         }
         return {};
       },
-      destroyOnUnmount: _get(this.props, 'destroyOnUnmount', false),
+      destroyOnUnmount: _get(this.props, 'destroyOnUnmount', true),
     })(connect((state, form) => {
       return {
         formValues: _get(state, `${form.formReducer}.${form.name}.values`, {})
@@ -229,7 +256,6 @@ class RenderForm extends React.Component {
       formReducer={_get(this.props, 'formReducer' , 'form')}
       static={this.props.static}
       locale={this.props.locale}
-      formValues={this.props.formValues}
       onSubmit={(data, dispatch) => {
         if (Object.constructor.hasOwnProperty.call(this.props, 'onSubmit')) {
           return this.props.onSubmit(data, dispatch);
@@ -242,7 +268,6 @@ class RenderForm extends React.Component {
 RenderForm.propTypes = {
   'name': React.PropTypes.string.isRequired,
   'fields': React.PropTypes.array.isRequired,
-  'formValues': React.PropTypes.array.isRequired,
   'initialValues': React.PropTypes.object,
   'dispatch': React.PropTypes.func.isRequired,
   'onSubmit': React.PropTypes.func,

@@ -27,7 +27,7 @@
       "command": "nodemon",
       "env": {
         "NODE_ENV": "development",
-        "PORT": 3000,
+        "PORT": 3010,
         "APIPORT": 8000
       }
     }

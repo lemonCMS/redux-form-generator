@@ -20,6 +20,8 @@ class WrapList extends React.Component {
   constructor() {
     super();
     this.renderField = this.renderField.bind(this);
+    this.handlePrevent = this.handlePrevent.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.filtered = this.filtered.bind(this);
     this.radioButtons = this.radioButtons.bind(this);
     this.radioButtonList = this.radioButtonList.bind(this);
@@ -39,9 +41,7 @@ class WrapList extends React.Component {
     const {value} = this.state;
     const strValue = String(value).toLowerCase();
     if (value !== '') {
-      return _filter(options, (option) => {
-        return _includes(String(option.desc).toLowerCase(), strValue);
-      });
+      return _filter(options, (option) => _includes(String(option.desc).toLowerCase(), strValue));
     }
     return options;
   }
@@ -123,6 +123,21 @@ class WrapList extends React.Component {
         className="form-control"
       />);
     }
+  }
+
+  handlePrevent(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+  }
+
+  handleChange(e) {
+    if (e.keyCode === 13) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    this.setState({value: e.target.value});
   }
 
   renderField(props) {

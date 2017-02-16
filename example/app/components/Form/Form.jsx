@@ -121,8 +121,8 @@ const InnerForm = (props) => {
           'xs', 'xsHidden', 'xsOffset', 'xsPull', 'xsPush',
           'componentClass', 'bsClass'
         ])}>
-          <ButtonToolbar>
-            {_map(_omit(toolbar.children, ['hideOnStatic']), (child, keyCol) => {
+          <ButtonToolbar {..._pick(toolbar, ['className'])}>
+            {_map(toolbar.children, (child, keyCol) => {
               return addField(child, keyCol, thisSize)
             })}
           </ButtonToolbar>
@@ -138,6 +138,14 @@ const InnerForm = (props) => {
 
     if (Object.prototype.hasOwnProperty.call(field, 'buttonToolbar')) {
       return buttonToolbar(field, key, size);
+    }
+
+    if (field.showOnStatic && !props.static) {
+      return;
+    }
+
+    if (field.hideOnStatic && props.static) {
+      return;
     }
 
     switch (field.type) {
@@ -164,19 +172,21 @@ const InnerForm = (props) => {
       case 'react':
         return field.component();
       case 'success':
-      case 'error':
+      case 'error': {
         return (<Message locale={locale}
                          key={key}
                          field={field}
                          pristine={props.pristine}
                          dirty={props.dirty}
                          invalid={props.invalid}
-                         valid={props.valid}
+                         submitting={props.submitting}
                          submitFailed={props.submitFailed}
                          submitSucceeded={props.submitSucceeded}
                          static={props.static}
                          size={size}
+                         valid={props.valid}
         />);
+      }
       case 'datetime':
         return (<DateTime locale={locale} key={key} field={field} size={size} static={props.static}/>);
       default:
@@ -227,6 +237,10 @@ class RenderForm extends React.Component {
 
    shouldComponentUpdate(nextProps) {
     if (!_isEqual(nextProps.initialValues, this.props.initialValues)) {
+      return true;
+    }
+
+    if (_get(this.props, 'static', false) !== _get(nextProps, 'static', false)) {
       return true;
     }
 

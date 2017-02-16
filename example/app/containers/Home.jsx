@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {load} from 'reducers/store';
 import Form from '../components/Form/Form';
 import TestResource from './TestResource';
+import { SubmissionError } from 'redux-form';  // ES6
 
 @connect(
   state => ({
@@ -567,6 +568,13 @@ class Home extends React.Component {
           }}
           onSubmit={(data, dispatch) => {
             console.log('Submit data', data, dispatch);
+            const date = new Date();
+
+            if(date.getTime() % 2 === 1) {
+              console.log('Submit failed');
+              throw new SubmissionError({billing_email: 'dat klopt niet!'});
+            }
+
           }}
         />
       </div>

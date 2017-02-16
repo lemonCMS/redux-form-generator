@@ -18,7 +18,7 @@ class Complex extends React.Component {
     this.renderComplex = this.renderComplex.bind(this);
     this.renderChildren = this.renderChildren.bind(this);
     this.state = {
-      collapsed: false
+      collapsed: null
     };
   }
 
@@ -109,17 +109,21 @@ class Complex extends React.Component {
 
     const toggle = () => {
       let state = false;
-      if (this.state.collapsed === false) {
+      if (this.state.collapsed === null) {
+        state = (this.props.field.collapsed && this.props.field.collapsed === true ? false : true);
+      }
+      else if (this.state.collapsed === false) {
         state = true;
       }
-      const complexName = `${name}_collapsed`;
+      const complexName = `${fields.name}_collapsed`;
 
       this.setState({'collapsed': state}, () => {
         dispatch(change(this.props.formName, complexName, state));
       });
     };
 
-    if (this.state.collapsed === true) {
+    if (this.state.collapsed === true || (this.state.collapsed === null && this.props.field.collapsed && this.props.field.collapsed === true)) {
+      const complexName = `${fields.name}_collapsed`;
       return (
         <Row className="rfg-cmplx rfg-cmplx-collapsed">
           <Col componentClass={ControlLabel} {...labelSize()}>

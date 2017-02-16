@@ -73,46 +73,65 @@ class WrapPlupload extends React.Component {
       this.setState({changed: Date.now()}, () => {
         this.input.onBlur();
         this.input.onChange(allFiles);
+        this.forceUpdate();
       });
     };
 
     const staticForm = _get(this.props, 'static', false);
 
-    const delCol = (key) => {
-      if (staticForm === false) {
-        return (
-          <td>
-            <Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button>
-          </td>
-        );
-      }
-    };
-
-    const renderTable = () => {
-      const files = _filter(input.value, file => { return !file.deleted; });
+    const editRender = (files) => {
       if (files.length > 0) {
         return (
           <Table striped bordered condensed hover>
             <thead>
             <tr>
               <th>Bestand</th>
-              {staticForm === false ? <th></th> : ''}
+              <th></th>
             </tr>
             </thead>
             <tbody>
-            {_map(input.value, (file, key) => {
-              if (!file.deleted) {
-                return (
-                  <tr key={key}>
-                    <td>{file.file_original_name} {file.deleted}</td>
-                    {delCol(key)}
-                  </tr>
-                );
-              }
-            })}
+            { _map(input.value, (file, key) => (!file.deleted &&
+                <tr key={key}>
+                  <td>{file.file_original_name} {file.deleted}</td>
+                  <td>
+                    <Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button>
+                  </td>
+                </tr>
+              )
+            )}
             </tbody>
           </Table>
         );
+      }
+
+    };
+
+    const staticRender = (files) => {
+      if (files.length > 0) {
+        return (
+          <Table striped bordered condensed hover>
+            <thead>
+            <tr>
+              <th>Bestand</th>
+            </tr>
+            </thead>
+            <tbody>
+            { _map(files, (file, key) => (!file.deleted &&
+                <tr key={key}>
+                  <td>{file.file_original_name} {file.deleted}</td>
+                </tr>
+              )
+            )}
+            </tbody>
+          </Table>
+        );
+      }
+    };
+
+    const renderTable = () => {
+      const files = _filter(allFiles, file => { return !file.deleted; });
+      if (files.length > 0) {
+        return staticForm ? staticRender(files) : editRender(files);
       }
     };
 

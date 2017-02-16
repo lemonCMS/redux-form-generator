@@ -10,9 +10,11 @@ import _isEqual from 'lodash/isEqual';
 import _isBoolean from 'lodash/isBoolean';
 import _isString from 'lodash/isString';
 import _isObject from 'lodash/isObject';
+import _pick from 'lodash/pick';
 import Form from 'react-bootstrap/lib/Form';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
+import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import {connect} from 'react-redux';
 import {reduxForm} from 'redux-form';
 import Input from './Types/Input';
@@ -99,9 +101,51 @@ const InnerForm = (props) => {
     );
   };
 
+  const buttonToolbar = (field, key, size) => {
+    const toolbar = field.buttonToolbar;
+    const thisSize = _get(toolbar, 'bsSize', size);
+    // Hide fields that are only visible in static mode
+    if (!props.static && !!toolbar.showOnStatic) {
+      return false;
+    }
+    // Hide fields that are only visible in edit mode
+    if (!!props.static && !!toolbar.hideOnStatic) {
+      return false;
+    }
+
+    return (
+      <Row key={key}>
+        <Col {..._pick(toolbar, ['lg', 'lgHidden', 'lgOffset', 'lgPull', 'lgPush',
+          'md', 'mdHidden', 'mdOffset', 'mdPull', 'mdPush',
+          'sm', 'smHidden', 'smOffset', 'smPull', 'smPush',
+          'xs', 'xsHidden', 'xsOffset', 'xsPull', 'xsPush',
+          'componentClass', 'bsClass'
+        ])}>
+          <ButtonToolbar {..._pick(toolbar, ['className'])}>
+            {_map(toolbar.children, (child, keyCol) => {
+              return addField(child, keyCol, thisSize)
+            })}
+          </ButtonToolbar>
+        </Col>
+      </Row>
+    );
+  };
+
   const addField = (field, key, size) => {
     if (Object.prototype.hasOwnProperty.call(field, 'row')) {
       return row(field, key, size);
+    }
+
+    if (Object.prototype.hasOwnProperty.call(field, 'buttonToolbar')) {
+      return buttonToolbar(field, key, size);
+    }
+
+    if (field.showOnStatic && !props.static) {
+      return;
+    }
+
+    if (field.hideOnStatic && props.static) {
+      return;
     }
 
     switch (field.type) {
@@ -128,19 +172,21 @@ const InnerForm = (props) => {
       case 'react':
         return field.component();
       case 'success':
-      case 'error':
+      case 'error': {
         return (<Message locale={locale}
                          key={key}
                          field={field}
                          pristine={props.pristine}
                          dirty={props.dirty}
                          invalid={props.invalid}
-                         valid={props.valid}
+                         submitting={props.submitting}
                          submitFailed={props.submitFailed}
                          submitSucceeded={props.submitSucceeded}
                          static={props.static}
                          size={size}
+                         valid={props.valid}
         />);
+      }
       case 'datetime':
         return (<DateTime locale={locale} key={key} field={field} size={size} static={props.static}/>);
       default:
@@ -155,6 +201,8 @@ const InnerForm = (props) => {
         return addField(field, key, size);
       } else if (Object.prototype.hasOwnProperty.call(field, 'row')) {
         return row(field, key, size);
+      } else if (Object.prototype.hasOwnProperty.call(field, 'buttonToolbar')) {
+        return buttonToolbar(field, key, size);
       }
     });
   };
@@ -189,6 +237,10 @@ class RenderForm extends React.Component {
 
    shouldComponentUpdate(nextProps) {
     if (!_isEqual(nextProps.initialValues, this.props.initialValues)) {
+      return true;
+    }
+
+    if (_get(this.props, 'static', false) !== _get(nextProps, 'static', false)) {
       return true;
     }
 

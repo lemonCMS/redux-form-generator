@@ -2,8 +2,6 @@ import React from 'react';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import _clone from 'lodash/clone';
-import _isEmpty from 'lodash/isEmpty';
-import _find from 'lodash/find';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
 import _isEqual from 'lodash/isEqual';
@@ -30,6 +28,7 @@ import Message from './Types/Message';
 import Complex from './Types/Complex';
 import Plain from './Types/Plain';
 import locales from './locales';
+import Pending from './Pending';
 
 let locale = {};
 
@@ -228,14 +227,16 @@ const InnerForm = (props) => {
 
   return (
     <Form onSubmit={handleSubmit} horizontal>
-      {fields()}
+      <Pending pending={props.submitting}>
+        {fields()}
+      </Pending>
     </Form>
   );
 };
 
 class RenderForm extends React.Component {
 
-   shouldComponentUpdate(nextProps) {
+  shouldComponentUpdate(nextProps) {
     if (!_isEqual(nextProps.initialValues, this.props.initialValues)) {
       return true;
     }
@@ -250,13 +251,13 @@ class RenderForm extends React.Component {
   render() {
     const DynForm = reduxForm({
       form: this.props.name, // a unique identifier for this form
-      validate: (values)=> {
+      validate: (values) => {
         if (_has(this.props, 'validate')) {
           return this.props.validate(values);
         }
         return {};
       },
-      destroyOnUnmount: _get(this.props, 'destroyOnUnmount', true),
+      destroyOnUnmount: (this.props.destroyOnUnmount && this.props.destroyOnUnmount === true),
     })(connect((state, form) => {
       return {
         formValues: _get(state, `${form.formReducer}.${form.name}.values`, {})
@@ -267,7 +268,7 @@ class RenderForm extends React.Component {
       dispatch={this.props.dispatch}
       initialValues={this.props.initialValues}
       name={this.props.name}
-      formReducer={_get(this.props, 'formReducer' , 'form')}
+      formReducer={_get(this.props, 'formReducer', 'form')}
       static={this.props.static}
       locale={this.props.locale}
       onSubmit={(data, dispatch) => {
@@ -285,7 +286,7 @@ RenderForm.propTypes = {
   'initialValues': React.PropTypes.object,
   'dispatch': React.PropTypes.func.isRequired,
   'onSubmit': React.PropTypes.func,
-  'updateOn': React.PropTypes.array,
+  'validate': React.PropTypes.func,
   'static': React.PropTypes.bool,
   'destroyOnUnmount': React.PropTypes.bool,
   'locale': React.PropTypes.oneOfType([
@@ -296,7 +297,7 @@ RenderForm.propTypes = {
 
 
 export default connect(() => ({})
-, (dispatch) => {
-  return {dispatch};
-})(RenderForm);
+  , (dispatch) => {
+    return {dispatch};
+  })(RenderForm);
 

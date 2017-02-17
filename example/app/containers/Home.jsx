@@ -556,9 +556,9 @@ class Home extends React.Component {
           initialValues={{
             billing_other: 0,
             plupload: [
-              {file_original_name: 'fiel 1'},
-              {file_original_name: 'fiel 2'},
-              {file_original_name: 'fiel 3'}
+              {file_original_name: 'field 1'},
+              {file_original_name: 'field 2'},
+              {file_original_name: 'field 3'}
             ]
           }}
           validate={(data) => {
@@ -567,14 +567,15 @@ class Home extends React.Component {
             };
           }}
           onSubmit={(data, dispatch) => {
-            console.log('Submit data', data, dispatch);
-            const date = new Date();
+            const sleep = ms => new Promise(resolve => setTimeout(resolve, ms))
 
-            if(date.getTime() % 2 === 1) {
-              console.log('Submit failed');
-              throw new SubmissionError({billing_email: 'dat klopt niet!'});
-            }
-
+            return sleep(3000).then(() => {
+              const date = new Date();
+              if (date.getTime() % 2 === 1) {
+                console.log('Submit failed');
+                throw new SubmissionError({billing_email: 'dat klopt niet!'});
+              }
+            });
           }}
         />
       </div>

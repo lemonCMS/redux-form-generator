@@ -123,6 +123,7 @@ class Complex extends React.Component {
     };
 
     if (this.state.collapsed === true || (this.state.collapsed === null && this.props.field.collapsed && this.props.field.collapsed === true)) {
+      const complexName = `${fields.name}_collapsed`;
       return (
         <Row className="rfg-cmplx rfg-cmplx-collapsed">
           <Col componentClass={ControlLabel} {...labelSize()}>

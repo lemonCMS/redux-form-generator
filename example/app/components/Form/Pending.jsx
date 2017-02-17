@@ -1,5 +1,7 @@
 import React, {Component, PropTypes} from 'react';
 
+const css = require('./pending.css');
+
 class Pending extends Component {
 
   constructor() {
@@ -8,13 +10,11 @@ class Pending extends Component {
   }
 
   pending() {
-    if (Object.prototype.hasOwnProperty.call(this.props, 'state') && this.props.state === true) {
+    if (this.props.pending === true) {
       return ([
-        <div key="1" className="pendingOverlayBackground" />,
-        (<div key="2" className="pendingOverlayContent">
-          <div className="pendingOverLayTable">
-            <i className="fa fa-spinner fa-pulse" />
-          </div>
+        <div key="1" className={css.pendingOverlayBackground} />,
+        (<div key="2" className={css.pendingOverlayContent}>
+          <i className="fa fa-spinner fa-pulse" />
         </div>)
       ]);
     }
@@ -22,7 +22,7 @@ class Pending extends Component {
 
   render() {
     return (
-      <div className="pendingWrapper">
+      <div className={css.pendingWrapper}>
         {this.pending()}
         {this.props.children}
       </div>
@@ -31,7 +31,7 @@ class Pending extends Component {
 }
 
 Pending.propTypes = {
-  state: PropTypes.bool,
+  pending: PropTypes.bool.isRequired,
   children: React.PropTypes.oneOfType([
     PropTypes.object.isRequired,
     PropTypes.array.isRequired

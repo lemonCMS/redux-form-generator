@@ -36,7 +36,7 @@ class Complex extends React.Component {
                     disabled={disabled}
                     type="button"
             >
-              <i className="fa fa-chevron-up"/>
+              <i className="fa fa-chevron-up" />
             </Button>
           );
         }
@@ -49,7 +49,7 @@ class Complex extends React.Component {
                     disabled={disabled}
                     type="button"
             >
-              <i className="fa fa-chevron-down"/>
+              <i className="fa fa-chevron-down" />
             </Button>
           );
         }
@@ -90,8 +90,14 @@ class Complex extends React.Component {
   }
 
   renderComplex(props) {
-    const {fields, name, dispatch, removeBtn, addBtn, size, label, children, meta: {touched, error}} = props;
+    const {fields, name, locale, dispatch, removeBtn, addBtn, size, label, children, meta: {touched, error}} = props;
     const staticField = props.static;
+
+    const thisSize = () => {
+      if (size !== 'medium') {
+        return ({bsSize: size});
+      }
+    };
 
     const labelSize = () => {
       if (_has(this.props.field, 'labelSize')) {
@@ -111,8 +117,7 @@ class Complex extends React.Component {
       let state = false;
       if (this.state.collapsed === null) {
         state = (this.props.field.collapsed && this.props.field.collapsed === true ? false : true);
-      }
-      else if (this.state.collapsed === false) {
+      } else if (this.state.collapsed === false) {
         state = true;
       }
       const complexName = `${fields.name}_collapsed`;
@@ -123,12 +128,13 @@ class Complex extends React.Component {
     };
 
     if (this.state.collapsed === true || (this.state.collapsed === null && this.props.field.collapsed && this.props.field.collapsed === true)) {
-      const complexName = `${fields.name}_collapsed`;
       return (
         <Row className="rfg-cmplx rfg-cmplx-collapsed">
           <Col componentClass={ControlLabel} {...labelSize()}>
-            <button type="button" onClick={toggle} className="btn btn-link">+</button>
-            {label}
+            <Button type="button" onClick={toggle} bsStyle="link" {...thisSize()}>
+              {'+ '}
+              {label}
+            </Button>
           </Col>
         </Row>
       );
@@ -139,11 +145,38 @@ class Complex extends React.Component {
       disabled = this.props.checkDisabled(this.props.field.disabled());
     }
 
+
+    const renderAddButton = () => {
+      if (_get(this.props.field, 'multiple', true) === true || fields.length === 0 ) {
+        const bsStyle = () => {
+          if (_get(addBtn, 'bsStyle') && _get(addBtn, 'bsStyle') !== 'default') {
+            return ({bsStyle: _get(addBtn, 'bsStyle')});
+          }
+        };
+        return (
+          <div className="rfg-cmplx-btn-add">
+            {staticField !== true && <Button type="button"
+                                             onClick={() => fields.push({})}
+                                             disabled={disabled}
+                                             {...thisSize()}
+                                             {...bsStyle()}
+                                             className={_get(addBtn, 'className')}
+            >
+              {_get(addBtn, 'label', locale.complex.buttonAdd)}</Button>
+            }
+            {touched && error && <span>{error}</span>}
+          </div>
+        );
+      }
+    };
+
     return (
       <Row className="rfg-cmplx rfg-cmplx-collapsed">
         <Col componentClass={ControlLabel} {...labelSize()}>
-          <button type="button" onClick={toggle} className="btn btn-link">-</button>
-          {label}
+          <Button type="button" onClick={toggle} bsStyle="link" {...thisSize()}>
+            {'- '}
+            {label}
+          </Button>
         </Col>
         <Col {...fieldSize()}>
           {fields.map((field, key) => {
@@ -153,16 +186,7 @@ class Complex extends React.Component {
               </div>
             );
           })}
-          <div className="rfg-cmplx-btn-add">
-            {staticField !== true && <button type="button"
-                                             onClick={() => fields.push({})}
-                                             disabled={disabled}
-                                             className={'btn ' + _get(this.props.field.addBtn, 'className', 'btn-default')}
-            >
-              {addBtn.label}</button>
-            }
-            {touched && error && <span>{error}</span>}
-          </div>
+          {renderAddButton()}
         </Col>
       </Row>
     );

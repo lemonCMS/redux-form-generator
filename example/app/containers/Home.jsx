@@ -212,10 +212,11 @@ class Home extends React.Component {
                 name: 'costs',
                 type: 'complex',
                 label: 'Beschikbare types en prijzen',
+                bsSize: 'xsmall',
                 panel: {
                   header: 'Header'
                 },
-                addBtn: {label: 'Model type toevoegen'},
+                addBtn: {bsStyle: 'success'},
                 removeBtn: {
                   bsStyle: 'danger',
                   bsSize: 'xsmall'

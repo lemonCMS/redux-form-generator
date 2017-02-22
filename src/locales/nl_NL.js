@@ -12,5 +12,8 @@ export default {
   },
   'resource': {
     'buttonOpen': 'Open'
+  },
+  'complex': {
+    'buttonAdd': 'Toevoegen'
   }
 };

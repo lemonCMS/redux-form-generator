@@ -34,17 +34,16 @@ let locale = {};
 
 const InnerForm = (props) => {
   const {handleSubmit} = props;
-
   if (typeof props.locale === 'string') {
     if (!locales[props.locale]) {
       console.warn(`Redux form generator locale ${props.locale} not implemented`);
     } else {
       locale = locales[props.locale];
     }
-  }
-
-  if (typeof props.locale === 'object') {
+  } else if (typeof props.locale === 'object') {
     locale = props.locale;
+  } else {
+    locale = locales['en_US'];
   }
 
   const col = (cols, size, parent) => {

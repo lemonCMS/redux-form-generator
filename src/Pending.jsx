@@ -1,20 +1,47 @@
 import React, {Component, PropTypes} from 'react';
 
-const css = require('./pending.css');
-
 class Pending extends Component {
 
   constructor() {
     super();
     this.pending = this.pending.bind(this);
+    this.css = {
+      pendingWrapper: {
+        position: 'relative'
+      },
+      pendingOverlayBackground: {
+        position: 'absolute',
+        top: '0px',
+        right: '0px',
+        bottom: '0px',
+        left: '0px',
+        backgroundColor: '#fff',
+        opacity: '0.2',
+        zIndex: '999'
+      },
+      pendingOverlayContent: {
+        position: 'absolute',
+        top: '0px',
+        right: '0px',
+        bottom: '0px',
+        left: '0px',
+        color: '#333',
+        zIndex: '1000',
+      },
+      pendingOverlayContentCentered: {
+        textAlign: 'center'
+      }
+    };
   }
 
   pending() {
     if (this.props.pending === true) {
       return ([
-        <div key="1" className={css.pendingOverlayBackground} />,
-        (<div key="2" className={css.pendingOverlayContent}>
-          <i className="fa fa-spinner fa-pulse" />
+        <div key="1" style={this.css.pendingOverlayBackground} />,
+        (<div key="2" style={this.css.pendingOverlayContent}>
+          <div style={this.css.pendingOverlayContentCentered}>
+            <i className="fa fa-spinner fa-pulse" />
+          </div>
         </div>)
       ]);
     }
@@ -22,7 +49,7 @@ class Pending extends Component {
 
   render() {
     return (
-      <div className={css.pendingWrapper}>
+      <div style={this.css.pendingWrapper}>
         {this.pending()}
         {this.props.children}
       </div>

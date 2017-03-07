@@ -3,7 +3,6 @@ static/admin
 static/css/admin
 static/img
 node_modules/
-lib/*
 dist/
 *.iml
 webpack-stats.json

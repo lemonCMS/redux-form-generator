@@ -1,0 +1,1 @@
+.pendingWrapper{position:relative}.pendingOverlayBackground{position:absolute;top:0;right:0;bottom:0;left:0;background-color:#fff;opacity:.2;z-index:999}.pendingOverlayContent{position:absolute;top:0;right:0;bottom:0;left:0;color:#333;z-index:1000}.pendingOverlayContent .centered{text-align:center}

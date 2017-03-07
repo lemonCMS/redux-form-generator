@@ -256,7 +256,7 @@ class RenderForm extends React.Component {
         }
         return {};
       },
-      destroyOnUnmount: (this.props.destroyOnUnmount && this.props.destroyOnUnmount === true),
+      destroyOnUnmount: (_get(this.props, 'destroyOnUnmount', true)),
     })(connect((state, form) => {
       return {
         formValues: _get(state, `${form.formReducer}.${form.name}.values`, {})

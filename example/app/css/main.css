@@ -1,0 +1,31 @@
+@import './settings.css';
+@import './common/layout.css';
+@import './common/typography.css';
+@import url(https://fonts.googleapis.com/css?family=Montserrat:400,700);
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fontMontserrat);
+}
+
+.app {
+  @apply --box;
+  height: 100%;
+  font-weight: normal;
+  font-smoothing: antialiased;
+}
+
+/* Add your global styles below... */
+
+/* ex:
+
+:global {
+  & .red { color: red; }
+  & .blue { color: blue; }
+}
+
+*/

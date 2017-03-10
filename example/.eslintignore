@@ -1,4 +1,6 @@
-webpack/*
+/compiled/**
+/public/**
+/webpack/**
 karma.conf.js
 tests.webpack.js
-node_modules/*
+/api/promiseMiddleware.js

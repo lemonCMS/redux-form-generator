@@ -1,19 +1,10 @@
 {
-  "name": "react-redux-universal-hot-example",
-  "description": "Example of an isomorphic (universal) webapp using react redux and hot reloading",
-  "repository": "https://github.com/erikras/react-redux-universal-hot-example",
-  "logo": "http://node-js-sample.herokuapp.com/node.svg",
-  "keywords": [
-    "react",
-    "isomorphic",
-    "universal",
-    "webpack",
-    "express",
-    "hot reloading",
-    "react-hot-reloader",
-    "redux",
-    "starter",
-    "boilerplate",
-    "babel"
+  "name": "React Node Express Mongo",
+  "description": "A barebones Node.js app using Express 4 with MongoDB, and ReactJS in Flux, using Webpack as a module bundler",
+  "repository": "https://github.com/choonkending/react-webpack-node",
+  "logo": "https://node-js-sample.herokuapp.com/node.svg",
+  "keywords": ["node", "express", "static", "react", "webpack", "mongodb"],
+  "addons" : [
+  	"mongolab"
   ]
 }

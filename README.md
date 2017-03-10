@@ -1,5 +1,21 @@
-#redux-form-generator
-Generate forms in your application.
+#redux-form-generator V6 for redux-form v6
+Generate bootstrap-form in your react application by providing json.
+
+Version 6 is build from the ground up, so you know features are missing ;) 
+
+
+#Migration 
+V0.1.x -> V6.x.x
+  - Added property hortzontal (bool)
+  - Renamed property fieldsNeeded -> fields (json)
+  - Renamed property formName -> name (string)
+  - Renamed Field radio/checkbox property searchable -> filter (bool) 
+  - Removed property checkKey
+  - Removed property formKey
+  - Removed property getActionState
+  - Removed property clearActionState
+  - Removed property formClass
+
 
 #Warning
 Breaking changes
@@ -65,16 +81,13 @@ Put in your react render component the following code
 
 ````jsx
 <DynamicForm
-	checkKey={'userEdit'} <-- Very important, this needs to be a unique and always the same
-	formName="userEdit" <-- Name of your store 
-	formKey="formkey" <-- (optional) redux formKey fort multiple forms
-	formClass="form-horizontal" <-- Bootstrap className 
-	fieldsNeeded={fields()} <-- The field const function
-	static <-- Then shows the with FormControls.Static from react-bootstrap
+	name="userEdit" <-- Name of your store 
+	horizontal <-- Display fthe form horizontal  
+	fields={fields()} <-- The field const function
+	static <-- Show text version
 	initialValues={{}} <-- Pass the initial values from your store 
 	onSubmit={this.handleSubmit} <-- The submit function in your component to handle submit
-	getActionState={this.getActionState} <-- (optional) Used to check the state of your reducer
-	clearActionState={this.clearActionState} <-- (optional) Clear the action state before submitting
+	validate={(data) => { return {} }} <--Validation rules
 />
 ````
 
@@ -184,7 +197,7 @@ Put in your react render component the following code
     {value: 5, desc: 'Value 5'}
   ],
   chunks: 3,
-  searchable: true
+  filter: true
 }
 ````
 ##Checkbox
@@ -209,33 +222,7 @@ Put in your react render component the following code
     {value: 5, desc: 'Value 5'}
   ],
   chunks: 3,
-  searchable: true
-}
-````
-
-##CheckboxiOs
-````js
-{
-  name: 'field_6_2',
-  label: 'Field 6.2',
-  type: 'checkboxListiOs',
-  bsSize: 'large',
-  placeholder: 'Field 6',
-  labelSize: {
-    md: 2
-  },
-  fieldSize: {
-    md: 10
-  },
-  options: [
-    {value: '1', desc: 'Value 1'},
-    {value: '2', desc: 'Value 2'},
-    {value: '3', desc: 'Value 3'},
-    {value: '4', desc: 'Value 4'},
-    {value: '5', desc: 'Value 5'}
-  ],
-  chunks: 3,
-  searchable: true
+  filter: true
 }
 ````
 
@@ -369,7 +356,7 @@ Show this message when the form has been succesfully send.
 {
   type: 'success',
   message: 'The form has been send'
-},
+}
 ````
 
 #Error
@@ -378,11 +365,53 @@ Show this message when there are errors
 {
   type: 'error',
   message: 'There are errors, please check the form.'
-},
+}
 ````
 
 ##Misc
-Howto on how to implement your submit button and messages
+Display multiple fields in one row
+````js
+row: {
+  col: [
+    {
+      md: 4,
+      children: [
+        {
+          name: 'plain',
+          type: 'plain',
+          value: '<div class="pull-right">Name*</div>'
+        }
+      ]
+    },
+    {
+      md: 3,
+      children: [
+        {
+          name: 'firstname',
+          type: 'text',
+          placeholder: 'Firstname',
+          fieldSize: {md: 12}
+        }
+      ]
+    },
+    {
+      md: 5,
+      children: [
+        {
+          name: 'lastname',
+          type: 'text',
+          placeholder: 'Lastname',
+          fieldSize: {md: 12}
+        }
+      ]
+    },
+  ]
+}
+````
+
+
+
+Display messaged in your own grid layout.
 ````js
 {
       row: {

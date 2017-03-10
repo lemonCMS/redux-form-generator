@@ -431,7 +431,7 @@ Display messaged in your own grid layout.
 
 #Dependecies
 - [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap)
-- [react-bootstrap-datetimepicker](https://github.com/quri/react-bootstrap-datetimepicker)
+- [react-datetime](https://github.com/YouCanBookMe/react-datetime)
 - [react-tinymce](https://github.com/instructure-react/react-tinymce)
 - [react-plupload](https://www.npmjs.com/package/react-plupload)
 

@@ -67,7 +67,7 @@ class WrapList extends React.Component {
           value={option.value}
           checked={String(this.input.value) === String(option.value)}
           onChange={event => {
-            if(event.target.checked) {
+            if (event.target.checked) {
               return this.input.onChange(option.value);
             }
           }}
@@ -91,7 +91,7 @@ class WrapList extends React.Component {
     if (!!field.chunks) {
       const split = Math.ceil(filtered.length / field.chunks);
       const chunks = () => {
-        const chunkData = _chunk(filtered, split );
+        const chunkData = _chunk(filtered, split);
         return _map(chunkData, (chunk, key) => {
           return (
             <Col key={key} md={ Math.round(12 / field.chunks) }>
@@ -154,14 +154,18 @@ class WrapList extends React.Component {
       if (_has(this.props.field, 'labelSize')) {
         return this.props.field.labelSize;
       }
-      return {sm: 2};
+      if (this.props.horizontal) {
+        return {sm: 2};
+      }
     };
 
     const fieldSize = () => {
       if (_has(this.props.field, 'fieldSize')) {
         return this.props.field.fieldSize;
       }
-      return {sm: 10};
+      if (this.props.horizontal) {
+        return {sm: 10};
+      }
     };
 
     const validationState = () => {
@@ -199,11 +203,11 @@ class WrapList extends React.Component {
 }
 
 WrapList.propTypes = {
-  'dispatch': React.PropTypes.dispatch,
   'field': React.PropTypes.object,
   'size': React.PropTypes.string,
   'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object
+  'locale': React.PropTypes.object,
+  'horizontal': React.PropTypes.bool.isRequired
 };
 WrapList.defaultProps = {};
 

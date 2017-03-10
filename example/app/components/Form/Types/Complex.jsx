@@ -36,7 +36,7 @@ class Complex extends React.Component {
                     disabled={disabled}
                     type="button"
             >
-              <i className="fa fa-chevron-up" />
+              <i className="fa fa-chevron-up"/>
             </Button>
           );
         }
@@ -49,7 +49,7 @@ class Complex extends React.Component {
                     disabled={disabled}
                     type="button"
             >
-              <i className="fa fa-chevron-down" />
+              <i className="fa fa-chevron-down"/>
             </Button>
           );
         }
@@ -62,7 +62,7 @@ class Complex extends React.Component {
                   disabled={disabled}
                   type="button"
           >
-            <i className="fa fa-trash" />
+            <i className="fa fa-trash"/>
           </Button>
         );
       }
@@ -103,14 +103,18 @@ class Complex extends React.Component {
       if (_has(this.props.field, 'labelSize')) {
         return this.props.field.labelSize;
       }
-      return {sm: 2};
+      if (this.props.horizontal) {
+        return {sm: 2};
+      }
     };
 
     const fieldSize = () => {
       if (_has(this.props.field, 'fieldSize')) {
         return this.props.field.fieldSize;
       }
-      return {sm: 10};
+      if (this.props.horizontal) {
+        return {sm: 10};
+      }
     };
 
     const toggle = () => {
@@ -147,7 +151,7 @@ class Complex extends React.Component {
 
 
     const renderAddButton = () => {
-      if (_get(this.props.field, 'multiple', true) === true || fields.length === 0 ) {
+      if (_get(this.props.field, 'multiple', true) === true || fields.length === 0) {
         const bsStyle = () => {
           if (_get(addBtn, 'bsStyle') && _get(addBtn, 'bsStyle') !== 'default') {
             return ({bsStyle: _get(addBtn, 'bsStyle')});
@@ -219,7 +223,8 @@ Complex.propTypes = {
   'field': React.PropTypes.object,
   'formName': React.PropTypes.string,
   'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object
+  'locale': React.PropTypes.object,
+  'horizontal': React.PropTypes.bool.isRequired
 };
 Complex.defaultProps = {};
 

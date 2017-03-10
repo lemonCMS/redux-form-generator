@@ -33,14 +33,18 @@ class WrapRte extends React.Component {
       if (_has(this.props.field, 'labelSize')) {
         return this.props.field.labelSize;
       }
-      return {sm: 2};
+      if (this.props.horizontal) {
+        return {sm: 2};
+      }
     };
 
     const fieldSize = () => {
       if (_has(this.props.field, 'fieldSize')) {
         return this.props.field.fieldSize;
       }
-      return {sm: 10};
+      if (this.props.horizontal) {
+        return {sm: 10};
+      }
     };
 
     const add = _pick(custom, ['placeholder', 'rows', 'cols', 'conf']);
@@ -58,8 +62,6 @@ class WrapRte extends React.Component {
           <samp className="tiny_mce_static" dangerouslySetInnerHTML={createMarkup(input.value)}/>
         );
       }
-
-
 
       return (<TinyMCE
         content={input.value}
@@ -108,7 +110,8 @@ WrapRte.propTypes = {
   'field': React.PropTypes.object,
   'size': React.PropTypes.string,
   'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object
+  'locale': React.PropTypes.object,
+  'horizontal': React.PropTypes.bool.isRequired
 };
 WrapRte.defaultProps = {};
 

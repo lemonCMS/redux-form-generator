@@ -1,12 +1,12 @@
 
 :root {
 
-  --fontMontserrat:           'Montserrat', Helvetica, Arial, sans-serif;
+  --fontMontserrat: 'Montserrat', Helvetica, Arial, sans-serif;
 
-  --fontSmall:                12px;
-  --fontMedium:               16px;
-  --fontLarge:                21px;
-  --fontHuge:                 28px;
+  --fontSmall: 12px;
+  --fontMedium: 16px;
+  --fontLarge: 21px;
+  --fontHuge: 28px;
 
   --heading {
     font-size: 28px;

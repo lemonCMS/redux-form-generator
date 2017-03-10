@@ -45,7 +45,7 @@ class WrapPlupload extends React.Component {
 
     const addedFiles = (plupload, files) => {
       const fileList = [];
-      _map(files, (file)=> {
+      _map(files, (file) => {
         fileList.push(file.name);
       });
     };
@@ -94,7 +94,9 @@ class WrapPlupload extends React.Component {
                 <tr key={key}>
                   <td>{file.file_original_name} {file.deleted}</td>
                   <td>
-                    <Button onClick={() => { fileDelete(key); }}><i className="fa fa-trash-o"></i></Button>
+                    <Button onClick={() => {
+                      fileDelete(key);
+                    }}><i className="fa fa-trash-o"></i></Button>
                   </td>
                 </tr>
               )
@@ -129,7 +131,9 @@ class WrapPlupload extends React.Component {
     };
 
     const renderTable = () => {
-      const files = _filter(allFiles, file => { return !file.deleted; });
+      const files = _filter(allFiles, file => {
+        return !file.deleted;
+      });
       if (files.length > 0) {
         return staticForm ? staticRender(files) : editRender(files);
       }
@@ -145,14 +149,18 @@ class WrapPlupload extends React.Component {
       if (_has(this.props.field, 'labelSize')) {
         return this.props.field.labelSize;
       }
-      return {sm: 2};
+      if (this.props.horizontal) {
+        return {sm: 2};
+      }
     };
 
     const fieldSize = () => {
       if (_has(this.props.field, 'fieldSize')) {
         return this.props.field.fieldSize;
       }
-      return {sm: 10};
+      if (this.props.horizontal) {
+        return {sm: 10};
+      }
     };
 
     const component = () => {
@@ -211,12 +219,10 @@ class WrapPlupload extends React.Component {
 }
 
 WrapPlupload.propTypes = {
-  'dispatch': React.PropTypes.func,
   'field': React.PropTypes.object,
-  'input': React.PropTypes.object,
   'size': React.PropTypes.string,
   'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object
+  'horizontal': React.PropTypes.bool.isRequired
 };
 WrapPlupload.defaultProps = {};
 

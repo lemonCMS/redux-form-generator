@@ -1,8 +1,8 @@
 :root {
 
-  --globalRadius:             4px;
+  --globalRadius: 4px;
 
-  --ViewTransitionIn:         opacity .4s ease-in;
-  --ViewTransitionOut:        opacity .1s ease-out;
+  --ViewTransitionIn: opacity .4s ease-in;
+  --ViewTransitionOut: opacity .1s ease-out;
 
 }

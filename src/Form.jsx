@@ -148,24 +148,24 @@ const InnerForm = (props) => {
 
     switch (field.type) {
       case 'resource':
-        return (<Resource locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static}/>);
+        return (<Resource locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
       case 'checkbox':
-        return (<Checkbox locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static}/>);
+        return (<Checkbox locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
       case 'plupload':
-        return (<Plupload locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static}/>);
+        return (<Plupload locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
       case 'select':
-        return (<Select locale={locale} key={key} field={field} size={size} static={props.static}/>);
+        return (<Select locale={locale} key={key} field={field} size={size} static={props.static} horizontal={props.horizontal}/>);
       case 'radio':
-        return (<Radio locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static}/>);
+        return (<Radio locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
       case 'complex':
-        return (<Complex locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} addField={addField} formName={props.name} static={props.static}/>);
+        return (<Complex locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} addField={addField} formName={props.name} static={props.static} horizontal={props.horizontal}/>);
       case 'submit':
       case 'button':
-        return (<Button locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static}/>);
+        return (<Button locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
       case 'rte':
-        return (<Rte locale={locale} key={key} field={field} size={size} static={props.static}/>);
+        return (<Rte locale={locale} key={key} field={field} size={size} static={props.static} horizontal={props.horizontal}/>);
       case 'plain':
-        return (<Plain key={key} field={field} size={size}/>);
+        return (<Plain key={key} field={field} size={size} horizontal={props.horizontal}/>);
       case 'jsx':
       case 'react':
         return field.component();
@@ -183,12 +183,13 @@ const InnerForm = (props) => {
                          static={props.static}
                          size={size}
                          valid={props.valid}
+                         horizontal={props.horizontal}
         />);
       }
       case 'datetime':
-        return (<DateTime locale={locale} key={key} field={field} size={size} static={props.static}/>);
+        return (<DateTime locale={locale} key={key} field={field} size={size} static={props.static} horizontal={props.horizontal}/>);
       default:
-        return (<Input checkDisabled={checkDisabled} locale={locale} key={key} field={field} size={size} addField={addField} static={props.static}/>);
+        return (<Input checkDisabled={checkDisabled} locale={locale} key={key} field={field} size={size} addField={addField} static={props.static} horizontal={props.horizontal}/>);
     }
   };
 
@@ -225,7 +226,7 @@ const InnerForm = (props) => {
   }
 
   return (
-    <Form onSubmit={handleSubmit} horizontal>
+    <Form onSubmit={handleSubmit} horizontal={props.horizontal}>
       <Pending pending={props.submitting}>
         {fields()}
       </Pending>
@@ -264,6 +265,7 @@ class RenderForm extends React.Component {
     })(InnerForm));
     return (<DynForm
       fields={this.props.fields}
+      horizontal={this.props.horizontal || false}
       dispatch={this.props.dispatch}
       initialValues={this.props.initialValues}
       name={this.props.name}
@@ -281,6 +283,7 @@ class RenderForm extends React.Component {
 
 RenderForm.propTypes = {
   'name': React.PropTypes.string.isRequired,
+  'horizontal': React.PropTypes.bool,
   'fields': React.PropTypes.array.isRequired,
   'initialValues': React.PropTypes.object,
   'dispatch': React.PropTypes.func.isRequired,

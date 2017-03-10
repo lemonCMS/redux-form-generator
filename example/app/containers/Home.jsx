@@ -37,6 +37,7 @@ class Home extends React.Component {
         <Form
           locale="en_US"
           name="maxi"
+          horizontal
           fields={
             [
               {
@@ -56,12 +57,12 @@ class Home extends React.Component {
                 name: 'billing_other',
                 label: 'Ander adres*',
                 type: 'radio',
-                labelSize: {md: 4},
-                fieldSize: {md: 8},
                 options: [
                   {'value': 0, 'desc': 'Nee'},
                   {'value': 1, 'desc': 'Ja'}
-                ]
+                ],
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
               },
               {
                 name: 'billing_email',

@@ -1,5 +1,16 @@
-#redux-form-generator
+#redux-form-generator V6
 Generate forms in your application.
+
+#Migration 
+V0.1.x -> V6.x.x
+  - Renamed property fieldsNeeded -> fields
+  - Renamed property formName -> name
+  - Removed property checkKey
+  - Removed property formKey
+  - Removed property getActionState
+  - Removed property clearActionState
+  
+
 
 #Warning
 Breaking changes

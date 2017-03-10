@@ -31,17 +31,21 @@ class Input extends React.Component {
     };
 
     const labelSize = () => {
-      if (_has(props, 'labelSize')) {
-        return props.labelSize;
+      if (_has(this.props.field, 'labelSize')) {
+        return this.props.field.labelSize;
       }
-      return {sm: 2};
+      if (this.props.horizontal) {
+        return {sm: 2};
+      }
     };
 
     const fieldSize = () => {
-      if (_has(props, 'fieldSize')) {
-        return props.fieldSize;
+      if (_has(this.props.field, 'fieldSize')) {
+        return this.props.field.fieldSize;
       }
-      return {sm: 10};
+      if (this.props.horizontal) {
+        return {sm: 10};
+      }
     };
 
     const add = _pick(custom, ['placeholder', 'inputProps']);
@@ -63,7 +67,7 @@ class Input extends React.Component {
     }
 
     const component = () => {
-      return(
+      return (
         <DateTimeField
           key={props.name}
           onChange={input.onChange}
@@ -113,8 +117,8 @@ Input.propTypes = {
   'field': React.PropTypes.object,
   'size': React.PropTypes.string,
   'static': React.PropTypes.bool,
-  'addField': React.PropTypes.func,
-  'locale': React.PropTypes.object
+  'locale': React.PropTypes.object,
+  'horizontal': React.PropTypes.bool.isRequired
 };
 Input.defaultProps = {};
 

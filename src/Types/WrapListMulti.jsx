@@ -73,7 +73,7 @@ class WrapListMulti extends React.Component {
           checked={this.input.value.indexOf(option.value) !== -1}
           onChange={event => {
             const newValue = [...this.input.value];
-            if(event.target.checked) {
+            if (event.target.checked) {
               newValue.push(option.value);
             } else {
               newValue.splice(newValue.indexOf(option.value), 1);
@@ -101,7 +101,7 @@ class WrapListMulti extends React.Component {
     if (!!field.chunks) {
       const split = Math.ceil(filtered.length / field.chunks);
       const chunks = () => {
-        const chunkData = _chunk(filtered, split );
+        const chunkData = _chunk(filtered, split);
         return _map(chunkData, (chunk, key) => {
           return (
             <Col key={key} md={ Math.round(12 / field.chunks) }>
@@ -177,14 +177,18 @@ class WrapListMulti extends React.Component {
       if (_has(this.props.field, 'labelSize')) {
         return this.props.field.labelSize;
       }
-      return {sm: 2};
+      if (this.props.horizontal) {
+        return {sm: 2};
+      }
     };
 
     const fieldSize = () => {
       if (_has(this.props.field, 'fieldSize')) {
         return this.props.field.fieldSize;
       }
-      return {sm: 10};
+      if (this.props.horizontal) {
+        return {sm: 10};
+      }
     };
 
     const validationState = () => {
@@ -222,7 +226,7 @@ class WrapListMulti extends React.Component {
 }
 
 WrapListMulti.propTypes = {
-  'dispatch': React.PropTypes.dispatch,
+  'horizontal': React.PropTypes.bool.isRequired,
   'field': React.PropTypes.object,
   'size': React.PropTypes.string,
   'static': React.PropTypes.bool,

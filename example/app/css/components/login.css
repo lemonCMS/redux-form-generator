@@ -13,9 +13,11 @@
 }
 
 .waiting {
+
   .loading {
     display: block;
   }
+
 }
 
 .alternative {
@@ -46,7 +48,8 @@
   padding: 16px 12px;
 }
 
-.header {}
+.header {
+}
 
 .heading {
   @apply --subHeading;

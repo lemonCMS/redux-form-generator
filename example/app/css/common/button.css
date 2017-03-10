@@ -23,9 +23,11 @@
     background: var(--colorSalem);
     border-color: var(--colorSalem);
 
-    &:hover {
+    &
+    :hover {
       background: var(--colorDarkerSalem);
       border-color: var(--colorDarkerSalem);
     }
+
   }
 }

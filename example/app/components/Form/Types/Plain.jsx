@@ -7,7 +7,9 @@ export default class Plain extends Component {
   };
 
   render() {
-    const createMarkup = (data) => { return {__html: data}; };
+    const createMarkup = (data) => {
+      return {__html: data};
+    };
     return (
       <div
         dangerouslySetInnerHTML={createMarkup(this.props.field.value)}

@@ -107,17 +107,23 @@ class Wrap extends React.Component {
     };
 
     const labelSize = () => {
+      console.log('labelSize', this.props.horizontal);
+
       if (_has(this.props.field, 'labelSize')) {
         return this.props.field.labelSize;
       }
-      return {sm: 2};
+      if (this.props.horizontal) {
+        return {sm: 2};
+      }
     };
 
     const fieldSize = () => {
       if (_has(this.props.field, 'fieldSize')) {
         return this.props.field.fieldSize;
       }
-      return {sm: 10};
+      if (this.props.horizontal) {
+        return {sm: 10};
+      }
     };
 
     const add = _pick(custom, ['type', 'placeholder', 'rows', 'cols']);
@@ -182,10 +188,9 @@ class Wrap extends React.Component {
       }
     };
 
-
     const buttonBefore = () => {
       if (_has(this.props.field, 'buttonBefore')) {
-        if(this.props.field.buttonBefore.type === 'button') {
+        if (this.props.field.buttonBefore.type === 'button') {
           return (<InputGroup.Button>{this.props.addField(this.props.field.buttonBefore, 1, size)}</InputGroup.Button>);
         }
         return (<InputGroup.Button>{this.props.addField(this.props.field.buttonBefore, 1, size)}</InputGroup.Button>);
@@ -194,13 +199,12 @@ class Wrap extends React.Component {
 
     const buttonAfter = () => {
       if (_has(this.props.field, 'buttonAfter')) {
-        if(this.props.field.buttonAfter.type === 'button') {
+        if (this.props.field.buttonAfter.type === 'button') {
           return (<InputGroup.Button>{this.props.addField(this.props.field.buttonAfter, 1, size)}</InputGroup.Button>);
         }
         return this.props.addField(this.props.field.buttonAfter, 1, size);
       }
     };
-
 
     const addonBefore = () => {
       if (_has(this.props.field, 'addonBefore')) {
@@ -220,7 +224,7 @@ class Wrap extends React.Component {
         || _has(this.props.field, 'buttonBefore')
         || _has(this.props.field, 'buttonAfter')
       ) {
-        return(
+        return (
           <InputGroup>
             {buttonBefore()}
             {addonBefore()}
@@ -274,8 +278,8 @@ Wrap.propTypes = {
   'size': React.PropTypes.string,
   'addField': React.PropTypes.func,
   'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object,
-  'checkDisabled': React.PropTypes.func
+  'checkDisabled': React.PropTypes.func,
+  'horizontal': React.PropTypes.bool.isRequired
 };
 Wrap.defaultProps = {};
 

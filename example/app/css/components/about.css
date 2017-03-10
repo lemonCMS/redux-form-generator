@@ -5,5 +5,10 @@
   text-align: center;
 }
 
-.description { @apply --normal; }
-.contribute { @apply --small; }
+.description {
+  @apply --normal;
+}
+
+.contribute {
+  @apply --small;
+}

@@ -47,7 +47,7 @@ class WrapRte extends React.Component {
       }
     };
 
-    const add = _pick(custom, ['placeholder', 'rows', 'cols', 'conf']);
+    const add = _pick(custom, ['placeholder', 'rows', 'cols', 'config']);
     const component = () => {
 
       if (this.props.static === true

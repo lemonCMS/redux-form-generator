@@ -11,8 +11,6 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-import MenuItem from 'react-bootstrap/lib/MenuItem';
-import DropdownButton from 'react-bootstrap/lib/DropdownButton';
 import ContentEditableComponent from './ContentEditableComponent';
 
 class WrapContentEditable extends React.Component {
@@ -73,9 +71,7 @@ class WrapContentEditable extends React.Component {
       return <ContentEditableComponent
         tagName="h2"
         html={this.input.value}
-        onChange={(html) => {
-          console.log(this.input.onChange(html));
-        }}
+        onChange={this.input.onChange}
         {...this.props.field.attributes}
       />
 

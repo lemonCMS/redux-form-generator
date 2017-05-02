@@ -69,7 +69,7 @@ class WrapContentEditable extends React.Component {
 
     const getField = () => {
       return <ContentEditableComponent
-        tagName="h2"
+        tagName={this.props.field.tagName || 'div'}
         html={this.input.value}
         onChange={this.input.onChange}
         {...this.props.field.attributes}

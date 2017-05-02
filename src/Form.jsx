@@ -27,6 +27,7 @@ import Resource from './Types/Resource';
 import Message from './Types/Message';
 import Complex from './Types/Complex';
 import Plain from './Types/Plain';
+import ContentEditable from './Types/ContentEditable';
 import locales from './locales';
 import Pending from './Pending';
 
@@ -157,6 +158,8 @@ const InnerForm = (props) => {
         return (<Select locale={locale} key={key} field={field} size={size} static={props.static} horizontal={props.horizontal}/>);
       case 'radio':
         return (<Radio locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
+      case 'contentEditable':
+        return (<ContentEditable locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
       case 'complex':
         return (<Complex locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} addField={addField} formName={props.name} static={props.static} horizontal={props.horizontal}/>);
       case 'submit':

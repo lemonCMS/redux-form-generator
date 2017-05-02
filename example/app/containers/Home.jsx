@@ -41,6 +41,20 @@ class Home extends React.Component {
           fields={
             [
               {
+                name: 'contentEditable',
+                type: 'contentEditable',
+                label: 'contentEditable',
+                tag: 'h3',
+                attributes: {
+                  style: {
+                    color: 'red'
+                  }
+                },
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+              },
+
+              {
                 name: 'plain',
                 type: 'plain',
                 value: '<strong>Factuur gegevens</strong>'
@@ -561,7 +575,8 @@ class Home extends React.Component {
               {file_original_name: 'field 1'},
               {file_original_name: 'field 2'},
               {file_original_name: 'field 3'}
-            ]
+            ],
+            contentEditable: 'Kom maar typen'
           }}
           validate={(data) => {
             return {

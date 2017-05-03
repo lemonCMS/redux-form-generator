@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _has from 'lodash/has';
 import _isEmpty from 'lodash/isEmpty';
@@ -272,12 +273,12 @@ class Wrap extends React.Component {
 }
 
 Wrap.propTypes = {
-  'field': React.PropTypes.object,
-  'size': React.PropTypes.string,
-  'addField': React.PropTypes.func,
-  'static': React.PropTypes.bool,
-  'checkDisabled': React.PropTypes.func,
-  'horizontal': React.PropTypes.bool.isRequired
+  'field': PropTypes.object,
+  'size': PropTypes.string,
+  'addField': PropTypes.func,
+  'static': PropTypes.bool,
+  'checkDisabled': PropTypes.func,
+  'horizontal': PropTypes.bool.isRequired
 };
 Wrap.defaultProps = {};
 

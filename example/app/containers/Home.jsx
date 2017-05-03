@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import React from 'react';
 import {connect} from 'react-redux';
@@ -601,9 +602,9 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  'dispatch': React.PropTypes.func,
-  'values': React.PropTypes.object,
-  'form': React.PropTypes.object
+  'dispatch': PropTypes.func,
+  'values': PropTypes.object,
+  'form': PropTypes.object
 };
 Home.defaultProps = {};
 

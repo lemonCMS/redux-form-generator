@@ -1,19 +1,20 @@
+import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import Alert from 'react-bootstrap/lib/Alert';
 
 export default class MessageType extends Component {
 
   static propTypes = {
-    'field': React.PropTypes.object,
-    'dirty': React.PropTypes.bool,
-    'pristine': React.PropTypes.bool,
-    'valid': React.PropTypes.bool,
-    'invalid': React.PropTypes.bool,
-    'submitFailed': React.PropTypes.bool,
-    'submitSucceeded': React.PropTypes.bool,
-    'submitting': React.PropTypes.bool,
-    'static': React.PropTypes.bool,
-    'locale': React.PropTypes.object
+    'field': PropTypes.object,
+    'dirty': PropTypes.bool,
+    'pristine': PropTypes.bool,
+    'valid': PropTypes.bool,
+    'invalid': PropTypes.bool,
+    'submitFailed': PropTypes.bool,
+    'submitSucceeded': PropTypes.bool,
+    'submitting': PropTypes.bool,
+    'static': PropTypes.bool,
+    'locale': PropTypes.object
   }
 
   render() {

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Wrap from './Wrap';
 import {Field} from 'redux-form';
@@ -17,10 +18,10 @@ class Select extends Wrap {
 }
 
 Select.propTypes = {
-  'field': React.PropTypes.object,
-  'size': React.PropTypes.string,
-  'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object
+  'field': PropTypes.object,
+  'size': PropTypes.string,
+  'static': PropTypes.bool,
+  'locale': PropTypes.object
 
 };
 Select.defaultProps = {};

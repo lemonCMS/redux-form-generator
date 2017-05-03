@@ -1,4 +1,5 @@
-import React, {Component, PropTypes} from 'react';
+import PropTypes from 'prop-types';
+import React, {Component} from 'react';
 
 class Pending extends Component {
 
@@ -59,7 +60,7 @@ class Pending extends Component {
 
 Pending.propTypes = {
   pending: PropTypes.bool.isRequired,
-  children: React.PropTypes.oneOfType([
+  children: PropTypes.oneOfType([
     PropTypes.object.isRequired,
     PropTypes.array.isRequired
   ])

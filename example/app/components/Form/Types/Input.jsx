@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Wrap from './Wrap';
 import {Field} from 'redux-form';
@@ -19,12 +20,12 @@ class Input extends Wrap {
 }
 
 Input.propTypes = {
-  'field': React.PropTypes.object,
-  'checkDisabled': React.PropTypes.func,
-  'size': React.PropTypes.string,
-  'static': React.PropTypes.bool,
-  'addField': React.PropTypes.func,
-  'locale': React.PropTypes.object
+  'field': PropTypes.object,
+  'checkDisabled': PropTypes.func,
+  'size': PropTypes.string,
+  'static': PropTypes.bool,
+  'addField': PropTypes.func,
+  'locale': PropTypes.object
 };
 Input.defaultProps = {};
 

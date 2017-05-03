@@ -23,7 +23,10 @@
   "author": "Raymond van Vuuren",
   "license": "MIT",
   "dependencies": {
-    "react-bootstrap": "^0.30.7"
+    "react-bootstrap": "^0.30.7",
+    "react-datetime": "^2.8.4",
+    "react-plupload": "^0.1.0",
+    "react-tinymce": "^0.5.1"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",
@@ -55,8 +58,9 @@
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-jsx-a11y": "^3.x.x",
     "eslint-plugin-react": "^6.2.0",
-    "react": "^15.1.0",
-    "react-dom": "15.4.1"
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
+    "react-dom": "15.5.4"
   },
   "bugs": {
     "url": "https://github.com/lemonCMS/react-form-generator/issues"

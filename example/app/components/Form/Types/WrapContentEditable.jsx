@@ -1,8 +1,7 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _has from 'lodash/has';
-import _merge from 'lodash/merge';
 import _isEmpty from 'lodash/isEmpty';
-import _map from 'lodash/map';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
 import _isFunction from 'lodash/isFunction';
@@ -113,12 +112,12 @@ class WrapContentEditable extends React.Component {
 }
 
 WrapContentEditable.propTypes = {
-  'field': React.PropTypes.object,
-  'size': React.PropTypes.string,
-  'addField': React.PropTypes.func,
-  'static': React.PropTypes.bool,
-  'checkDisabled': React.PropTypes.func,
-  'horizontal': React.PropTypes.bool.isRequired
+  'field': PropTypes.object,
+  'size': PropTypes.string,
+  'addField': PropTypes.func,
+  'static': PropTypes.bool,
+  'checkDisabled': PropTypes.func,
+  'horizontal': PropTypes.bool.isRequired
 };
 WrapContentEditable.defaultProps = {};
 

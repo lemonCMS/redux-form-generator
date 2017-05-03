@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _clone from 'lodash/clone';
 import _has from 'lodash/has';
@@ -219,10 +220,10 @@ class WrapPlupload extends React.Component {
 }
 
 WrapPlupload.propTypes = {
-  'field': React.PropTypes.object,
-  'size': React.PropTypes.string,
-  'static': React.PropTypes.bool,
-  'horizontal': React.PropTypes.bool.isRequired
+  'field': PropTypes.object,
+  'size': PropTypes.string,
+  'static': PropTypes.bool,
+  'horizontal': PropTypes.bool.isRequired
 };
 WrapPlupload.defaultProps = {};
 

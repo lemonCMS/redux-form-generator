@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import _clone from 'lodash/clone';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
@@ -217,14 +218,14 @@ class Complex extends React.Component {
 }
 
 Complex.propTypes = {
-  'size': React.PropTypes.string,
-  'dispatch': React.PropTypes.func,
-  'addField': React.PropTypes.func,
-  'field': React.PropTypes.object,
-  'formName': React.PropTypes.string,
-  'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object,
-  'horizontal': React.PropTypes.bool.isRequired
+  'size': PropTypes.string,
+  'dispatch': PropTypes.func,
+  'addField': PropTypes.func,
+  'field': PropTypes.object,
+  'formName': PropTypes.string,
+  'static': PropTypes.bool,
+  'locale': PropTypes.object,
+  'horizontal': PropTypes.bool.isRequired
 };
 Complex.defaultProps = {};
 

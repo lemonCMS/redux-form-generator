@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
@@ -285,18 +286,18 @@ class RenderForm extends React.Component {
 }
 
 RenderForm.propTypes = {
-  'name': React.PropTypes.string.isRequired,
-  'horizontal': React.PropTypes.bool,
-  'fields': React.PropTypes.array.isRequired,
-  'initialValues': React.PropTypes.object,
-  'dispatch': React.PropTypes.func.isRequired,
-  'onSubmit': React.PropTypes.func,
-  'validate': React.PropTypes.func,
-  'static': React.PropTypes.bool,
-  'destroyOnUnmount': React.PropTypes.bool,
-  'locale': React.PropTypes.oneOfType([
-    React.PropTypes.string,
-    React.PropTypes.object,
+  'name': PropTypes.string.isRequired,
+  'horizontal': PropTypes.bool,
+  'fields': PropTypes.array.isRequired,
+  'initialValues': PropTypes.object,
+  'dispatch': PropTypes.func.isRequired,
+  'onSubmit': PropTypes.func,
+  'validate': PropTypes.func,
+  'static': PropTypes.bool,
+  'destroyOnUnmount': PropTypes.bool,
+  'locale': PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.object,
   ])
 };
 

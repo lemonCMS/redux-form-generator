@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _has from 'lodash/has';
 import _get from 'lodash/get';
@@ -8,7 +9,6 @@ import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
-import _isFunction from 'lodash/isFunction';
 
 class WrapRte extends React.Component {
 
@@ -107,11 +107,11 @@ class WrapRte extends React.Component {
 }
 
 WrapRte.propTypes = {
-  'field': React.PropTypes.object,
-  'size': React.PropTypes.string,
-  'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object,
-  'horizontal': React.PropTypes.bool.isRequired
+  'field': PropTypes.object,
+  'size': PropTypes.string,
+  'static': PropTypes.bool,
+  'locale': PropTypes.object,
+  'horizontal': PropTypes.bool.isRequired
 };
 WrapRte.defaultProps = {};
 

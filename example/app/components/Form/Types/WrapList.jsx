@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import _has from 'lodash/has';
 import _map from 'lodash/map';
@@ -203,11 +204,11 @@ class WrapList extends React.Component {
 }
 
 WrapList.propTypes = {
-  'field': React.PropTypes.object,
-  'size': React.PropTypes.string,
-  'static': React.PropTypes.bool,
-  'locale': React.PropTypes.object,
-  'horizontal': React.PropTypes.bool.isRequired
+  'field': PropTypes.object,
+  'size': PropTypes.string,
+  'static': PropTypes.bool,
+  'locale': PropTypes.object,
+  'horizontal': PropTypes.bool.isRequired
 };
 WrapList.defaultProps = {};
 

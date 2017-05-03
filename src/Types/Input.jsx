@@ -14,6 +14,7 @@ class Input extends Wrap {
         static={this.props.static}
         locale={this.props.locale}
         checkDisabled={this.props.checkDisabled}
+        checkHidden={this.props.checkHidden}
       />
     );
   }
@@ -22,6 +23,7 @@ class Input extends Wrap {
 Input.propTypes = {
   'field': PropTypes.object,
   'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'size': PropTypes.string,
   'static': PropTypes.bool,
   'addField': PropTypes.func,

@@ -29,6 +29,12 @@ class WrapPlupload extends React.Component {
   }
 
   renderField(props) {
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return null;
+      }
+    }
+
     const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
     let allFiles = _get(props, 'input.value', []);
     this.input = input;
@@ -220,6 +226,8 @@ class WrapPlupload extends React.Component {
 }
 
 WrapPlupload.propTypes = {
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'static': PropTypes.bool,

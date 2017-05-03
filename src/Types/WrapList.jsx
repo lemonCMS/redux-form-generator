@@ -142,6 +142,12 @@ class WrapList extends React.Component {
   }
 
   renderField(props) {
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return null;
+      }
+    }
+
     const {input, help, meta: {touched, error, valid}} = props;
     this.input = input;
     const size = _get(this.props.field, 'bsSize', this.props.size);
@@ -204,6 +210,8 @@ class WrapList extends React.Component {
 }
 
 WrapList.propTypes = {
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'static': PropTypes.bool,

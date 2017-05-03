@@ -22,6 +22,12 @@ class WrapContentEditable extends React.Component {
   }
 
   renderField(props) {
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return null;
+      }
+    }
+
     const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
     this.input = input;
     this.custom = custom;
@@ -51,9 +57,8 @@ class WrapContentEditable extends React.Component {
       }
     };
 
-    const add = _pick(custom, ['type', 'placeholder', 'rows', 'cols']);
     if (custom.disabled && _isFunction(custom.disabled)) {
-      add.disabled = this.props.checkDisabled(custom.disabled());
+      this.props.field.attributes.disabled = this.props.checkDisabled(custom.disabled());
     }
 
     const validationState = () => {
@@ -72,6 +77,7 @@ class WrapContentEditable extends React.Component {
         html={this.input.value}
         onChange={this.input.onChange}
         {...this.props.field.attributes}
+
       />
 
     };
@@ -112,6 +118,8 @@ class WrapContentEditable extends React.Component {
 }
 
 WrapContentEditable.propTypes = {
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'addField': PropTypes.func,

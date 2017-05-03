@@ -100,6 +100,11 @@ class Wrap extends React.Component {
     this.input = input;
     this.custom = custom;
     const size = _get(this.props.field, 'bsSize', this.props.size);
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return null;
+      }
+    }
 
     const thisSize = () => {
       if (size !== 'medium') {
@@ -249,7 +254,7 @@ class Wrap extends React.Component {
           </Col>
         );
       }
-    }
+    };
 
     return (
       <FormGroup
@@ -273,6 +278,7 @@ class Wrap extends React.Component {
 }
 
 Wrap.propTypes = {
+  'checkHidden': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'addField': PropTypes.func,

@@ -148,28 +148,41 @@ const InnerForm = (props) => {
       return;
     }
 
+    const spread = {
+      checkDisabled,
+      checkHidden,
+      locale,
+      key,
+      field,
+      size,
+      'dispatch': props.dispatch,
+      'static': props.static,
+      'horizontal': props.horizontal
+
+    };
+
     switch (field.type) {
       case 'resource':
-        return (<Resource locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
+        return (<Resource {...spread}/>);
       case 'checkbox':
-        return (<Checkbox locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
+        return (<Checkbox {...spread}/>);
       case 'plupload':
-        return (<Plupload locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
+        return (<Plupload {...spread}/>);
       case 'select':
-        return (<Select locale={locale} key={key} field={field} size={size} static={props.static} horizontal={props.horizontal}/>);
+        return (<Select {...spread}/>);
       case 'radio':
-        return (<Radio locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
+        return (<Radio {...spread}/>);
       case 'contentEditable':
-        return (<ContentEditable locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
+        return (<ContentEditable {...spread}/>);
       case 'complex':
-        return (<Complex locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} addField={addField} formName={props.name} static={props.static} horizontal={props.horizontal}/>);
+        return (<Complex {...spread} addField={addField} formName={props.name}/>);
       case 'submit':
       case 'button':
-        return (<Button locale={locale} key={key} field={field} dispatch={props.dispatch} size={size} static={props.static} horizontal={props.horizontal}/>);
+        return (<Button {...spread}/>);
       case 'rte':
-        return (<Rte locale={locale} key={key} field={field} size={size} static={props.static} horizontal={props.horizontal}/>);
+        return (<Rte {...spread}/>);
       case 'plain':
-        return (<Plain key={key} field={field} size={size} horizontal={props.horizontal}/>);
+        return (<Plain {...spread}/>);
       case 'jsx':
       case 'react':
         return field.component();
@@ -188,12 +201,13 @@ const InnerForm = (props) => {
                          size={size}
                          valid={props.valid}
                          horizontal={props.horizontal}
+                         checkDisabled={checkDisabled}
         />);
       }
       case 'datetime':
-        return (<DateTime locale={locale} key={key} field={field} size={size} static={props.static} horizontal={props.horizontal}/>);
+        return (<DateTime {...spread}/>);
       default:
-        return (<Input checkDisabled={checkDisabled} locale={locale} key={key} field={field} size={size} addField={addField} static={props.static} horizontal={props.horizontal}/>);
+        return (<Input {...spread} addField={addField} />);
     }
   };
 
@@ -227,6 +241,10 @@ const InnerForm = (props) => {
 
       return false;
     }
+  }
+
+  const checkHidden = (args) => {
+    return checkDisabled(args);
   }
 
   return (

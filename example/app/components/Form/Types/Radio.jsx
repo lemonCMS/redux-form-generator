@@ -11,17 +11,19 @@ class Radio extends WrapList {
     return (
       <Field
         component={this.renderField}
-        {...this.props.field}
-        type="text"
         size={this.props.size}
         search={this.state.value}
         locale={this.props.locale}
+        checkDisabled={this.props.checkDisabled}
+        checkHidden={this.props.checkHidden}
       />
     );
   }
 }
 
 Radio.propTypes = {
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'dispatch': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,

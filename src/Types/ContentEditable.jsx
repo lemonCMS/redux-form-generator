@@ -22,6 +22,7 @@ class ContentEditable extends Wrap {
 ContentEditable.propTypes = {
   'field': PropTypes.object,
   'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'size': PropTypes.string,
   'static': PropTypes.bool,
   'addField': PropTypes.func,

@@ -5,6 +5,8 @@ import Alert from 'react-bootstrap/lib/Alert';
 export default class MessageType extends Component {
 
   static propTypes = {
+    'checkDisabled': PropTypes.func,
+    'checkHidden': PropTypes.func,
     'field': PropTypes.object,
     'dirty': PropTypes.bool,
     'pristine': PropTypes.bool,
@@ -19,6 +21,12 @@ export default class MessageType extends Component {
 
   render() {
     const {field} = this.props;
+
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return;
+      }
+    }
 
     if (field.type === 'success' && !this.props.submitting) {
       if (this.props.valid === true && this.props.submitSucceeded === true) {

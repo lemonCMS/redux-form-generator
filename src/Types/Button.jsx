@@ -32,6 +32,7 @@ class Input extends React.Component {
 
 Input.propTypes = {
   'field': PropTypes.object,
+  'checkDisabled': PropTypes.func,
   'size': PropTypes.string,
   'static': PropTypes.bool,
   'locale': PropTypes.object

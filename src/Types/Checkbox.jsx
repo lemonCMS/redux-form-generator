@@ -14,6 +14,8 @@ class Checkbox extends WrapListMulti {
         size={this.props.size}
         search={this.state.value}
         locale={this.props.locale}
+        checkDisabled={this.props.checkDisabled}
+        checkHidden={this.props.checkHidden}
       />
     );
   }
@@ -21,6 +23,8 @@ class Checkbox extends WrapListMulti {
 
 Checkbox.propTypes = {
   'dispatch': PropTypes.func,
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'static': PropTypes.bool,

@@ -3,6 +3,7 @@ import React from 'react';
 import _has from 'lodash/has';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
+import _isFunction from 'lodash/isFunction';
 import TinyMCE from 'react-tinymce';
 import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -19,6 +20,12 @@ class WrapRte extends React.Component {
   }
 
   renderField(props) {
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return null
+      }
+    }
+
     const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
     this.input = input;
     const size = _get(this.props.field, 'bsSize', this.props.size);
@@ -50,9 +57,15 @@ class WrapRte extends React.Component {
     const add = _pick(custom, ['placeholder', 'rows', 'cols', 'config']);
     const component = () => {
 
+      let checkDisabled = false;
+      if (custom.disabled && _isFunction(custom.disabled)) {
+        checkDisabled = this.props.checkDisabled(custom.disabled());
+      }
+
       if (this.props.static === true
         || _get(this.props.field, 'static', false) === true
         || _get(this.props.field, 'disabled', false) === true
+        || checkDisabled === true
       ) {
         const createMarkup = (data) => {
           return {__html: data};

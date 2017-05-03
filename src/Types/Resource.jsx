@@ -81,6 +81,12 @@ class Resource extends React.Component {
   }
 
   renderField(props) {
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return null;
+      }
+    }
+
     const {input, label, help, meta: {touched, error}, ...custom} = props;
     this.input = input;
     this.custom = custom;
@@ -172,12 +178,16 @@ class Resource extends React.Component {
         size={this.props.size}
         showResource={this.state.showResource}
         locale={this.props.locale}
+        checkDisabled={this.props.checkDisabled}
+        checkHidden={this.props.checkHidden}
       />
     );
   }
 }
 
 Resource.propTypes = {
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'static': PropTypes.bool,

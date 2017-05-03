@@ -4,6 +4,8 @@ import React, {Component} from 'react';
 export default class Plain extends Component {
 
   static propTypes = {
+    'checkDisabled': PropTypes.func,
+    'checkHidden': PropTypes.func,
     'field': PropTypes.object.isRequired
   };
 

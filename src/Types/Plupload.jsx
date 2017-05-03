@@ -13,12 +13,17 @@ class Plupload extends WrapPlupload {
         size={this.props.size}
         changed={this.state.changed}
         locale={this.props.locale}
+        checkDisabled={this.props.checkDisabled}
+        checkHidden={this.props.checkHidden}
+
       />
     );
   }
 }
 
 Plupload.propTypes = {
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'static': PropTypes.bool,

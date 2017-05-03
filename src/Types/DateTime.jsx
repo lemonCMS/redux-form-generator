@@ -22,6 +22,12 @@ class Input extends React.Component {
   }
 
   renderField(props) {
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return null
+      }
+    }
+
     const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
     const size = _get(props.field, 'bsSize', props.size);
 
@@ -116,6 +122,8 @@ class Input extends React.Component {
 
 Input.propTypes = {
   'field': PropTypes.object,
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'size': PropTypes.string,
   'static': PropTypes.bool,
   'locale': PropTypes.object,

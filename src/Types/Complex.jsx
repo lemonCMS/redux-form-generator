@@ -219,6 +219,8 @@ class Complex extends React.Component {
 
 Complex.propTypes = {
   'size': PropTypes.string,
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'dispatch': PropTypes.func,
   'addField': PropTypes.func,
   'field': PropTypes.object,

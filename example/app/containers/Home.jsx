@@ -41,7 +41,7 @@ class Home extends React.Component {
           horizontal
           fields={
             [
-              {
+              /*{
                 name: 'contentEditable',
                 type: 'contentEditable',
                 label: 'contentEditable',
@@ -67,10 +67,10 @@ class Home extends React.Component {
                 type: 'text',
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
-              },
+              },*/
               {
                 name: 'billing_other',
-                label: 'Ander adres*',
+                label: 'Ander adres* (hidden)',
                 type: 'radio',
                 options: [
                   {'value': 0, 'desc': 'Nee'},
@@ -95,6 +95,10 @@ class Home extends React.Component {
                 name: 'billing_division',
                 label: 'Afdeling*',
                 type: 'text',
+                hidden: () => { return {
+                  field: 'billing_other',
+                  value: 0
+                }},
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
               },

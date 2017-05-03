@@ -160,6 +160,12 @@ class WrapListMulti extends React.Component {
   }
 
   renderField(props) {
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return null;
+      }
+    }
+
     const {input, help, meta: {touched, error, valid}} = props;
     this.input = input;
 
@@ -227,6 +233,8 @@ class WrapListMulti extends React.Component {
 }
 
 WrapListMulti.propTypes = {
+  'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
   'horizontal': PropTypes.bool.isRequired,
   'field': PropTypes.object,
   'size': PropTypes.string,

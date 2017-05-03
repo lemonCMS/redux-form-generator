@@ -171,13 +171,17 @@ class Wrap extends React.Component {
             {...input}
             {...add}
           />);
+        case 'select':
+          return (<FormControl
+            componentClass="textarea"
+            {...input}
+            {...add}
+          >{this.options()}</FormControl>);
         default:
           return (<FormControl
             {...input}
             {...add}
-          >
-            {this.options()}
-          </FormControl>);
+          />);
       }
     };
 

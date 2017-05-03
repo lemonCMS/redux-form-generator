@@ -1,3 +1,4 @@
+import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React from 'react';
 import Wrap from './WrapContentEditable';
@@ -9,7 +10,7 @@ class ContentEditable extends Wrap {
     return (
       <Field
         component={this.renderField}
-        {...this.props.field}
+        {..._omit(this.props.field,['disabled', 'hidden', 'type'])}
         size={this.props.size}
         static={this.props.static}
         locale={this.props.locale}

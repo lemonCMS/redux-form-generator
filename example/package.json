@@ -139,7 +139,7 @@
     "prop-types": "^15.5.8",
     "qs": "^6.3.0",
     "react": "^15.5.4",
-    "react-bootstrap": "^0.30.6",
+    "react-bootstrap": "^0.31.0",
     "react-cookie": "^1.0.4",
     "react-datetime": "^2.8.10",
     "react-dom": "^15.5.4",

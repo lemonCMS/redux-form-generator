@@ -1,3 +1,4 @@
+import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React from 'react';
 import WrapList from './WrapList';
@@ -11,6 +12,7 @@ class Radio extends WrapList {
     return (
       <Field
         component={this.renderField}
+        {..._omit(this.props.field,['disabled', 'hidden', 'type'])}
         size={this.props.size}
         search={this.state.value}
         locale={this.props.locale}

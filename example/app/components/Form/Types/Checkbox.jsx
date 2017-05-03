@@ -1,3 +1,4 @@
+import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React from 'react';
 import WrapListMulti from './WrapListMulti';
@@ -10,7 +11,7 @@ class Checkbox extends WrapListMulti {
     return (
       <Field
         component={this.renderField}
-        {...this.props.field}
+        {..._omit(this.props.field,['disabled', 'hidden', 'type'])}
         size={this.props.size}
         search={this.state.value}
         locale={this.props.locale}

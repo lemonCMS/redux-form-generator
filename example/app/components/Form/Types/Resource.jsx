@@ -1,3 +1,4 @@
+import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
@@ -174,7 +175,7 @@ class Resource extends React.Component {
     return (
       <Field
         component={this.renderField}
-        {...this.props.field}
+        {..._omit(this.props.field,['disabled', 'hidden', 'type'])}
         size={this.props.size}
         showResource={this.state.showResource}
         locale={this.props.locale}

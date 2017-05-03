@@ -1,3 +1,4 @@
+import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React from 'react';
 import WrapPlupload from './WrapPlupload';
@@ -9,7 +10,7 @@ class Plupload extends WrapPlupload {
     return (
       <Field
         component={this.renderField}
-        {...this.props.field}
+        {..._omit(this.props.field,['disabled', 'hidden', 'type'])}
         size={this.props.size}
         changed={this.state.changed}
         locale={this.props.locale}

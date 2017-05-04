@@ -14,6 +14,7 @@ class Rte extends WrapRte {
         locale={this.props.locale}
         checkDisabled={this.props.checkDisabled}
         checkHidden={this.props.checkHidden}
+        checkShow={this.props.checkShow}
       />
     );
   }
@@ -22,6 +23,7 @@ class Rte extends WrapRte {
 Rte.propTypes = {
   'checkDisabled': PropTypes.func,
   'checkHidden': PropTypes.func,
+  'checkShow': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'static': PropTypes.bool,

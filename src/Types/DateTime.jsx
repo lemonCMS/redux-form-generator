@@ -26,6 +26,10 @@ class Input extends React.Component {
       if (this.props.checkHidden(this.props.field.hidden()) === true) {
         return null
       }
+    } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
+      if (this.props.checkShow(this.props.field.show()) !== true) {
+        return null
+      }
     }
 
     const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
@@ -124,6 +128,7 @@ Input.propTypes = {
   'field': PropTypes.object,
   'checkDisabled': PropTypes.func,
   'checkHidden': PropTypes.func,
+  'checkShow': PropTypes.func,
   'size': PropTypes.string,
   'static': PropTypes.bool,
   'locale': PropTypes.object,

@@ -16,6 +16,7 @@ class Input extends Wrap {
         locale={this.props.locale}
         checkDisabled={this.props.checkDisabled}
         checkHidden={this.props.checkHidden}
+        checkShow={this.props.checkShow}
       />
     );
   }
@@ -25,6 +26,7 @@ Input.propTypes = {
   'field': PropTypes.object,
   'checkDisabled': PropTypes.func,
   'checkHidden': PropTypes.func,
+  'checkShow': PropTypes.func,
   'size': PropTypes.string,
   'static': PropTypes.bool,
   'addField': PropTypes.func,

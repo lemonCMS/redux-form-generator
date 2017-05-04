@@ -104,6 +104,10 @@ class Wrap extends React.Component {
       if (this.props.checkHidden(this.props.field.hidden()) === true) {
         return null;
       }
+    } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
+      if (this.props.checkShow(this.props.field.show()) !== true) {
+        return null
+      }
     }
 
     const thisSize = () => {
@@ -283,6 +287,7 @@ class Wrap extends React.Component {
 
 Wrap.propTypes = {
   'checkHidden': PropTypes.func,
+  'checkShow': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'addField': PropTypes.func,

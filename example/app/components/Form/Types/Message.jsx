@@ -7,6 +7,7 @@ export default class MessageType extends Component {
   static propTypes = {
     'checkDisabled': PropTypes.func,
     'checkHidden': PropTypes.func,
+    'checkShow': PropTypes.func,
     'field': PropTypes.object,
     'dirty': PropTypes.bool,
     'pristine': PropTypes.bool,
@@ -25,6 +26,10 @@ export default class MessageType extends Component {
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
       if (this.props.checkHidden(this.props.field.hidden()) === true) {
         return;
+      }
+    } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
+      if (this.props.checkShow(this.props.field.show()) !== true) {
+        return null
       }
     }
 

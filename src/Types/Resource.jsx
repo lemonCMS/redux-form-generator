@@ -86,6 +86,10 @@ class Resource extends React.Component {
       if (this.props.checkHidden(this.props.field.hidden()) === true) {
         return null;
       }
+    } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
+      if (this.props.checkShow(this.props.field.show()) !== true) {
+        return null
+      }
     }
 
     const {input, label, help, meta: {touched, error}, ...custom} = props;
@@ -181,6 +185,7 @@ class Resource extends React.Component {
         locale={this.props.locale}
         checkDisabled={this.props.checkDisabled}
         checkHidden={this.props.checkHidden}
+        checkShow={this.props.checkShow}
       />
     );
   }
@@ -189,6 +194,7 @@ class Resource extends React.Component {
 Resource.propTypes = {
   'checkDisabled': PropTypes.func,
   'checkHidden': PropTypes.func,
+  'checkShow': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'static': PropTypes.bool,

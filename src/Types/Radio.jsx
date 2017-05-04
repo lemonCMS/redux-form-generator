@@ -18,6 +18,7 @@ class Radio extends WrapList {
         locale={this.props.locale}
         checkDisabled={this.props.checkDisabled}
         checkHidden={this.props.checkHidden}
+        checkShow={this.props.checkShow}
       />
     );
   }
@@ -26,6 +27,7 @@ class Radio extends WrapList {
 Radio.propTypes = {
   'checkDisabled': PropTypes.func,
   'checkHidden': PropTypes.func,
+  'checkShow': PropTypes.func,
   'dispatch': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,

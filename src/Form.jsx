@@ -5,9 +5,11 @@ import _has from 'lodash/has';
 import _clone from 'lodash/clone';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
+import _isUndefined from 'lodash/isUndefined';
 import _isEqual from 'lodash/isEqual';
 import _isBoolean from 'lodash/isBoolean';
 import _isString from 'lodash/isString';
+import _isArray from 'lodash/isArray';
 import _isObject from 'lodash/isObject';
 import _pick from 'lodash/pick';
 import Form from 'react-bootstrap/lib/Form';
@@ -151,6 +153,7 @@ const InnerForm = (props) => {
     const spread = {
       checkDisabled,
       checkHidden,
+      checkShow,
       locale,
       key,
       field,
@@ -229,10 +232,31 @@ const InnerForm = (props) => {
       return args
     } else if (_isObject(args)) {
       const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
-      if (value === args.value) {
+      if (!_isUndefined(args.value)) {
+        if (value) {
+          if (_isString(value) && args.value === value) {
+            return true;
+          } else if (_isArray(value)) {
+            if (value.indexOf(args.value) > -1) {
+              return true;
+            }
+          }
+        }
+        return false
+      }
+
+      if (!_isUndefined(args.value_not)) {
+        if (value) {
+          if (_isString(value) && args.value_not === value) {
+            return false;
+          } else if (_isArray(value)) {
+            if (value.indexOf(args.value_not) > -1) {
+              return false;
+            }
+          }
+        }
         return true;
       }
-      return false;
     } else if (_isString(args)) {
       const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
       if (!isEmpty(value)) {
@@ -241,11 +265,16 @@ const InnerForm = (props) => {
 
       return false;
     }
-  }
+  };
 
   const checkHidden = (args) => {
     return checkDisabled(args);
-  }
+  };
+
+  const checkShow = (args) => {
+    return checkDisabled(args);
+  };
+
 
   return (
     <Form onSubmit={handleSubmit} horizontal={props.horizontal}>

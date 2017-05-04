@@ -41,7 +41,7 @@ class Home extends React.Component {
           horizontal
           fields={
             [
-              /*{
+              {
                 name: 'contentEditable',
                 type: 'contentEditable',
                 label: 'contentEditable',
@@ -67,7 +67,7 @@ class Home extends React.Component {
                 type: 'text',
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
-              },*/
+              },
               {
                 name: 'billing_other',
                 label: 'Ander adres* (hidden)',
@@ -499,7 +499,6 @@ class Home extends React.Component {
                 label: 'Kamernummer',
                 help: 'Wel kamernummer heeft u?',
                 type: 'checkbox',
-                disabled: true,
                 placeholder: 'Omschrijving',
                 filter: true,
                 filter_norecords: 'Er zijn geen resultaten',
@@ -525,6 +524,42 @@ class Home extends React.Component {
                 ],
                 labelSize: {md: 4},
                 fieldSize: {md: 8}
+              },
+              {
+                name: 'show_on_value_0',
+                label: 'Verberg op checkbox value 0',
+                type: 'text',
+                hidden: () => ({
+                  field: 'room-checkbox',
+                  value: 0,
+                })
+              },
+              {
+                name: 'show_on_value_1',
+                label: 'Verberg op checkbox value 1',
+                type: 'text',
+                hidden: () => ({
+                  field: 'room-checkbox',
+                  value: 1,
+                })
+              },
+              {
+                name: 'show_on_value_11',
+                label: 'Toon op checkbox value 1',
+                type: 'text',
+                hidden: () => ({
+                  field: 'room-checkbox',
+                  value_not: 1,
+                })
+              },
+              {
+                name: 'show_on_value_2',
+                label: 'Toon op checkbox value 2',
+                type: 'text',
+                show: () => ({
+                  field: 'room-checkbox',
+                  value: 2,
+                })
               },
               {
                 name: 'room-checkbox-dropdown',

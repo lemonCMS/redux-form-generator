@@ -15,6 +15,7 @@ class Select extends Wrap {
         locale={this.props.locale}
         checkDisabled={this.props.checkDisabled}
         checkHidden={this.props.checkHidden}
+        checkShow={this.props.checkShow}
       />
     );
   }
@@ -23,6 +24,7 @@ class Select extends Wrap {
 Select.propTypes = {
   'checkDisabled': PropTypes.func,
   'checkHidden': PropTypes.func,
+  'checkShow': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'static': PropTypes.bool,

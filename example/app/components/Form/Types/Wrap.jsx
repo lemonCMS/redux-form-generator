@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import _has from 'lodash/has';
-import _isEmpty from 'lodash/isEmpty';
 import _map from 'lodash/map';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
@@ -106,7 +105,7 @@ class Wrap extends React.Component {
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
       if (this.props.checkShow(this.props.field.show()) !== true) {
-        return null
+        return null;
       }
     }
 
@@ -255,7 +254,7 @@ class Wrap extends React.Component {
     }
 
     const getLabel = () => {
-      if (label && !_isEmpty(label)) {
+      if (label) {
         return (
           <Col componentClass={ControlLabel} {...labelSize()}>
             {label}

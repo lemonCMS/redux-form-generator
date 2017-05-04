@@ -1,23 +1,19 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import Alert from 'react-bootstrap/lib/Alert';
+import _isFunction from 'lodash/isFunction';
 
 export default class MessageType extends Component {
 
   static propTypes = {
-    'checkDisabled': PropTypes.func,
     'checkHidden': PropTypes.func,
     'checkShow': PropTypes.func,
     'field': PropTypes.object,
-    'dirty': PropTypes.bool,
-    'pristine': PropTypes.bool,
     'valid': PropTypes.bool,
     'invalid': PropTypes.bool,
     'submitFailed': PropTypes.bool,
     'submitSucceeded': PropTypes.bool,
-    'submitting': PropTypes.bool,
-    'static': PropTypes.bool,
-    'locale': PropTypes.object
+    'submitting': PropTypes.bool
   }
 
   render() {

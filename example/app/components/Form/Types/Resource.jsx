@@ -51,7 +51,7 @@ class Resource extends React.Component {
     const options = _map(this.state.list || _get(field, 'list', []), (option, key) => {
       return (
         <p className="form-control-static" key={key}>
-          {_indexOf(this.input.value, option.value) > -1 ? <i className="fa fa-check-square-o"></i> : <i className="fa fa-square-o"></i>}
+          {_indexOf(this.input.value, option.value) > -1 ? <i className="fa fa-check-square-o" /> : <i className="fa fa-square-o" />}
           {' '}
           {option.desc}
         </p>
@@ -88,7 +88,7 @@ class Resource extends React.Component {
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
       if (this.props.checkShow(this.props.field.show()) !== true) {
-        return null
+        return null;
       }
     }
 
@@ -159,13 +159,21 @@ class Resource extends React.Component {
       );
     };
 
+    const getLabel = () => {
+      if (label && !_isEmpty(label)) {
+        return (
+          <Col componentClass={ControlLabel} {...labelSize()}>
+            {label}
+          </Col>
+        );
+      }
+    };
+
     return (
       <FormGroup
         {...thisSize()}
       >
-        <Col componentClass={ControlLabel} {...labelSize()}>
-          {label}
-        </Col>
+        {getLabel()}
         <Col {...fieldSize()}>
           {component()}
           {touched && error && <FormControl.Feedback>{error}</FormControl.Feedback>}
@@ -179,7 +187,7 @@ class Resource extends React.Component {
     return (
       <Field
         component={this.renderField}
-        {..._omit(this.props.field,['disabled', 'hidden', 'type'])}
+        {..._omit(this.props.field, ['disabled', 'hidden', 'type'])}
         size={this.props.size}
         showResource={this.state.showResource}
         locale={this.props.locale}

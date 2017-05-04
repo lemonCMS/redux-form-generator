@@ -1,15 +1,15 @@
 import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React from 'react';
-import WrapRte from './WrapRte';
 import {Field} from 'redux-form';
+import WrapRte from './WrapRte';
 
 class Rte extends WrapRte {
   render() {
     return (
       <Field
         component={this.renderField}
-        {..._omit(this.props.field,['disabled', 'hidden', 'type'])}
+        {..._omit(this.props.field, ['disabled', 'hidden', 'type'])}
         size={this.props.size}
         locale={this.props.locale}
         checkDisabled={this.props.checkDisabled}

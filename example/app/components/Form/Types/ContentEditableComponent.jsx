@@ -7,13 +7,13 @@ export default class ContentEditable extends React.Component {
   }
 
   render() {
-    var { tagName, html, ...props } = this.props;
+    const {tagName, html, ...props} = this.props;
 
     return React.createElement(
       tagName || 'div',
       {
         ...props,
-        ref: (e) => this.htmlEl = e,
+        ref: e => this.htmlEl = e,
         onInput: this.emitChange,
         onBlur: this.props.onBlur || this.emitChange,
         contentEditable: !this.props.disabled,
@@ -37,7 +37,7 @@ export default class ContentEditable extends React.Component {
   }
 
   componentDidUpdate() {
-    if ( this.htmlEl && this.props.html !== this.htmlEl.innerHTML ) {
+    if (this.htmlEl && this.props.html !== this.htmlEl.innerHTML) {
       // Perhaps React (whose VDOM gets outdated because we often prevent
       // rerendering) did not update the DOM. So we update it manually now.
       this.htmlEl.innerHTML = this.props.html;
@@ -48,7 +48,7 @@ export default class ContentEditable extends React.Component {
     if (!this.htmlEl) return;
     var html = this.htmlEl.innerHTML;
     if (this.props.onChange && html !== this.lastHtml) {
-      evt.target = { value: html };
+      evt.target = {value: html};
       this.props.onChange(evt);
     }
     this.lastHtml = html;

@@ -103,6 +103,54 @@ const InnerForm = (props) => {
     );
   };
 
+  const checkDisabled = (args) => {
+    if (_isBoolean(args)) {
+      return args;
+    } else if (_isObject(args)) {
+      const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+      if (!_isUndefined(args.value)) {
+        if (value) {
+          if (_isString(value) && args.value === value) {
+            return true;
+          } else if (_isArray(value)) {
+            if (value.indexOf(args.value) > -1) {
+              return true;
+            }
+          }
+        }
+        return false;
+      }
+
+      if (!_isUndefined(args.value_not)) {
+        if (value) {
+          if (_isString(value) && args.value_not === value) {
+            return false;
+          } else if (_isArray(value)) {
+            if (value.indexOf(args.value_not) > -1) {
+              return false;
+            }
+          }
+        }
+        return true;
+      }
+    } else if (_isString(args)) {
+      const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+      if (value !== '') {
+        return true;
+      }
+
+      return false;
+    }
+  };
+
+  const checkHidden = (args) => {
+    return checkDisabled(args);
+  };
+
+  const checkShow = (args) => {
+    return checkDisabled(args);
+  };
+
   const buttonToolbar = (field, key, size) => {
     const toolbar = field.buttonToolbar;
     const thisSize = _get(toolbar, 'bsSize', size);
@@ -166,26 +214,26 @@ const InnerForm = (props) => {
 
     switch (field.type) {
       case 'resource':
-        return (<Resource {...spread}/>);
+        return (<Resource {...spread} />);
       case 'checkbox':
-        return (<Checkbox {...spread}/>);
+        return (<Checkbox {...spread} />);
       case 'plupload':
-        return (<Plupload {...spread}/>);
+        return (<Plupload {...spread} />);
       case 'select':
-        return (<Select {...spread}/>);
+        return (<Select {...spread} />);
       case 'radio':
-        return (<Radio {...spread}/>);
+        return (<Radio {...spread} />);
       case 'contentEditable':
-        return (<ContentEditable {...spread}/>);
+        return (<ContentEditable {...spread} />);
       case 'complex':
-        return (<Complex {...spread} addField={addField} formName={props.name}/>);
+        return (<Complex {...spread} addField={addField} formName={props.name} />);
       case 'submit':
       case 'button':
-        return (<Button {...spread}/>);
+        return (<Button {...spread} />);
       case 'rte':
-        return (<Rte {...spread}/>);
+        return (<Rte {...spread} />);
       case 'plain':
-        return (<Plain {...spread}/>);
+        return (<Plain {...spread} />);
       case 'jsx':
       case 'react':
         return field.component();
@@ -208,7 +256,7 @@ const InnerForm = (props) => {
         />);
       }
       case 'datetime':
-        return (<DateTime {...spread}/>);
+        return (<DateTime {...spread} />);
       default:
         return (<Input {...spread} addField={addField} />);
     }
@@ -227,55 +275,6 @@ const InnerForm = (props) => {
     });
   };
 
-  const checkDisabled = (args) => {
-    if (_isBoolean(args)) {
-      return args
-    } else if (_isObject(args)) {
-      const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
-      if (!_isUndefined(args.value)) {
-        if (value) {
-          if (_isString(value) && args.value === value) {
-            return true;
-          } else if (_isArray(value)) {
-            if (value.indexOf(args.value) > -1) {
-              return true;
-            }
-          }
-        }
-        return false
-      }
-
-      if (!_isUndefined(args.value_not)) {
-        if (value) {
-          if (_isString(value) && args.value_not === value) {
-            return false;
-          } else if (_isArray(value)) {
-            if (value.indexOf(args.value_not) > -1) {
-              return false;
-            }
-          }
-        }
-        return true;
-      }
-    } else if (_isString(args)) {
-      const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
-      if (!isEmpty(value)) {
-        return true;
-      }
-
-      return false;
-    }
-  };
-
-  const checkHidden = (args) => {
-    return checkDisabled(args);
-  };
-
-  const checkShow = (args) => {
-    return checkDisabled(args);
-  };
-
-
   return (
     <Form onSubmit={handleSubmit} horizontal={props.horizontal}>
       <Pending pending={props.submitting}>
@@ -292,11 +291,7 @@ class RenderForm extends React.Component {
       return true;
     }
 
-    if (_get(this.props, 'static', false) !== _get(nextProps, 'static', false)) {
-      return true;
-    }
-
-    return false;
+    return (_get(this.props, 'static', false) !== _get(nextProps, 'static', false));
   }
 
   render() {
@@ -341,7 +336,6 @@ RenderForm.propTypes = {
   'onSubmit': PropTypes.func,
   'validate': PropTypes.func,
   'static': PropTypes.bool,
-  'destroyOnUnmount': PropTypes.bool,
   'locale': PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,

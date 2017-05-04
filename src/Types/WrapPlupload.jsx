@@ -35,7 +35,7 @@ class WrapPlupload extends React.Component {
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
       if (this.props.checkShow(this.props.field.show()) !== true) {
-        return null
+        return null;
       }
     }
 
@@ -95,23 +95,23 @@ class WrapPlupload extends React.Component {
         return (
           <Table striped bordered condensed hover>
             <thead>
-            <tr>
-              <th>Bestand</th>
-              <th></th>
-            </tr>
+              <tr>
+                <th>Bestand</th>
+                <th />
+              </tr>
             </thead>
             <tbody>
-            { _map(input.value, (file, key) => (!file.deleted &&
+              {_map(input.value, (file, key) => (!file.deleted &&
                 <tr key={key}>
                   <td>{file.file_original_name} {file.deleted}</td>
                   <td>
                     <Button onClick={() => {
                       fileDelete(key);
-                    }}><i className="fa fa-trash-o"></i></Button>
+                    }}><i className="fa fa-trash-o" /></Button>
                   </td>
                 </tr>
-              )
-            )}
+                )
+              )}
             </tbody>
           </Table>
         );
@@ -124,17 +124,17 @@ class WrapPlupload extends React.Component {
         return (
           <Table striped bordered condensed hover>
             <thead>
-            <tr>
-              <th>Bestand</th>
-            </tr>
+              <tr>
+                <th>Bestand</th>
+              </tr>
             </thead>
             <tbody>
-            { _map(files, (file, key) => (!file.deleted &&
+              {_map(files, (file, key) => (!file.deleted &&
                 <tr key={key}>
                   <td>{file.file_original_name} {file.deleted}</td>
                 </tr>
-              )
-            )}
+                )
+              )}
             </tbody>
           </Table>
         );
@@ -142,7 +142,7 @@ class WrapPlupload extends React.Component {
     };
 
     const renderTable = () => {
-      const files = _filter(allFiles, file => {
+      const files = _filter(allFiles, (file) => {
         return !file.deleted;
       });
       if (files.length > 0) {
@@ -205,14 +205,22 @@ class WrapPlupload extends React.Component {
       }
     };
 
+    const getLabel = () => {
+      if (label) {
+        return (
+          <Col componentClass={ControlLabel} {...labelSize()}>
+            {label}
+          </Col>
+        );
+      }
+    };
+
     return (
       <FormGroup
         {...thisSize()}
         validationState={validationState()}
       >
-        <Col componentClass={ControlLabel} {...labelSize()}>
-          {label}
-        </Col>
+        {getLabel()}
         <Col {...fieldSize()}>
           {component()}
           {renderTable()}

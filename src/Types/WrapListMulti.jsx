@@ -72,7 +72,7 @@ class WrapListMulti extends React.Component {
           disabled={disabled}
           value={option.value}
           checked={this.input.value.indexOf(option.value) !== -1}
-          onChange={event => {
+          onChange={(event) => {
             const newValue = [...this.input.value];
             if (event.target.checked) {
               newValue.push(option.value);
@@ -99,13 +99,13 @@ class WrapListMulti extends React.Component {
         </Alert>);
     }
 
-    if (!!field.chunks) {
+    if (field.chunks) {
       const split = Math.ceil(filtered.length / field.chunks);
       const chunks = () => {
         const chunkData = _chunk(filtered, split);
         return _map(chunkData, (chunk, key) => {
           return (
-            <Col key={key} md={ Math.round(12 / field.chunks) }>
+            <Col key={key} md={Math.round(12 / field.chunks)} >
               {this.radioButtonList(chunk)}
             </Col>
           );
@@ -166,11 +166,11 @@ class WrapListMulti extends React.Component {
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
       if (this.props.checkShow(this.props.field.show()) !== true) {
-        return null
+        return null;
       }
     }
 
-    const {input, help, meta: {touched, error, valid}} = props;
+    const {input, label, help, meta: {touched, error, valid}} = props;
     this.input = input;
 
     if (props.searchable) {
@@ -212,14 +212,22 @@ class WrapListMulti extends React.Component {
       }
     };
 
+    const getLabel = () => {
+      if (label) {
+        return (
+          <Col componentClass={ControlLabel} {...labelSize()}>
+            {label}
+          </Col>
+        );
+      }
+    };
+
     return (
       <FormGroup
         {...thisSize()}
         validationState={validationState()}
       >
-        <Col componentClass={ControlLabel} {...labelSize()}>
-          {this.props.field.label}
-        </Col>
+        {getLabel()}
         <Col {...fieldSize()}>
           {this.searchBox()}
           {this.radioButtons()}

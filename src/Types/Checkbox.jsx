@@ -1,8 +1,8 @@
 import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React from 'react';
-import WrapListMulti from './WrapListMulti';
 import {Field} from 'redux-form';
+import WrapListMulti from './WrapListMulti';
 
 class Checkbox extends WrapListMulti {
 

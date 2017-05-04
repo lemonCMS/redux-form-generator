@@ -42,7 +42,7 @@ class WrapList extends React.Component {
     const {value} = this.state;
     const strValue = String(value).toLowerCase();
     if (value !== '') {
-      return _filter(options, (option) => _includes(String(option.desc).toLowerCase(), strValue));
+      return _filter(options, option => _includes(String(option.desc).toLowerCase(), strValue));
     }
     return options;
   }
@@ -67,7 +67,7 @@ class WrapList extends React.Component {
           name={`${this.input.name}[${key}]`}
           value={option.value}
           checked={String(this.input.value) === String(option.value)}
-          onChange={event => {
+          onChange={(event) => {
             if (event.target.checked) {
               return this.input.onChange(option.value);
             }
@@ -89,13 +89,13 @@ class WrapList extends React.Component {
         </Alert>);
     }
 
-    if (!!field.chunks) {
+    if (field.chunks) {
       const split = Math.ceil(filtered.length / field.chunks);
       const chunks = () => {
         const chunkData = _chunk(filtered, split);
         return _map(chunkData, (chunk, key) => {
           return (
-            <Col key={key} md={ Math.round(12 / field.chunks) }>
+            <Col key={key} md={Math.round(12 / field.chunks)} >
               {this.radioButtonList(chunk)}
             </Col>
           );
@@ -148,11 +148,11 @@ class WrapList extends React.Component {
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
       if (this.props.checkShow(this.props.field.show()) !== true) {
-        return null
+        return null;
       }
     }
 
-    const {input, help, meta: {touched, error, valid}} = props;
+    const {input, label, help, meta: {touched, error, valid}} = props;
     this.input = input;
     const size = _get(this.props.field, 'bsSize', this.props.size);
     const thisSize = () => {
@@ -189,14 +189,22 @@ class WrapList extends React.Component {
       }
     };
 
+    const getLabel = () => {
+      if (label) {
+        return (
+          <Col componentClass={ControlLabel} {...labelSize()}>
+            {label}
+          </Col>
+        );
+      }
+    };
+
     return (
       <FormGroup
         {...thisSize()}
         validationState={validationState()}
       >
-        <Col componentClass={ControlLabel} {...labelSize()}>
-          {this.props.field.label}
-        </Col>
+        {getLabel()}
         <Col {...fieldSize()}>
           {this.searchBox()}
           {this.radioButtons()}

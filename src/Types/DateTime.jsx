@@ -4,7 +4,6 @@ import _has from 'lodash/has';
 import _merge from 'lodash/merge';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
-import moment from '../helpers/moment';
 import DateTimeField from 'react-datetime';
 import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -13,6 +12,7 @@ import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import {Field} from 'redux-form';
 import _isFunction from 'lodash/isFunction';
+import moment from '../helpers/moment';
 
 class Input extends React.Component {
 
@@ -24,11 +24,11 @@ class Input extends React.Component {
   renderField(props) {
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
       if (this.props.checkHidden(this.props.field.hidden()) === true) {
-        return null
+        return null;
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
       if (this.props.checkShow(this.props.field.show()) !== true) {
-        return null
+        return null;
       }
     }
 
@@ -92,14 +92,22 @@ class Input extends React.Component {
       );
     };
 
+    const getLabel = () => {
+      if (label) {
+        return (
+          <Col componentClass={ControlLabel} {...labelSize()}>
+            {label}
+          </Col>
+        );
+      }
+    };
+
     return (
       <FormGroup
         {...thisSize()}
         validationState={validationState()}
       >
-        <Col componentClass={ControlLabel} {...labelSize()}>
-          {label}
-        </Col>
+        {getLabel()}
         <Col {...fieldSize()}>
           {component()}
           {touched && error && <FormControl.Feedback />}

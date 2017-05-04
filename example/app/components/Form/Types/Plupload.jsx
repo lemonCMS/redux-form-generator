@@ -1,8 +1,8 @@
 import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React from 'react';
-import WrapPlupload from './WrapPlupload';
 import {Field} from 'redux-form';
+import WrapPlupload from './WrapPlupload';
 
 class Plupload extends WrapPlupload {
 

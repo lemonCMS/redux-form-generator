@@ -3,7 +3,7 @@ import _clone from 'lodash/clone';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import React from 'react';
-import {change, FieldArray, arraySwap} from 'redux-form';
+import {change, FieldArray} from 'redux-form';
 import Panel from 'react-bootstrap/lib/Panel';
 import Button from 'react-bootstrap/lib/Button';
 import Row from 'react-bootstrap/lib/Row';
@@ -37,7 +37,7 @@ class Complex extends React.Component {
                     disabled={disabled}
                     type="button"
             >
-              <i className="fa fa-chevron-up"/>
+              <i className="fa fa-chevron-up" />
             </Button>
           );
         }
@@ -50,7 +50,7 @@ class Complex extends React.Component {
                     disabled={disabled}
                     type="button"
             >
-              <i className="fa fa-chevron-down"/>
+              <i className="fa fa-chevron-down" />
             </Button>
           );
         }
@@ -63,7 +63,7 @@ class Complex extends React.Component {
                   disabled={disabled}
                   type="button"
           >
-            <i className="fa fa-trash"/>
+            <i className="fa fa-trash" />
           </Button>
         );
       }
@@ -91,7 +91,7 @@ class Complex extends React.Component {
   }
 
   renderComplex(props) {
-    const {fields, name, locale, dispatch, removeBtn, addBtn, size, label, children, meta: {touched, error}} = props;
+    const {fields, locale, dispatch, removeBtn, addBtn, size, label, children, meta: {touched, error}} = props;
     const staticField = props.static;
 
     const thisSize = () => {
@@ -121,7 +121,7 @@ class Complex extends React.Component {
     const toggle = () => {
       let state = false;
       if (this.state.collapsed === null) {
-        state = (this.props.field.collapsed && this.props.field.collapsed === true ? false : true);
+        state = !(this.props.field.collapsed && this.props.field.collapsed === true);
       } else if (this.state.collapsed === false) {
         state = true;
       }
@@ -220,7 +220,6 @@ class Complex extends React.Component {
 Complex.propTypes = {
   'size': PropTypes.string,
   'checkDisabled': PropTypes.func,
-  'checkHidden': PropTypes.func,
   'dispatch': PropTypes.func,
   'addField': PropTypes.func,
   'field': PropTypes.object,

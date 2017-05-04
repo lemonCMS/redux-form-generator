@@ -1,8 +1,8 @@
 import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React from 'react';
-import Wrap from './Wrap';
 import {Field} from 'redux-form';
+import Wrap from './Wrap';
 
 class Input extends Wrap {
 
@@ -10,7 +10,7 @@ class Input extends Wrap {
     return (
       <Field
         component={this.renderField}
-        {..._omit(this.props.field,['disabled', 'hidden'])}
+        {..._omit(this.props.field, ['disabled', 'hidden'])}
         size={this.props.size}
         static={this.props.static}
         locale={this.props.locale}

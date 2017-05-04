@@ -22,11 +22,11 @@ class WrapRte extends React.Component {
   renderField(props) {
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
       if (this.props.checkHidden(this.props.field.hidden()) === true) {
-        return null
+        return null;
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
       if (this.props.checkShow(this.props.field.show()) !== true) {
-        return null
+        return null;
       }
     }
 
@@ -76,7 +76,7 @@ class WrapRte extends React.Component {
         };
 
         return (
-          <samp className="tiny_mce_static" dangerouslySetInnerHTML={createMarkup(input.value)}/>
+          <samp className="tiny_mce_static" dangerouslySetInnerHTML={createMarkup(input.value)} />
         );
       }
 
@@ -100,14 +100,22 @@ class WrapRte extends React.Component {
       }
     };
 
+    const getLabel = () => {
+      if (label) {
+        return (
+          <Col componentClass={ControlLabel} {...labelSize()}>
+            {label}
+          </Col>
+        );
+      }
+    };
+
     return (
       <FormGroup
         {...thisSize()}
         validationState={validationState()}
       >
-        <Col componentClass={ControlLabel} {...labelSize()}>
-          {label}
-        </Col>
+        {getLabel()}
         <Col {...fieldSize()}>
           {component()}
           {touched && error && <FormControl.Feedback />}
@@ -130,7 +138,6 @@ WrapRte.propTypes = {
   'field': PropTypes.object,
   'size': PropTypes.string,
   'static': PropTypes.bool,
-  'locale': PropTypes.object,
   'horizontal': PropTypes.bool.isRequired
 };
 WrapRte.defaultProps = {};

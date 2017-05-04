@@ -442,12 +442,10 @@ class Home extends React.Component {
               },
               {
                 name: 'rte',
-                label: 'TinyMCE',
                 rows: 10,
                 type: 'rte',
                 placeholder: 'TinyMCE',
-                labelSize: {md: 4},
-                fieldSize: {md: 8}
+                fieldSize: {md: 12}
               },
               {
                 name: 'plupload',

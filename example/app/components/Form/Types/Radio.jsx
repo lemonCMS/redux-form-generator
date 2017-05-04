@@ -1,8 +1,8 @@
 import _omit from 'lodash/omit';
 import PropTypes from 'prop-types';
 import React from 'react';
-import WrapList from './WrapList';
 import {Field} from 'redux-form';
+import WrapList from './WrapList';
 
 class Radio extends WrapList {
   render() {

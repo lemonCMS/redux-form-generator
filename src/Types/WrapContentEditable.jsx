@@ -1,9 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import _has from 'lodash/has';
-import _isEmpty from 'lodash/isEmpty';
 import _get from 'lodash/get';
-import _pick from 'lodash/pick';
 import _isFunction from 'lodash/isFunction';
 import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -28,7 +26,7 @@ class WrapContentEditable extends React.Component {
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
       if (this.props.checkShow(this.props.field.show()) !== true) {
-        return null
+        return null;
       }
     }
 
@@ -76,14 +74,13 @@ class WrapContentEditable extends React.Component {
     };
 
     const getField = () => {
-      return <ContentEditableComponent
+      return (<ContentEditableComponent
         tagName={this.props.field.tagName || 'div'}
         html={this.input.value}
         onChange={this.input.onChange}
         {...this.props.field.attributes}
 
-      />
-
+      />);
     };
 
     if (this.props.field.type === 'dropDown' && !_has(this.props.field, 'label')) {
@@ -91,14 +88,14 @@ class WrapContentEditable extends React.Component {
     }
 
     const getLabel = () => {
-      if (label && !_isEmpty(label)) {
+      if (label) {
         return (
           <Col componentClass={ControlLabel} {...labelSize()}>
             {label}
           </Col>
         );
       }
-    }
+    };
 
     return (
       <FormGroup
@@ -127,8 +124,6 @@ WrapContentEditable.propTypes = {
   'checkShow': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
-  'addField': PropTypes.func,
-  'static': PropTypes.bool,
   'horizontal': PropTypes.bool.isRequired
 };
 WrapContentEditable.defaultProps = {};

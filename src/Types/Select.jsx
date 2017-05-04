@@ -10,7 +10,7 @@ class Select extends Wrap {
     return (
       <Field
         component={this.renderField}
-        {..._omit(this.props.field, ['disabled', 'hidden', 'type'])}
+        {..._omit(this.props.field, ['disabled', 'hidden'])}
         size={this.props.size}
         locale={this.props.locale}
         checkDisabled={this.props.checkDisabled}

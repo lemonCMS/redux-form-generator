@@ -10,7 +10,7 @@ class Input extends Wrap {
     return (
       <Field
         component={this.renderField}
-        {..._omit(this.props.field,['disabled', 'hidden', 'type'])}
+        {..._omit(this.props.field,['disabled', 'hidden'])}
         size={this.props.size}
         static={this.props.static}
         locale={this.props.locale}

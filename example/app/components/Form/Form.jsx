@@ -3,6 +3,7 @@ import React from 'react';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import _clone from 'lodash/clone';
+import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
 import _isUndefined from 'lodash/isUndefined';
@@ -103,44 +104,73 @@ const InnerForm = (props) => {
     );
   };
 
-  const checkDisabled = (args) => {
+  const checker = (args) => {
     if (_isBoolean(args)) {
       return args;
     } else if (_isObject(args)) {
-      const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+      let value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+
       if (!_isUndefined(args.value)) {
-        if (value) {
-          if (_isString(value) && args.value === value) {
-            return true;
-          } else if (_isArray(value)) {
-            if (value.indexOf(args.value) > -1) {
-              return true;
-            }
+        if (!value) return false;
+        if (_isArray(args.value)) {
+          if (_isString(value)) {
+            value = [value];
           }
+          const check = _filter(args.value, (item) => {
+            return (value.indexOf(item) > -1);
+          });
+
+          if (_isUndefined(args.operator) || String(args.operator).toLowerCase() === 'or') {
+            return (_isArray(check) && check.length > 0);
+          }
+          return (_isArray(check) && check.length === args.value.length);
+        } else if (_isArray(value)) {
+          if (value.indexOf(args.value) > -1) {
+            return true;
+          }
+        } else if (args.value === value) {
+          return true;
         }
         return false;
       }
 
       if (!_isUndefined(args.value_not)) {
+        if (!value) return true;
         if (value) {
-          if (_isString(value) && args.value_not === value) {
-            return false;
+          if (_isArray(args.value_not)) {
+            if (_isString(value)) {
+              value = [value];
+            }
+            const check = _filter(args.value_not, (item) => {
+              return (value.indexOf(item) > -1);
+            });
+            if (_isUndefined(args.operator) || String(args.operator).toLowerCase() === 'or') {
+              return !(_isArray(check) && check.length > 0);
+            }
+            return !(_isArray(check) && check.length === args.value_not.length);
+
           } else if (_isArray(value)) {
             if (value.indexOf(args.value_not) > -1) {
               return false;
             }
+          } else if (args.value_not === value) {
+            return false;
           }
         }
         return true;
       }
     } else if (_isString(args)) {
       const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
-      if (value !== '') {
-        return true;
-      }
-
-      return false;
+      return (value !== '');
     }
+  };
+
+  const checkDisabled = (args) => {
+    if (_isArray(args)) {
+      const check = _filter(args, item => checker(item));
+      return (_isArray(check) && check.length === args.length);
+    }
+    return checker(args);
   };
 
   const checkHidden = (args) => {

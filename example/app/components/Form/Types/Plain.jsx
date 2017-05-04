@@ -1,6 +1,9 @@
 import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import _isFunction from 'lodash/isFunction';
+import _isString from 'lodash/isString';
+import _isObject from 'lodash/isObject';
+import _pick from 'lodash/pick';
 
 export default class Plain extends Component {
 
@@ -24,8 +27,17 @@ export default class Plain extends Component {
     const createMarkup = (data) => {
       return {__html: data};
     };
-    return (
-      <div dangerouslySetInnerHTML={createMarkup(this.props.field.value)} />
-    );
+
+    if (_isString(this.props.field.value)) {
+      return (
+        <div dangerouslySetInnerHTML={createMarkup(this.props.field.value)} {..._pick(this.props.field, ['className', 'style', 'id', 'onClick', 'rel'])} />
+      );
+    }
+
+    if (_isObject(this.props.field.value)) {
+      return this.props.field.value;
+    }
+
+    return null;
   }
 }

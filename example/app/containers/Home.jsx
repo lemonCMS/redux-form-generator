@@ -58,7 +58,10 @@ class Home extends React.Component {
               {
                 name: 'plain',
                 type: 'plain',
-                value: '<strong>Factuur gegevens</strong>'
+                style: {
+                  color: 'red'
+                },
+                value: <strong>Factuur gegevens</strong>
               },
               {
                 name: 'order_number',

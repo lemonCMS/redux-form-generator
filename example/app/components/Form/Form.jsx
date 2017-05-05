@@ -351,6 +351,11 @@ const InnerForm = (props) => {
 class RenderForm extends React.Component {
 
   shouldComponentUpdate(nextProps) {
+
+    if (this.props.reInitializeOn && this.props.reInitializeOn !== nextProps.reInitializeOn) {
+      return true;
+    }
+
     if (!_isEqual(nextProps.initialValues, this.props.initialValues)) {
       return true;
     }
@@ -400,6 +405,11 @@ RenderForm.propTypes = {
   'onSubmit': PropTypes.func,
   'validate': PropTypes.func,
   'static': PropTypes.bool,
+  'reInitializeOn': PropTypes.oneOfType([
+    PropTypes.number,
+    PropTypes.string,
+    PropTypes.bool
+  ]),
   'locale': PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.object,

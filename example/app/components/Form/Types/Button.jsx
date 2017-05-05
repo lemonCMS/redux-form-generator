@@ -2,10 +2,21 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
+import _isFunction from 'lodash/isFunction';
 import Button from 'react-bootstrap/lib/Button';
 
 class Input extends React.Component {
   render() {
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+        return null;
+      }
+    } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
+      if (this.props.checkShow(this.props.field.show()) !== true) {
+        return null;
+      }
+    }
+
     const size = _get(this.props.field, 'bsSize', this.props.size);
     const thisSize = () => {
       if (size !== 'medium') {
@@ -33,6 +44,8 @@ class Input extends React.Component {
 Input.propTypes = {
   'field': PropTypes.object,
   'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
+  'checkShow': PropTypes.func,
   'size': PropTypes.string
 };
 Input.defaultProps = {};

@@ -148,6 +148,7 @@
     "react-redux": "^5.0.4",
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.0",
+    "react-syntax-highlighter": "^5.5.0",
     "react-tinymce": "^0.5.1",
     "react-transform-hmr": "^1.0.4",
     "reducers": "^3.0.0-alpha",

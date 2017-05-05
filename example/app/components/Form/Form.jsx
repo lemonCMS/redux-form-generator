@@ -13,6 +13,7 @@ import _isString from 'lodash/isString';
 import _isArray from 'lodash/isArray';
 import _isObject from 'lodash/isObject';
 import _pick from 'lodash/pick';
+import _isFunction from 'lodash/isFunction';
 import Form from 'react-bootstrap/lib/Form';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
@@ -181,36 +182,6 @@ const InnerForm = (props) => {
     return checkDisabled(args);
   };
 
-  const buttonToolbar = (field, key, size) => {
-    const toolbar = field.buttonToolbar;
-    const thisSize = _get(toolbar, 'bsSize', size);
-    // Hide fields that are only visible in static mode
-    if (!props.static && !!toolbar.showOnStatic) {
-      return false;
-    }
-    // Hide fields that are only visible in edit mode
-    if (!!props.static && !!toolbar.hideOnStatic) {
-      return false;
-    }
-
-    return (
-      <Row key={key}>
-        <Col {..._pick(toolbar, ['lg', 'lgHidden', 'lgOffset', 'lgPull', 'lgPush',
-          'md', 'mdHidden', 'mdOffset', 'mdPull', 'mdPush',
-          'sm', 'smHidden', 'smOffset', 'smPull', 'smPush',
-          'xs', 'xsHidden', 'xsOffset', 'xsPull', 'xsPush',
-          'componentClass', 'bsClass'
-        ])}>
-          <ButtonToolbar {..._pick(toolbar, ['className'])}>
-            {_map(toolbar.children, (child, keyCol) => {
-              return addField(child, keyCol, thisSize)
-            })}
-          </ButtonToolbar>
-        </Col>
-      </Row>
-    );
-  };
-
   const addField = (field, key, size) => {
     if (Object.prototype.hasOwnProperty.call(field, 'row')) {
       return row(field, key, size);
@@ -292,6 +263,67 @@ const InnerForm = (props) => {
     }
   };
 
+  const buttonToolbar = (field, key, size) => {
+    const toolbar = field.buttonToolbar;
+    const thisSize = _get(toolbar, 'bsSize', size);
+    // Hide fields that are only visible in static mode
+    if (!props.static && !!toolbar.showOnStatic) {
+      return false;
+    }
+    // Hide fields that are only visible in edit mode
+    if (!!props.static && !!toolbar.hideOnStatic) {
+      return false;
+    }
+
+    return (
+      <Row key={key}>
+        <Col {..._pick(toolbar, ['lg', 'lgHidden', 'lgOffset', 'lgPull', 'lgPush',
+          'md', 'mdHidden', 'mdOffset', 'mdPull', 'mdPush',
+          'sm', 'smHidden', 'smOffset', 'smPull', 'smPush',
+          'xs', 'xsHidden', 'xsOffset', 'xsPull', 'xsPush',
+          'componentClass', 'bsClass'
+        ])}>
+          <ButtonToolbar {..._pick(toolbar, ['className'])}>
+            {_map(toolbar.children, (child, keyCol) => {
+              return addField(child, keyCol, thisSize)
+            })}
+          </ButtonToolbar>
+        </Col>
+      </Row>
+    );
+  };
+
+  const wrap = (field, key, size) => {
+    // Hide fields that are only visible in static mode
+    if (!props.static && !!field.showOnStatic) {
+      return false;
+    }
+    // Hide fields that are only visible in edit mode
+    if (!!props.static && !!field.hideOnStatic) {
+      return false;
+    }
+
+    if (field.hidden && _isFunction(field.hidden)) {
+      if (checkHidden(field.hidden()) === true) {
+        return null;
+      }
+    } else if (field.show && _isFunction(field.show)) {
+      if (checkShow(field.show()) !== true) {
+        return null;
+      }
+    }
+
+
+    return (
+      <div key={key}>
+        {_map(field.wrap, (child, keyField) => {
+          return addField(child, keyField, size);
+        })}
+      </div>
+    );
+  };
+
+
   const fields = () => {
     return _map(props.fields, (field, key) => {
       const size = _get(field, 'bsSize', null);
@@ -299,6 +331,8 @@ const InnerForm = (props) => {
         return addField(field, key, size);
       } else if (Object.prototype.hasOwnProperty.call(field, 'row')) {
         return row(field, key, size);
+      } else if (Object.prototype.hasOwnProperty.call(field, 'wrap')) {
+        return wrap(field, key, size);
       } else if (Object.prototype.hasOwnProperty.call(field, 'buttonToolbar')) {
         return buttonToolbar(field, key, size);
       }

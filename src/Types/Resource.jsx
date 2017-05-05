@@ -49,13 +49,15 @@ class Resource extends React.Component {
   options() {
     const {field} = this.props;
     const options = _map(this.state.list || _get(field, 'list', []), (option, key) => {
-      return (
-        <p className="form-control-static" key={key}>
-          {_indexOf(this.input.value, option.value) > -1 ? <i className="fa fa-check-square-o" /> : <i className="fa fa-square-o" />}
-          {' '}
-          {option.desc}
-        </p>
-      );
+      if (_indexOf(this.input.value, option.value) > -1) {
+        return (
+          <p className="form-control-static" key={key}>
+            {_indexOf(this.input.value, option.value) > -1 ? <i className="fa fa-check-square-o" /> : <i className="fa fa-square-o" />}
+            {' '}
+            {option.desc}
+          </p>
+        );
+      }
     });
 
     return (

@@ -36,7 +36,7 @@ class Resource extends React.Component {
             How does TestResource work?
           </p>
           <p>
-           As your can see properties are appended to the TestResource.
+           The following properties are appended on to TestResource.
             <ul>
               <li>clonedValues</li>
               <li>clonedList</li>

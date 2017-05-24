@@ -69,11 +69,7 @@ class Register extends React.Component {
                           name: 'firstname',
                           type: 'text',
                           placeholder: 'First name',
-                          fieldSize: {md: 12},
-                          disabled: () => ({
-                            field: 'living',
-                            value: 1
-                          }),
+                          fieldSize: {md: 12}
                         }
                       ]
                     },
@@ -246,7 +242,7 @@ class Register extends React.Component {
                       name: 'submit',
                       disabled: () => ({
                         field: 'living',
-                        value: 1
+                        value_not: 2
                       }),
                       value: 'register me!',
                       bsStyle: 'primary'

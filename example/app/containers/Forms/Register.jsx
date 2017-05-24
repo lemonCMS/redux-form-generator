@@ -69,7 +69,11 @@ class Register extends React.Component {
                           name: 'firstname',
                           type: 'text',
                           placeholder: 'First name',
-                          fieldSize: {md: 12}
+                          fieldSize: {md: 12},
+                          disabled: () => ({
+                            field: 'living',
+                            value: 1
+                          }),
                         }
                       ]
                     },

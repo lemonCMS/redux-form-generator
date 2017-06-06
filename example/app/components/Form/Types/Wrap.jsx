@@ -47,7 +47,7 @@ class Wrap extends React.Component {
       if (item.hasOwnProperty('default')) {
         dropDownTitle = item.default;
         menuItem.push(<MenuItem key={key} onSelect={select}>{item.default}</MenuItem>);
-        menuItem.push(<MenuItem key={key + '_div'} divider/>);
+        menuItem.push(<MenuItem key={key + '_div'} divider />);
       } else {
         if (this.input.value === item.value) {
           dropDownTitle = item.desc;

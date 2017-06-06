@@ -60,7 +60,7 @@ class Input extends React.Component {
     };
 
     const add = _pick(custom, ['placeholder', 'inputProps']);
-    const conf = _merge(props.conf, props.locale.datetimepicker);
+    const conf = _merge(props.locale.datetimepicker, props.conf);
 
     const validationState = () => {
       if (touched && error) {

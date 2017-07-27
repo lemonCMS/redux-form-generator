@@ -84,6 +84,7 @@ class Resource extends React.Component {
   }
 
   renderField(props) {
+
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
       if (this.props.checkHidden(this.props.field.hidden()) === true) {
         return null;
@@ -94,7 +95,7 @@ class Resource extends React.Component {
       }
     }
 
-    const {input, label, help, meta: {touched, error}, ...custom} = props;
+    const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
     this.input = input;
     this.custom = custom;
     const size = _get(this.props.field, 'bsSize', this.props.size);
@@ -171,15 +172,29 @@ class Resource extends React.Component {
       }
     };
 
+    const validationState = () => {
+      if (touched && error) {
+        return 'error';
+      }
+
+      if (touched && valid) {
+        return 'success';
+      }
+    };
+
     return (
       <FormGroup
         {...thisSize()}
+        validationState={validationState()}
       >
         {getLabel()}
         <Col {...fieldSize()}>
           {component()}
-          {touched && error && <FormControl.Feedback>{error}</FormControl.Feedback>}
-          {help && <HelpBlock>{help}</HelpBlock>}
+          {/*
+            {touched && error && <FormControl.Feedback />}
+          */}
+          {help && (!touched || !error) && <HelpBlock>{help}</HelpBlock>}
+          {touched && error && <HelpBlock>{error}</HelpBlock>}
         </Col>
       </FormGroup>
     );

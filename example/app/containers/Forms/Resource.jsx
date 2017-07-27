@@ -25,8 +25,33 @@ class Resource extends React.Component {
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
                 resource: props => <TestResource {...props} />
+              },
+              {
+                buttonToolbar: {
+                  md: 8,
+                  mdOffset: 4,
+                  children: [
+                    {
+                      type: 'submit',
+                      name: 'submit',
+                      value: 'log me in!',
+                      bsStyle: 'primary'
+                    },
+                    {
+                      type: 'button',
+                      name: 'submit',
+                      value: 'Some other button',
+                      onClick: () => {
+                        alert('Clicked some other button!');
+                      }
+                    }
+                  ]
+                }
               }
             ]}
+            validate={() => {
+              return {resource: 'verplicht'};
+            }}
             />
         </Well>
         <SyntaxHighlighter language="jsx" showLineNumbers style={style}>{codeString}</SyntaxHighlighter>

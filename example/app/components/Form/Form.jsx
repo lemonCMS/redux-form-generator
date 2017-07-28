@@ -91,9 +91,24 @@ const InnerForm = (props) => {
       return false;
     }
 
+    if (field.row.hidden && _isFunction(field.row.hidden)) {
+      if (checkHidden(field.row.hidden()) === true) {
+        return null;
+      }
+    } else if (field.row.show && _isFunction(field.row.show)) {
+      if (checkShow(field.row.show()) !== true) {
+        return null;
+      }
+    }
     return (
       <Row key={key}>
-        {_map(field, (rowItem, keyRow) => {
+        {col(field.row.col, size, _get(field, 'parent', null))}
+      </Row>
+    );
+/*
+    return (
+      <Row key={key}>
+        {_map(field.row, (rowItem, keyRow) => {
           const thisSize = _get(rowItem, 'bsSize', size);
           return (
             <div key={keyRow}>
@@ -103,6 +118,7 @@ const InnerForm = (props) => {
         })}
       </Row>
     );
+*/
   };
 
   const checker = (args) => {

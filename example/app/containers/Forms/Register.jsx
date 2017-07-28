@@ -103,6 +103,23 @@ class Register extends React.Component {
                 value: <p>Tell us, where do you live?</p>
               },
               {
+                row: {
+                  show: () => ({
+                    field: 'living',
+                    value: 1
+                  }),
+                  col: [
+                    {
+                      md: 10,
+                      mdOffset: 2,
+                      children: [
+                        {type: 'plain', value: 'You successfully loggedin'},
+                      ]
+                    }
+                  ]
+                }
+              },
+              {
                 name: 'living',
                 type: 'radio',
                 fieldSize: {mdOffset: 4, md: 8},

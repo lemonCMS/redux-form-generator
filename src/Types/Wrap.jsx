@@ -188,7 +188,6 @@ class Wrap extends React.Component {
       }
     };
 
-
     const validationState = () => {
       if (touched && error) {
         return 'error';

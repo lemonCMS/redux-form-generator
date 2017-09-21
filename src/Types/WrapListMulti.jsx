@@ -60,12 +60,12 @@ class WrapListMulti extends React.Component {
       disabled = this.props.checkDisabled(this.props.field.disabled());
     }
 
-    return _map(list, (option, key) => {
-      if (staticField === true) {
-        return (<FormControl.Static key={key}>{option.desc}</FormControl.Static>);
-      }
+    if (_get(this.props, 'field.single', false) === true) {
+      return _map(list, (option, key) => {
+        if (staticField === true) {
+          return (<FormControl.Static key={key}>{option.desc}</FormControl.Static>);
+        }
 
-      if (_get(this.props, 'field.single', false) === true) {
         return (
           <Checkbox
             key={key}
@@ -84,6 +84,12 @@ class WrapListMulti extends React.Component {
             {option.desc}
           </Checkbox>
         );
+      });
+    }
+
+    return _map(list, (option, key) => {
+      if (staticField === true) {
+        return (<FormControl.Static key={key}>{option.desc}</FormControl.Static>);
       }
 
       return (

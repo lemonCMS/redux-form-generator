@@ -64,8 +64,5 @@
   },
   "bugs": {
     "url": "https://github.com/lemonCMS/react-form-generator/issues"
-  },
-  "directories": {
-    "example": "example"
   }
 }

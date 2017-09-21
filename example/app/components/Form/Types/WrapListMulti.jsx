@@ -72,7 +72,7 @@ class WrapListMulti extends React.Component {
             name={`${this.input.name}`}
             disabled={disabled}
             value={option.value}
-            checked={this.input.value}
+            checked={String(this.input.value) === String(option.value)}
             onChange={(event) => {
               if (event.target.checked) {
                 this.input.onChange(option.value);

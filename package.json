@@ -26,7 +26,8 @@
     "react-bootstrap": "^0.30.7",
     "react-datetime": "^2.8.4",
     "react-plupload": "^0.1.0",
-    "react-tinymce": "^0.5.1"
+    "react-tinymce": "^0.5.1",
+    "react-webpack-node": "file:example"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",

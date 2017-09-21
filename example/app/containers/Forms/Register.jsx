@@ -225,6 +225,15 @@ class Register extends React.Component {
                               type: 'text',
                               placeholder: 'City',
                               fieldSize: {md: 12}
+                            },
+                            {
+                              name: 'checkbox_city',
+                              type: 'checkbox',
+                              single: true,
+                              fieldSize: {md: 12},
+                              options: [
+                                {value: 1, desc: 'Single checkbox'}
+                              ]
                             }
                           ]
                         }

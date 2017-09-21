@@ -200,7 +200,7 @@ Put in your react render component the following code
   filter: true
 }
 ````
-##Checkbox
+##Checkbox with multiple options, returns checkvalues as array
 ````js
 {
   name: 'field_6',
@@ -223,8 +223,33 @@ Put in your react render component the following code
   ],
   chunks: 3,
   filter: true
+  
 }
 ````
+
+##Checkbox with sing option, returns checkvalue as is
+````js
+{
+  name: 'field_6',
+  label: 'Field 6',
+  type: 'checkbox',
+  bsSize: 'large',
+  placeholder: 'Field 6',
+  labelSize: {
+    md: 2
+  },
+  fieldSize: {
+    md: 10
+  },
+  options: [
+    {value: 1, desc: 'Value 1'},
+  ],
+  chunks: 3,
+  filter: true,
+  single: true
+}
+````
+
 
 ##Textarea
 ````js

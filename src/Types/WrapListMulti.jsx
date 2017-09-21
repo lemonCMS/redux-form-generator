@@ -65,6 +65,27 @@ class WrapListMulti extends React.Component {
         return (<FormControl.Static key={key}>{option.desc}</FormControl.Static>);
       }
 
+      if (_get(this.props, 'field.single', false) === true) {
+        return (
+          <Checkbox
+            key={key}
+            name={`${this.input.name}`}
+            disabled={disabled}
+            value={option.value}
+            checked={this.input.value}
+            onChange={(event) => {
+              if (event.target.checked) {
+                this.input.onChange(option.value);
+              } else {
+                this.input.onChange(null);
+              }
+            }}
+          >
+            {option.desc}
+          </Checkbox>
+        );
+      }
+
       return (
         <Checkbox
           key={key}

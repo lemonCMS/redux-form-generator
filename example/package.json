@@ -18,7 +18,7 @@
     "build": "npm run clean && npm run build:prod && npm run build:node",
     "test": "cross-env NODE_ENV=test karma start",
     "test:watch": "cross-env NODE_ENV=test npm test -- --watch --no-single-run",
-    "postinstall": "npm run build",
+    "xpostinstall": "npm run build",
     "keep-green": "git merge master && rm -rf node_modules && npm install && npm start",
     "better-dev": "better-npm-run start-dev"
   },
@@ -117,7 +117,6 @@
     "isomorphic-fetch": "^2.2.1",
     "isomorphic-style-loader": "^1.1.0",
     "json-loader": "^0.5.4",
-    "kerberos": "0.0.22",
     "lodash": "^4.16.2",
     "method-override": "^2.3.5",
     "middlewares": "^0.1.1",

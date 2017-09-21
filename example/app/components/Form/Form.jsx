@@ -262,6 +262,7 @@ const InnerForm = (props) => {
                          pristine={props.pristine}
                          dirty={props.dirty}
                          invalid={props.invalid}
+                         anyTouched={props.anyTouched}
                          submitting={props.submitting}
                          submitFailed={props.submitFailed}
                          submitSucceeded={props.submitSucceeded}

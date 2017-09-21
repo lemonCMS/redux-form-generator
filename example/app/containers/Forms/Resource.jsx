@@ -34,7 +34,7 @@ class Resource extends React.Component {
                     {
                       type: 'submit',
                       name: 'submit',
-                      value: 'log me in!',
+                      value: 'Submit',
                       bsStyle: 'primary'
                     },
                     {

@@ -251,7 +251,7 @@ class Register extends React.Component {
                       md: 10,
                       mdOffset: 2,
                       children: [
-                        {type: 'success', message: 'You successfully loggedin'},
+                        {type: 'success', message: 'You successfully registerd'},
                         {type: 'error', message: 'Please check your username and password. Tip! username: user@example.com, password: password'}
                       ]
                     }
@@ -270,15 +270,15 @@ class Register extends React.Component {
                         field: 'living',
                         value_not: 2
                       }),
-                      value: 'register me!',
+                      value: 'Submit',
                       bsStyle: 'primary'
                     },
                     {
                       type: 'button',
                       name: 'submit',
-                      value: 'Some other button',
+                      value: 'Click me',
                       onClick: () => {
-                        alert('Clicked some other button!');
+                        alert('Clicked the other button!');
                       }
                     }
                   ]

@@ -6,6 +6,7 @@ import _isFunction from 'lodash/isFunction';
 export default class MessageType extends Component {
 
   static propTypes = {
+    'anyTouched': PropTypes.bool,
     'checkHidden': PropTypes.func,
     'checkShow': PropTypes.func,
     'field': PropTypes.object,
@@ -14,7 +15,7 @@ export default class MessageType extends Component {
     'submitFailed': PropTypes.bool,
     'submitSucceeded': PropTypes.bool,
     'submitting': PropTypes.bool
-  }
+  };
 
   render() {
     const {field} = this.props;
@@ -25,12 +26,12 @@ export default class MessageType extends Component {
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
       if (this.props.checkShow(this.props.field.show()) !== true) {
-        return null
+        return null;
       }
     }
 
     if (field.type === 'success' && !this.props.submitting) {
-      if (this.props.valid === true && this.props.submitSucceeded === true) {
+      if (this.props.valid === true && this.props.submitSucceeded === true && this.props.anyTouched !== true) {
         return (<Alert bsStyle="success">{field.message}</Alert>);
       }
     }

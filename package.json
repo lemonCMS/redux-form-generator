@@ -23,6 +23,7 @@
   "author": "Raymond van Vuuren",
   "license": "MIT",
   "dependencies": {
+    "lodash": "4.17.2",
     "react-bootstrap": "^0.30.7",
     "react-datetime": "^2.8.4",
     "react-plupload": "^0.1.0",
@@ -31,7 +32,6 @@
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "webpack": "^1.13.1",
-    "lodash": "4.17.2",
     "react-redux": "5.0.4",
     "redux": "3.6.0",
     "redux-form": "6.6.3",

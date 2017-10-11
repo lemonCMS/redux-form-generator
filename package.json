@@ -28,7 +28,7 @@
     "react-bootstrap": "^0.31.3",
     "react-datetime": "^2.10.3",
     "react-plupload": "^0.1.0",
-    "react-tinymce": "^0.6.0"
+    "react-tinymce-input": "^2.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",

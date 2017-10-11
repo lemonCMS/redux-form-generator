@@ -75,6 +75,7 @@ const InnerForm = (props) => {
             const clonedChild = _clone(child);
             if (parent !== null) {
               clonedChild.name = `${parent}.${child.name}`;
+              clonedChild.parent = parent;
             }
             return (
               addField(clonedChild, keyCol, thisSize)

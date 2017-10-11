@@ -60,6 +60,8 @@ class Complex extends React.Component {
                   onClick={() => remove(complexIndex)}
                   bsStyle={_get(this.props.field.removeBtn, 'bsStyle', 'danger')}
                   bsSize={_get(this.props.field.removeBtn, 'bsSize', undefined)}
+                  className={_get(this.props.field.removeBtn, 'className', '')}
+                  title={_get(this.props.field.removeBtn, 'title', '')}
                   disabled={disabled}
                   type="button"
           >
@@ -212,6 +214,7 @@ class Complex extends React.Component {
         collapsed={this.state.collapsed}
         static={this.props.static || field.static}
         locale={this.props.locale}
+        rerenderOnEveryChange
       />
     );
   }

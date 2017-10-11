@@ -24,17 +24,17 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "4.17.2",
-    "react-bootstrap": "^0.30.7",
-    "react-datetime": "^2.8.4",
+    "redux-form": "7.1.1",
+    "react-bootstrap": "^0.31.3",
+    "react-datetime": "^2.10.3",
     "react-plupload": "^0.1.0",
-    "react-tinymce": "^0.5.1"
+    "react-tinymce": "^0.6.0"
   },
   "devDependencies": {
     "babel-cli": "^6.8.0",
     "webpack": "^1.13.1",
     "react-redux": "5.0.4",
     "redux": "3.6.0",
-    "redux-form": "6.6.3",
     "output-file-sync": "^1.1.1",
     "babel-core": "6.21.0",
     "babel-loader": "6.2.10",

@@ -5,6 +5,7 @@ import Home from './containers/Home';
 import Login from './containers/Forms/Login';
 import Register from './containers/Forms/Register';
 import Resource from './containers/Forms/Resource';
+import Complex from './containers/Forms/Complex';
 
 /*
  * @param {Redux Store}
@@ -18,6 +19,7 @@ export default () => {
         <Route path="login" component={Login} />
         <Route path="register" component={Register} />
         <Route path="resource" component={Resource} />
+        <Route path="complex" component={Complex} />
       </Route>
     </Route>
   );

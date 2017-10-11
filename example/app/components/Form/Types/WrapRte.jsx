@@ -4,7 +4,7 @@ import _has from 'lodash/has';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
 import _isFunction from 'lodash/isFunction';
-import TinyMCE from 'react-tinymce';
+import TinyMCEInput from 'react-tinymce-input';
 import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
@@ -21,11 +21,11 @@ class WrapRte extends React.Component {
 
   renderField(props) {
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
-      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+      if (this.props.checkHidden(this.props.field.hidden(), _get(props, 'parent')) === true) {
         return null;
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
-      if (this.props.checkShow(this.props.field.show()) !== true) {
+      if (this.props.checkShow(this.props.field.show(), _get(props, 'parent')) !== true) {
         return null;
       }
     }
@@ -58,7 +58,9 @@ class WrapRte extends React.Component {
       }
     };
 
-    const add = _pick(custom, ['placeholder', 'rows', 'cols', 'config']);
+    const add = _pick(custom, ['placeholder', 'rows', 'cols']);
+    add.tinymceConfig = custom.config;
+
     const component = () => {
 
       let checkDisabled = false;
@@ -80,8 +82,8 @@ class WrapRte extends React.Component {
         );
       }
 
-      return (<TinyMCE
-        content={input.value}
+      return (<TinyMCEInput
+        value={input.value}
         {...add}
         onChange={(event) => {
           this.input.onBlur();

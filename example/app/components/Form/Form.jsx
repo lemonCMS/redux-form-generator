@@ -52,6 +52,10 @@ const InnerForm = (props) => {
     locale = locales['en_US'];
   }
 
+  if (locale.default !== undefined) {
+    locale = locale.default;
+  }
+
   const col = (cols, size, parent) => {
     return _map(cols, (colItem, key) => {
       const thisSize = _get(colItem, 'bsSize', size);
@@ -121,11 +125,17 @@ const InnerForm = (props) => {
 */
   };
 
-  const checker = (args) => {
+  const checker = (args, parent) => {
     if (_isBoolean(args)) {
       return args;
     } else if (_isObject(args)) {
-      let value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+      let value = null;
+
+      if (parent !== undefined) {
+        value = _get(props.formValues, `${parent}.${args.field}`, _get(props.initialValues, [args.field]));
+      } else {
+        value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+      }
 
       if (!_isUndefined(args.value)) {
         if (!value) return false;
@@ -182,20 +192,20 @@ const InnerForm = (props) => {
     }
   };
 
-  const checkDisabled = (args) => {
+  const checkDisabled = (args, parent) => {
     if (_isArray(args)) {
       const check = _filter(args, item => checker(item));
       return (_isArray(check) && check.length === args.length);
     }
-    return checker(args);
+    return checker(args, parent);
   };
 
-  const checkHidden = (args) => {
-    return checkDisabled(args);
+  const checkHidden = (args, parent) => {
+    return checkDisabled(args, parent);
   };
 
-  const checkShow = (args) => {
-    return checkDisabled(args);
+  const checkShow = (args, parent) => {
+    return checkDisabled(args, parent);
   };
 
   const addField = (field, key, size) => {

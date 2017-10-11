@@ -11,7 +11,7 @@ class Checkbox extends WrapListMulti {
     return (
       <Field
         component={this.renderField}
-        {..._omit(this.props.field,['disabled', 'hidden', 'type'])}
+        {..._omit(this.props.field, ['disabled', 'hidden', 'type'])}
         size={this.props.size}
         search={this.state.value}
         locale={this.props.locale}

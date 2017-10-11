@@ -42,6 +42,7 @@ class Home extends React.Component {
           <Link to="/login" className="btn btn-link btn-block">Login</Link>
           <Link to="/register" className="btn btn-link btn-block">Register</Link>
           <Link to="/resource" className="btn btn-link btn-block">Resource</Link>
+          <Link to="/complex" className="btn btn-link btn-block">Complex</Link>
         </Col>
         <Col md={8}>
           {this.props.children && this.props.children}

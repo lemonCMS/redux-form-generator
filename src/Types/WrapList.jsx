@@ -49,7 +49,6 @@ class WrapList extends React.Component {
 
   radioButtonList(list) {
     const staticField = this.props.static || _get(this.props.field, 'static', false);
-
     return _map(list, (option, key) => {
       if (staticField === true) {
         return (<FormControl.Static key={key}>{option.desc}</FormControl.Static>);
@@ -57,7 +56,7 @@ class WrapList extends React.Component {
 
       let disabled = false;
       if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
-        disabled = this.props.checkDisabled(this.props.field.disabled());
+        disabled = this.props.checkDisabled(this.props.field.disabled(), _get(this.props.field, 'parent'));
       }
 
       return (
@@ -143,11 +142,11 @@ class WrapList extends React.Component {
 
   renderField(props) {
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
-      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+      if (this.props.checkHidden(this.props.field.hidden(), _get(props, 'parent')) === true) {
         return null;
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
-      if (this.props.checkShow(this.props.field.show()) !== true) {
+      if (this.props.checkShow(this.props.field.show(), _get(props, 'parent')) !== true) {
         return null;
       }
     }

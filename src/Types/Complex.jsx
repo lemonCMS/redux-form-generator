@@ -201,6 +201,17 @@ class Complex extends React.Component {
 
   render() {
     const {field, size} = this.props;
+
+    if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
+      if (this.props.checkHidden(this.props.field.hidden(), _get(this.props.field, 'parent')) === true) {
+        return null;
+      }
+    } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
+      if (this.props.checkShow(this.props.field.show(), _get(this.props.field, 'parent')) !== true) {
+        return null;
+      }
+    }
+
     return (
       <FieldArray
         name={field.name}
@@ -214,15 +225,17 @@ class Complex extends React.Component {
         collapsed={this.state.collapsed}
         static={this.props.static || field.static}
         locale={this.props.locale}
-        rerenderOnEveryChange
+        rerenderOnEveryChange={_get(field, 'rerenderOnEveryChange', false)}
       />
     );
   }
 }
 
 Complex.propTypes = {
-  'size': PropTypes.string,
   'checkDisabled': PropTypes.func,
+  'checkHidden': PropTypes.func,
+  'checkShow': PropTypes.func,
+  'size': PropTypes.string,
   'dispatch': PropTypes.func,
   'addField': PropTypes.func,
   'field': PropTypes.object,

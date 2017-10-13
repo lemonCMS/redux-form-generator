@@ -33,6 +33,7 @@ class Complex extends React.Component {
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
                 options: [
+                  {value: null, desc: '--Maak een keuze--'},
                   {value: 1, desc: 'Tabel'},
                   {value: 2, desc: 'Selectbox'},
                   {value: 3, desc: 'Radiobutton'},
@@ -58,6 +59,10 @@ class Complex extends React.Component {
               },
               {
                 name: 'items',
+                show: () => ({
+                  field: 'display_type',
+                  value: '1'
+                }),
                 type: 'complex',
                 label: 'Substellingen',
                 addBtn: {label: 'Item toevoegen'},
@@ -75,6 +80,27 @@ class Complex extends React.Component {
                     fieldSize: {md: 8},
                     options: [
                       {value: 1, desc: 'Show field 5'}
+                    ]
+                  },
+                  {
+                    name: 'complex2',
+                    label: 'Multiple items',
+                    type: 'complex',
+                    show: () => ({
+                      field: 'field4',
+                      value: 1
+                    }),
+                    children: [
+                      {
+                        name: 'field99',
+                        type: 'checkbox',
+                        label: 'Field 99',
+                        labelSize: {md: 4},
+                        fieldSize: {md: 8},
+                        options: [
+                          {value: 1, desc: 'Show field 5'}
+                        ]
+                      }
                     ]
                   },
                   {
@@ -244,6 +270,23 @@ class Complex extends React.Component {
                       value: 1
                     })
                   },
+                  {
+                    name: 'complex2',
+                    label: 'Multiple items',
+                    type: 'complex',
+                    children: [
+                      {
+                        name: 'field99',
+                        type: 'checkbox',
+                        label: 'Field 99',
+                        labelSize: {md: 4},
+                        fieldSize: {md: 8},
+                        options: [
+                          {value: 1, desc: 'Show field 5'}
+                        ]
+                      }
+                    ]
+                  }
 
                 ]
               },

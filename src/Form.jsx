@@ -134,7 +134,7 @@ const InnerForm = (props, context, context2) => {
       let value = null;
 
       if (parent !== undefined) {
-        value = _get(props.formValues, `${parent}.${args.field}`, _get(props.initialValues, [args.field]));
+        value = _get(props.formValues, `${parent}.${args.field}`, _get(props.formValues, `${args.field}`, _get(props.initialValues, [args.field])));
       } else {
         value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
       }

@@ -196,7 +196,7 @@ const InnerForm = (props, context, context2) => {
 
   const checkDisabled = (args, parent) => {
     if (_isArray(args)) {
-      const check = _filter(args, item => checker(item));
+      const check = _filter(args, item => checker(item, parent));
       return (_isArray(check) && check.length === args.length);
     }
     return checker(args, parent);

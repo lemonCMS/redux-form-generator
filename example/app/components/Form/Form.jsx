@@ -1,5 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
+import _set from 'lodash/set';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import _clone from 'lodash/clone';
@@ -38,7 +39,7 @@ import Pending from './Pending';
 
 let locale = {};
 
-const InnerForm = (props) => {
+const InnerForm = (props, context, context2) => {
   const {handleSubmit} = props;
   if (typeof props.locale === 'string') {
     if (!locales[props.locale]) {
@@ -351,7 +352,6 @@ const InnerForm = (props) => {
     );
   };
 
-
   const fields = () => {
     return _map(props.fields, (field, key) => {
       const size = _get(field, 'bsSize', null);
@@ -377,6 +377,22 @@ const InnerForm = (props) => {
 };
 
 class RenderForm extends React.Component {
+
+  constructor() {
+    super();
+    this.validate = this.validate.bind(this);
+    this.state = {
+      validation: {}
+    };
+  }
+
+  validate(path, type) {
+    const state = this.state.validation;
+    state.path = type;
+    this.setState({validation: state}, () => {
+      // console.log(this.state);
+    });
+  }
 
   shouldComponentUpdate(nextProps) {
 
@@ -415,6 +431,7 @@ class RenderForm extends React.Component {
       formReducer={_get(this.props, 'formReducer', 'form')}
       static={this.props.static}
       locale={this.props.locale}
+      setValidation={this.validate}
       onSubmit={(data, dispatch) => {
         if (Object.constructor.hasOwnProperty.call(this.props, 'onSubmit')) {
           return this.props.onSubmit(data, dispatch);
@@ -443,7 +460,6 @@ RenderForm.propTypes = {
     PropTypes.object,
   ])
 };
-
 
 export default connect(() => ({})
   , (dispatch) => {

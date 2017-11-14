@@ -23,6 +23,14 @@ class Register extends React.Component {
                 value: 'Gives us your username and password :P.'
               },
               {
+                name: 'text',
+                type: 'rte',
+                label: 'Username',
+                placeholder: 'user@example.com',
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+              {
                 name: 'username',
                 type: 'text',
                 label: 'Username',

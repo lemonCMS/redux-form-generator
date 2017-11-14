@@ -87,7 +87,7 @@ class WrapRte extends React.Component {
         {...add}
         onChange={(event) => {
           this.input.onBlur();
-          this.input.onChange(event.target.getContent());
+          this.input.onChange(event);
         }}
       />);
     };

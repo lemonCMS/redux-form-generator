@@ -8,7 +8,306 @@ import Form from '../../components/Form/Form';
 
 class Register extends React.Component {
   render() {
-    const codeString = '<Form\n            locale=\"en_US\"\n            name=\"loginForm\"\n            horizontal\n            fields={[\n              {\n                type: \'plain\',\n                value: \'Gives us your username and password :P.\'\n              },\n              {\n                name: \'username\',\n                type: \'text\',\n                label: \'Username\',\n                placeholder: \'user@example.com\',\n                labelSize: {md: 4},\n                fieldSize: {md: 8}\n              },\n              {\n                name: \'password\',\n                type: \'password\',\n                label: \'Password\',\n                placeholder: \'**********\',\n                labelSize: {md: 4},\n                fieldSize: {md: 8}\n              },\n              {\n                name: \'password_repeat\',\n                type: \'password\',\n                label: \'Password repeat\',\n                placeholder: \'**********\',\n                labelSize: {md: 4},\n                fieldSize: {md: 8}\n              },\n              {\n                type: \'plain\',\n                value: <p>Tell us, what is your name?<\/p>\n              },\n              {\n                row: {\n                  col: [\n                    {\n                      md: 4,\n                      children: [\n                        {\n                          type: \'plain\',\n                          value: (<div className=\"form-group\"><label className=\"col-md-12 control-label\">Fullname<\/label><\/div>) \/\/ eslint-disable-line jsx-a11y\/label-has-for\n                        }\n                      ]\n                    },\n                    {\n                      md: 3,\n                      children: [\n                        {\n                          name: \'firstname\',\n                          type: \'text\',\n                          placeholder: \'First name\',\n                          fieldSize: {md: 12}\n                        }\n                      ]\n                    },\n                    {\n                      md: 2,\n                      children: [\n                        {\n                          name: \'suffix\',\n                          type: \'text\',\n                          placeholder: \'Suffix\',\n                          fieldSize: {md: 12}\n                        }\n                      ]\n                    },\n                    {\n                      md: 3,\n                      children: [\n                        {\n                          name: \'surname\',\n                          type: \'text\',\n                          placeholder: \'Surname\',\n                          fieldSize: {md: 12}\n                        }\n                      ]\n                    }\n                  ]\n                }\n              },\n              {\n                type: \'plain\',\n                value: <p>Tell us, where do you live?<\/p>\n              },\n              {\n                name: \'living\',\n                type: \'radio\',\n                fieldSize: {mdOffset: 4, md: 8},\n                options: [\n                  {value: 1, desc: \'Mommy and daddy!\'},\n                  {value: 2, desc: \'On my own, playing the part of grownup\'}\n                ]\n              },\n              {\n                type: \'plain\',\n                value: (<Alert bsStyle=\"warning\">Please come again when you are a big person<\/Alert>),\n                show: () => ({\n                  field: \'living\',\n                  value: 1\n                })\n              },\n              {\n\n                show: () => ({\n                  field: \'living\',\n                  value: 2\n                }),\n                wrap: [\n                  {\n                    type: \'plain\',\n                    value: \'<strong>What is your adress?<\/strong>\'\n                  },\n                  {\n                    row: {\n                      col: [\n                        {\n                          md: 4,\n                          children: [\n                            {\n                              type: \'plain\',\n                              value: (<div className=\"form-group\"><label className=\"col-md-12 control-label\">Adress<\/label><\/div>) \/\/ eslint-disable-line jsx-a11y\/label-has-for\n                            }\n                          ]\n                        },\n                        {\n                          md: 6,\n                          children: [\n                            {\n                              name: \'street\',\n                              type: \'text\',\n                              placeholder: \'Street name\',\n                              fieldSize: {md: 12}\n                            }\n                          ]\n                        },\n                        {\n                          md: 2,\n                          children: [\n                            {\n                              name: \'housenumber\',\n                              type: \'text\',\n                              placeholder: \'House number\',\n                              fieldSize: {md: 12}\n                            }\n                          ]\n                        }\n                      ]\n                    }\n                  },\n                  {\n                    row: {\n                      col: [\n                        {\n                          md: 4,\n                          children: [\n                            {\n                              type: \'plain\',\n                              value: (<div className=\"form-group\"><label className=\"col-md-12 control-label\">Zip<\/label><\/div>) \/\/ eslint-disable-line jsx-a11y\/label-has-for\n                            }\n                          ]\n                        },\n                        {\n                          md: 2,\n                          children: [\n                            {\n                              name: \'zip\',\n                              type: \'text\',\n                              placeholder: \'Zip\',\n                              fieldSize: {md: 12}\n                            }\n                          ]\n                        },\n                        {\n                          md: 2,\n                          children: [\n                            {\n                              name: \'plain\',\n                              type: \'plain\',\n                              value: (<div className=\"form-group\"><label className=\"col-md-12 control-label\">City<\/label><\/div>) \/\/ eslint-disable-line jsx-a11y\/label-has-for\n                            }\n                          ]\n                        },\n                        {\n                          md: 4,\n                          children: [\n                            {\n                              name: \'city\',\n                              type: \'text\',\n                              placeholder: \'City\',\n                              fieldSize: {md: 12}\n                            }\n                          ]\n                        }\n                      ]\n                    }\n                  },\n                ]\n              },\n\n              {\n                row: {\n                  hideOnStatic: true,\n                  col: [\n                    {\n                      md: 10,\n                      mdOffset: 2,\n                      children: [\n                        {type: \'success\', message: \'You successfully loggedin\'},\n                        {type: \'error\', message: \'Please check your username and password. Tip! username: user@example.com, password: password\'}\n                      ]\n                    }\n                  ]\n                }\n              },\n              {\n                buttonToolbar: {\n                  md: 8,\n                  mdOffset: 4,\n                  children: [\n                    {\n                      type: \'submit\',\n                      name: \'submit\',\n                      disabled: () => ({\n                        field: \'living\',\n                        value: 1\n                      }),\n                      value: \'register me!\',\n                      bsStyle: \'primary\'\n                    },\n                    {\n                      type: \'button\',\n                      name: \'submit\',\n                      value: \'Some other button\',\n                      onClick: () => {\n                        alert(\'Clicked some other button!\');\n                      }\n                    }\n                  ]\n                }\n              }\n            ]}\n            validate={(data) => {\n              const ret = [];\n              if (!data.username) {\n                ret.username = \'Username is mandatory\';\n              } else if (data.username !== \'user@example.com\') {\n                ret.username = \'Oopsie, this user is not found\';\n              }\n              if (!data.password) {\n                ret.password = \'Password is mandatory\';\n              } else if (data.password !== \'password\') {\n                ret.password = \'Oopsie, this password is just wrong\';\n              }\n              return ret;\n            }}\n          \/>';
+    const codeString = '<Form\n' +
+      '            locale=\\"en_US\\"\n' +
+      '            name=\\"loginForm\\"\n' +
+      '            horizontal\n' +
+      '            fields={[\n' +
+      '              {\n' +
+      '                type: \'plain\',\n' +
+      '                value: \'Gives us your username and password :P.\'\n' +
+      '              },\n' +
+      '              {\n' +
+      '                name: \'text\',\n' +
+      '                type: \'rte\',\n' +
+      '                label: \'Username\',\n' +
+      '                placeholder: \'user@example.com\',\n' +
+      '                labelSize: {md: 4},\n' +
+      '                fieldSize: {md: 8}\n' +
+      '              },\n' +
+      '              {\n' +
+      '                name: \'username\',\n' +
+      '                type: \'text\',\n' +
+      '                label: \'Username\',\n' +
+      '                placeholder: \'user@example.com\',\n' +
+      '                labelSize: {md: 4},\n' +
+      '                fieldSize: {md: 8}\n' +
+      '              },\n' +
+      '              {\n' +
+      '                name: \'password\',\n' +
+      '                type: \'password\',\n' +
+      '                label: \'Password\',\n' +
+      '                placeholder: \'**********\',\n' +
+      '                labelSize: {md: 4},\n' +
+      '                fieldSize: {md: 8}\n' +
+      '              },\n' +
+      '              {\n' +
+      '                name: \'password_repeat\',\n' +
+      '                type: \'password\',\n' +
+      '                label: \'Password repeat\',\n' +
+      '                placeholder: \'**********\',\n' +
+      '                labelSize: {md: 4},\n' +
+      '                fieldSize: {md: 8},\n' +
+      '                hidden: () => (\n' +
+      '                  \'field password === null \' +\n' +
+      '                  \'and \' +\n' +
+      '                  \'field username === 1\'\n' +
+      '                )\n' +
+      '              },\n' +
+      '              {\n' +
+      '                type: \'plain\',\n' +
+      '                value: <p>Tell us, what is your name?</p>\n' +
+      '              },\n' +
+      '              {\n' +
+      '                row: {\n' +
+      '                  col: [\n' +
+      '                    {\n' +
+      '                      md: 4,\n' +
+      '                      children: [\n' +
+      '                        {\n' +
+      '                          type: \'plain\',\n' +
+      '                          value: (<div className=\\"form-group\\"><label className=\\"col-md-12 control-label\\">Fullname</label></div>) // eslint-disable-line jsx-a11y/label-has-for\n' +
+      '                        }\n' +
+      '                      ]\n' +
+      '                    },\n' +
+      '                    {\n' +
+      '                      md: 3,\n' +
+      '                      children: [\n' +
+      '                        {\n' +
+      '                          name: \'firstname\',\n' +
+      '                          type: \'text\',\n' +
+      '                          placeholder: \'First name\',\n' +
+      '                          fieldSize: {md: 12}\n' +
+      '                        }\n' +
+      '                      ]\n' +
+      '                    },\n' +
+      '                    {\n' +
+      '                      md: 2,\n' +
+      '                      children: [\n' +
+      '                        {\n' +
+      '                          name: \'suffix\',\n' +
+      '                          type: \'text\',\n' +
+      '                          placeholder: \'Suffix\',\n' +
+      '                          fieldSize: {md: 12}\n' +
+      '                        }\n' +
+      '                      ]\n' +
+      '                    },\n' +
+      '                    {\n' +
+      '                      md: 3,\n' +
+      '                      children: [\n' +
+      '                        {\n' +
+      '                          name: \'surname\',\n' +
+      '                          type: \'text\',\n' +
+      '                          placeholder: \'Surname\',\n' +
+      '                          fieldSize: {md: 12}\n' +
+      '                        }\n' +
+      '                      ]\n' +
+      '                    }\n' +
+      '                  ]\n' +
+      '                }\n' +
+      '              },\n' +
+      '              {\n' +
+      '                type: \'plain\',\n' +
+      '                value: <p>Tell us, where do you live?</p>\n' +
+      '              },\n' +
+      '              {\n' +
+      '                row: {\n' +
+      '                  show: () => ({\n' +
+      '                    field: \'living\',\n' +
+      '                    value: 1\n' +
+      '                  }),\n' +
+      '                  col: [\n' +
+      '                    {\n' +
+      '                      md: 10,\n' +
+      '                      mdOffset: 2,\n' +
+      '                      children: [\n' +
+      '                        {type: \'plain\', value: \'You successfully loggedin\'},\n' +
+      '                      ]\n' +
+      '                    }\n' +
+      '                  ]\n' +
+      '                }\n' +
+      '              },\n' +
+      '              {\n' +
+      '                name: \'living\',\n' +
+      '                type: \'radio\',\n' +
+      '                fieldSize: {mdOffset: 4, md: 8},\n' +
+      '                options: [\n' +
+      '                  {value: 1, desc: \'Mommy and daddy!\'},\n' +
+      '                  {value: 2, desc: \'On my own, playing the part of grownup\'}\n' +
+      '                ]\n' +
+      '              },\n' +
+      '              {\n' +
+      '                type: \'plain\',\n' +
+      '                value: (<Alert bsStyle=\\"warning\\">Please come again when you are a big person</Alert>),\n' +
+      '                show: () => ({\n' +
+      '                  field: \'living\',\n' +
+      '                  value: 1\n' +
+      '                })\n' +
+      '              },\n' +
+      '              {\n' +
+      '\n' +
+      '                show: () => ({\n' +
+      '                  field: \'living\',\n' +
+      '                  value: 2\n' +
+      '                }),\n' +
+      '                wrap: [\n' +
+      '                  {\n' +
+      '                    type: \'plain\',\n' +
+      '                    value: \'<strong>What is your adress?</strong>\'\n' +
+      '                  },\n' +
+      '                  {\n' +
+      '                    row: {\n' +
+      '                      col: [\n' +
+      '                        {\n' +
+      '                          md: 4,\n' +
+      '                          children: [\n' +
+      '                            {\n' +
+      '                              type: \'plain\',\n' +
+      '                              value: (<div className=\\"form-group\\"><label className=\\"col-md-12 control-label\\">Adress</label></div>) // eslint-disable-line jsx-a11y/label-has-for\n' +
+      '                            }\n' +
+      '                          ]\n' +
+      '                        },\n' +
+      '                        {\n' +
+      '                          md: 6,\n' +
+      '                          children: [\n' +
+      '                            {\n' +
+      '                              name: \'street\',\n' +
+      '                              type: \'text\',\n' +
+      '                              placeholder: \'Street name\',\n' +
+      '                              fieldSize: {md: 12}\n' +
+      '                            }\n' +
+      '                          ]\n' +
+      '                        },\n' +
+      '                        {\n' +
+      '                          md: 2,\n' +
+      '                          children: [\n' +
+      '                            {\n' +
+      '                              name: \'housenumber\',\n' +
+      '                              type: \'text\',\n' +
+      '                              placeholder: \'House number\',\n' +
+      '                              fieldSize: {md: 12}\n' +
+      '                            }\n' +
+      '                          ]\n' +
+      '                        }\n' +
+      '                      ]\n' +
+      '                    }\n' +
+      '                  },\n' +
+      '                  {\n' +
+      '                    row: {\n' +
+      '                      col: [\n' +
+      '                        {\n' +
+      '                          md: 4,\n' +
+      '                          children: [\n' +
+      '                            {\n' +
+      '                              type: \'plain\',\n' +
+      '                              value: (<div className=\\"form-group\\"><label className=\\"col-md-12 control-label\\">Zip</label></div>) // eslint-disable-line jsx-a11y/label-has-for\n' +
+      '                            }\n' +
+      '                          ]\n' +
+      '                        },\n' +
+      '                        {\n' +
+      '                          md: 2,\n' +
+      '                          children: [\n' +
+      '                            {\n' +
+      '                              name: \'zip\',\n' +
+      '                              type: \'text\',\n' +
+      '                              placeholder: \'Zip\',\n' +
+      '                              fieldSize: {md: 12}\n' +
+      '                            }\n' +
+      '                          ]\n' +
+      '                        },\n' +
+      '                        {\n' +
+      '                          md: 2,\n' +
+      '                          children: [\n' +
+      '                            {\n' +
+      '                              name: \'plain\',\n' +
+      '                              type: \'plain\',\n' +
+      '                              value: (<div className=\\"form-group\\"><label className=\\"col-md-12 control-label\\">City</label></div>) // eslint-disable-line jsx-a11y/label-has-for\n' +
+      '                            }\n' +
+      '                          ]\n' +
+      '                        },\n' +
+      '                        {\n' +
+      '                          md: 4,\n' +
+      '                          children: [\n' +
+      '                            {\n' +
+      '                              name: \'city\',\n' +
+      '                              type: \'text\',\n' +
+      '                              placeholder: \'City\',\n' +
+      '                              fieldSize: {md: 12}\n' +
+      '                            },\n' +
+      '                            {\n' +
+      '                              name: \'checkbox_city\',\n' +
+      '                              type: \'checkbox\',\n' +
+      '                              single: true,\n' +
+      '                              fieldSize: {md: 12},\n' +
+      '                              options: [\n' +
+      '                                {value: 1, desc: \'Single checkbox\'}\n' +
+      '                              ]\n' +
+      '                            }\n' +
+      '                          ]\n' +
+      '                        }\n' +
+      '                      ]\n' +
+      '                    }\n' +
+      '                  },\n' +
+      '                ]\n' +
+      '              },\n' +
+      '\n' +
+      '              {\n' +
+      '                row: {\n' +
+      '                  hideOnStatic: true,\n' +
+      '                  col: [\n' +
+      '                    {\n' +
+      '                      md: 10,\n' +
+      '                      mdOffset: 2,\n' +
+      '                      children: [\n' +
+      '                        {type: \'success\', message: \'You successfully registerd\'},\n' +
+      '                        {type: \'error\', message: \'Please check your username and password. Tip! username: user@example.com, password: password\'}\n' +
+      '                      ]\n' +
+      '                    }\n' +
+      '                  ]\n' +
+      '                }\n' +
+      '              },\n' +
+      '              {\n' +
+      '                buttonToolbar: {\n' +
+      '                  md: 8,\n' +
+      '                  mdOffset: 4,\n' +
+      '                  children: [\n' +
+      '                    {\n' +
+      '                      type: \'submit\',\n' +
+      '                      name: \'submit\',\n' +
+      '                      disabled: () => ({\n' +
+      '                        field: \'living\',\n' +
+      '                        value_not: 2\n' +
+      '                      }),\n' +
+      '                      value: \'Submit\',\n' +
+      '                      bsStyle: \'primary\'\n' +
+      '                    },\n' +
+      '                    {\n' +
+      '                      type: \'button\',\n' +
+      '                      name: \'submit\',\n' +
+      '                      value: \'Click me\',\n' +
+      '                      onClick: () => {\n' +
+      '                        alert(\'Clicked the other button!\');\n' +
+      '                      }\n' +
+      '                    }\n' +
+      '                  ]\n' +
+      '                }\n' +
+      '              }\n' +
+      '            ]}\n' +
+      '            validate={(data) => {\n' +
+      '              const ret = [];\n' +
+      '              if (!data.username) {\n' +
+      '                ret.username = \'Username is mandatory\';\n' +
+      '              } else if (data.username !== \'user@example.com\') {\n' +
+      '                ret.username = \'Oopsie, this user is not found\';\n' +
+      '              }\n' +
+      '              if (!data.password) {\n' +
+      '                ret.password = \'Password is mandatory\';\n' +
+      '              } else if (data.password !== \'password\') {\n' +
+      '                ret.password = \'Oopsie, this password is just wrong\';\n' +
+      '              }\n' +
+      '              return ret;\n' +
+      '            }}\n' +
+      '          />';
     return (
       <div>
         <h2>Register</h2>
@@ -52,7 +351,12 @@ class Register extends React.Component {
                 label: 'Password repeat',
                 placeholder: '**********',
                 labelSize: {md: 4},
-                fieldSize: {md: 8}
+                fieldSize: {md: 8},
+                hidden: () => (
+                  'field password === null ' +
+                  'and ' +
+                  'field username === 1'
+                )
               },
               {
                 type: 'plain',

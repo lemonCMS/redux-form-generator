@@ -4,6 +4,8 @@ import _set from 'lodash/set';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import _clone from 'lodash/clone';
+import _isEmpty from 'lodash/isEmpty';
+import _find from 'lodash/find';
 import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
@@ -128,7 +130,69 @@ const InnerForm = (props, context, context2) => {
   };
 
   const checker = (args, parent) => {
-    if (_isBoolean(args)) {
+    if (_isString(args)) {
+      const words = _filter(args.split(/\s|\r?\n/));
+      let i = 0;
+      let field = {};
+      let startField = 0;
+      let operator = 'and';
+      let result = true;
+      let check = true;
+      _map(words, (word, index) => {
+        if (word === 'field') {
+          i += 1;
+          startField = index;
+
+          if (index > 0) {
+            switch (operator) {
+              default:
+              case 'and':
+                check = check && result;
+                break;
+              case 'or':
+                check = check || result;
+                break;
+            }
+            operator = null;
+            field = {};
+          }
+        }
+
+        if (index === startField + 1) {
+          // Field name
+          field.field = word;
+        } else if (index === startField + 2) {
+          const indexOf = ['===', '<=', '>=', '!=='].indexOf(word);
+          if (indexOf > -1) {
+            field.logical = word;
+          }
+        } else if (index === startField + 3) {
+          field.value = word;
+          result = checker(field);
+        } else if (index === startField + 4) {
+          const indexOf = ['and', 'or'].indexOf(word);
+          if (indexOf > -1) {
+            operator = word;
+          } else {
+            operator = 'and';
+          }
+        }
+      });
+
+      if (i > 1) {
+        switch (operator) {
+          default:
+          case 'and':
+            check = check && result;
+            break;
+          case 'or':
+            check = check || result;
+            break;
+        }
+      }
+      return check;
+
+    } else if (_isBoolean(args)) {
       return args;
     } else if (_isObject(args)) {
       let value = null;
@@ -140,8 +204,10 @@ const InnerForm = (props, context, context2) => {
       }
 
       if (!_isUndefined(args.value)) {
-        if (!value) return false;
-        if (_isArray(args.value)) {
+        if (!value && _isUndefined(args.logical)) {
+          return false;
+        }
+        else if (_isArray(args.value)) {
           if (_isString(value)) {
             value = [value];
           }
@@ -156,6 +222,28 @@ const InnerForm = (props, context, context2) => {
         } else if (_isArray(value)) {
           if (value.indexOf(args.value) > -1) {
             return true;
+          }
+        } else if (args.logical) {
+          if (args.value === 'null') {
+            switch (args.logical) {
+              default:
+              case '===':
+                return (_isEmpty(value));
+              case '!==':
+                return (!_isEmpty(value));
+            }
+          }
+
+          switch (args.logical) {
+            default:
+            case '===':
+              return (args.value === value);
+            case '!==':
+              return (args.value !== value);
+            case '>=':
+              return (args.value >= value);
+            case '<=':
+              return (args.value <= value);
           }
         } else if (args.value === value) {
           return true;
@@ -208,6 +296,36 @@ const InnerForm = (props, context, context2) => {
 
   const checkShow = (args, parent) => {
     return checkDisabled(args, parent);
+  };
+
+  const buttonToolbar = (field, key, size) => {
+    const toolbar = field.buttonToolbar;
+    const thisSize = _get(toolbar, 'bsSize', size);
+    // Hide fields that are only visible in static mode
+    if (props.static !== true && toolbar.showOnStatic === true) {
+      return false;
+    }
+    // Hide fields that are only visible in edit mode
+    if (props.static === true && toolbar.hideOnStatic === true) {
+      return false;
+    }
+
+    return (
+      <Row key={key}>
+        <Col {..._pick(toolbar, ['lg', 'lgHidden', 'lgOffset', 'lgPull', 'lgPush',
+          'md', 'mdHidden', 'mdOffset', 'mdPull', 'mdPush',
+          'sm', 'smHidden', 'smOffset', 'smPull', 'smPush',
+          'xs', 'xsHidden', 'xsOffset', 'xsPull', 'xsPush',
+          'componentClass', 'bsClass'
+        ])}>
+          <ButtonToolbar {..._pick(toolbar, ['className'])}>
+            {_map(toolbar.children, (child, keyCol) => {
+              return addField(child, keyCol, thisSize);
+            })}
+          </ButtonToolbar>
+        </Col>
+      </Row>
+    );
   };
 
   const addField = (field, key, size) => {
@@ -292,36 +410,6 @@ const InnerForm = (props, context, context2) => {
     }
   };
 
-  const buttonToolbar = (field, key, size) => {
-    const toolbar = field.buttonToolbar;
-    const thisSize = _get(toolbar, 'bsSize', size);
-    // Hide fields that are only visible in static mode
-    if (!props.static && !!toolbar.showOnStatic) {
-      return false;
-    }
-    // Hide fields that are only visible in edit mode
-    if (!!props.static && !!toolbar.hideOnStatic) {
-      return false;
-    }
-
-    return (
-      <Row key={key}>
-        <Col {..._pick(toolbar, ['lg', 'lgHidden', 'lgOffset', 'lgPull', 'lgPush',
-          'md', 'mdHidden', 'mdOffset', 'mdPull', 'mdPush',
-          'sm', 'smHidden', 'smOffset', 'smPull', 'smPush',
-          'xs', 'xsHidden', 'xsOffset', 'xsPull', 'xsPush',
-          'componentClass', 'bsClass'
-        ])}>
-          <ButtonToolbar {..._pick(toolbar, ['className'])}>
-            {_map(toolbar.children, (child, keyCol) => {
-              return addField(child, keyCol, thisSize)
-            })}
-          </ButtonToolbar>
-        </Col>
-      </Row>
-    );
-  };
-
   const wrap = (field, key, size) => {
     // Hide fields that are only visible in static mode
     if (!props.static && !!field.showOnStatic) {
@@ -390,7 +478,6 @@ class RenderForm extends React.Component {
     const state = this.state.validation;
     state.path = type;
     this.setState({validation: state}, () => {
-      // console.log(this.state);
     });
   }
 

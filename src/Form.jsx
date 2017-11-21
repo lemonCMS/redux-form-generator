@@ -100,11 +100,11 @@ const InnerForm = (props, context, context2) => {
     }
 
     if (field.row.hidden && _isFunction(field.row.hidden)) {
-      if (checkHidden(field.row.hidden) === true) {
+      if (checkHidden(field.row.hidden, _get(field, 'parent', null)) === true) {
         return null;
       }
     } else if (field.row.show && _isFunction(field.row.show)) {
-      if (checkShow(field.row.show) !== true) {
+      if (checkShow(field.row.show, _get(field, 'parent', null)) !== true) {
         return null;
       }
     }
@@ -353,9 +353,9 @@ const InnerForm = (props, context, context2) => {
       key,
       field,
       size,
-      'dispatch': props.dispatch,
-      'static': props.static,
-      'horizontal': props.horizontal
+      dispatch: props.dispatch,
+      static: props.static,
+      horizontal: props.horizontal
 
     };
 

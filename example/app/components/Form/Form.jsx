@@ -295,7 +295,6 @@ const InnerForm = (props, context, context2) => {
   };
 
   const checkShow = (args, parent) => {
-    console.log('functie show', args);
     return checkDisabled(args(props.formValues, parent), parent);
   };
 

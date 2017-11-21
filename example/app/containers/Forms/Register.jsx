@@ -416,10 +416,10 @@ class Register extends React.Component {
               },
               {
                 row: {
-                  show: () => ({
+                  show: (() => ({
                     field: 'living',
-                    value: 1
-                  }),
+                    value: 1.1
+                  }))(),
                   col: [
                     {
                       md: 10,
@@ -443,10 +443,7 @@ class Register extends React.Component {
               {
                 type: 'plain',
                 value: (<Alert bsStyle="warning">Please come again when you are a big person</Alert>),
-                show: () => ({
-                  field: 'living',
-                  value: 1
-                })
+                show: values => (values.living === 1)
               },
               {
 
@@ -580,7 +577,7 @@ class Register extends React.Component {
                       name: 'submit',
                       disabled: () => ({
                         field: 'living',
-                        value_not: 2
+                        value_not: 3
                       }),
                       value: 'Submit',
                       bsStyle: 'primary'

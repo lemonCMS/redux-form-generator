@@ -100,11 +100,11 @@ const InnerForm = (props, context, context2) => {
     }
 
     if (field.row.hidden && _isFunction(field.row.hidden)) {
-      if (checkHidden(field.row.hidden()) === true) {
+      if (checkHidden(field.row.hidden) === true) {
         return null;
       }
     } else if (field.row.show && _isFunction(field.row.show)) {
-      if (checkShow(field.row.show()) !== true) {
+      if (checkShow(field.row.show) !== true) {
         return null;
       }
     }
@@ -291,11 +291,12 @@ const InnerForm = (props, context, context2) => {
   };
 
   const checkHidden = (args, parent) => {
-    return checkDisabled(args, parent);
+    return checkDisabled(args(props.formValues, parent), parent);
   };
 
   const checkShow = (args, parent) => {
-    return checkDisabled(args, parent);
+    console.log('functie show', args);
+    return checkDisabled(args(props.formValues, parent), parent);
   };
 
   const buttonToolbar = (field, key, size) => {
@@ -421,11 +422,11 @@ const InnerForm = (props, context, context2) => {
     }
 
     if (field.hidden && _isFunction(field.hidden)) {
-      if (checkHidden(field.hidden()) === true) {
+      if (checkHidden(field.hidden) === true) {
         return null;
       }
     } else if (field.show && _isFunction(field.show)) {
-      if (checkShow(field.show()) !== true) {
+      if (checkShow(field.show) !== true) {
         return null;
       }
     }

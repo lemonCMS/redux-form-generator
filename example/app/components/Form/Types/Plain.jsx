@@ -4,6 +4,7 @@ import _isFunction from 'lodash/isFunction';
 import _isString from 'lodash/isString';
 import _isObject from 'lodash/isObject';
 import _pick from 'lodash/pick';
+import _get from 'lodash/get';
 
 export default class Plain extends Component {
 
@@ -15,11 +16,11 @@ export default class Plain extends Component {
 
   render() {
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
-      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+      if (this.props.checkHidden(this.props.field.hidden, _get(this.props.field, 'parent')) === true) {
         return null;
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
-      if (this.props.checkShow(this.props.field.show()) !== true) {
+      if (this.props.checkShow(this.props.field.show, _get(this.props.field, 'parent')) !== true) {
         return null;
       }
     }

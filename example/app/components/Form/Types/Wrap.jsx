@@ -100,11 +100,11 @@ class Wrap extends React.Component {
     this.custom = custom;
     const size = _get(this.props.field, 'bsSize', this.props.size);
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
-      if (this.props.checkHidden(this.props.field.hidden(), _get(props, 'parent')) === true) {
+      if (this.props.checkHidden(this.props.field.hidden, _get(props, 'parent')) === true) {
         return null;
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
-      if (this.props.checkShow(this.props.field.show(), _get(props, 'parent')) !== true) {
+      if (this.props.checkShow(this.props.field.show, _get(props, 'parent')) !== true) {
         return null;
       }
     }

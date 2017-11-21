@@ -2,6 +2,7 @@ import PropTypes from 'prop-types';
 import React, {Component} from 'react';
 import Alert from 'react-bootstrap/lib/Alert';
 import _isFunction from 'lodash/isFunction';
+import _get from 'lodash/get';
 
 export default class MessageType extends Component {
 
@@ -20,11 +21,11 @@ export default class MessageType extends Component {
     const {field} = this.props;
 
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
-      if (this.props.checkHidden(this.props.field.hidden()) === true) {
+      if (this.props.checkHidden(this.props.field.hidden, _get(this.props.field, 'parent')) === true) {
         return;
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
-      if (this.props.checkShow(this.props.field.show()) !== true) {
+      if (this.props.checkShow(this.props.field.show, _get(this.props.field, 'parent')) !== true) {
         return null;
       }
     }

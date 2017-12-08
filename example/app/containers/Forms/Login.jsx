@@ -4,6 +4,7 @@ import Clearfix from 'react-bootstrap/lib/Clearfix';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {SubmissionError} from 'redux-form';
 import {dracula as style} from 'react-syntax-highlighter/dist/styles';
+// import Form from '../../components/Form/Form';
 import Form from 'redux-form-generator';
 
 class Login extends React.Component {
@@ -78,10 +79,11 @@ class Login extends React.Component {
             }}
             onSubmit={() => {
               const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-              return sleep(1000).then(() => {
+              return sleep(2).then(() => {
                 throw new SubmissionError({'username': 'Username is already taken'});
               });
             }}
+            destroyOnUnmount={false}
           />
           <Clearfix />
         </Well>

@@ -1,25 +1,23 @@
+
 {
-    "presets": ["react", "es2015", "stage-0"],
-
-    "plugins": [
-        "transform-runtime",
-        "add-module-exports",
-        "transform-decorators-legacy",
-        "transform-react-display-name"
-    ],
-
-    /*"env": {
+    "presets": ["es2015-no-commonjs", "react", "stage-2"],
+    "env": {
         "development": {
+            "plugins": ["lodash", "transform-es2015-modules-commonjs"]
+        },
+        "test": {
             "plugins": [
-                "typecheck",
-                ["react-transform", {
-                    "transforms": [{
-                        "transform": "react-transform-catch-errors",
-                        "imports": ["react"]
-                    }
-                    ]
-                }]
+                "lodash",
+                "transform-es2015-modules-commonjs",
+                "transform-react-jsx-source",
+                "istanbul"
             ]
+        },
+        "production": {
+            "plugins": ["lodash", "transform-es2015-modules-commonjs"]
+        },
+        "es": {
+            "plugins": ["lodash", "./babel-lodash-es"]
         }
-    }*/
+    }
 }

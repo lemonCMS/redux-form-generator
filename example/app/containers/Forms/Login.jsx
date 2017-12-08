@@ -78,10 +78,7 @@ class Login extends React.Component {
               return [];
             }}
             onSubmit={() => {
-              const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
-              return sleep(2).then(() => {
-                throw new SubmissionError({'username': 'Username is already taken'});
-              });
+              return new Promise(resolve => resolve());
             }}
             destroyOnUnmount={false}
           />

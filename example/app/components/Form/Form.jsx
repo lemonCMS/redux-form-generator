@@ -1,11 +1,9 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import _set from 'lodash/set';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
 import _clone from 'lodash/clone';
 import _isEmpty from 'lodash/isEmpty';
-import _find from 'lodash/find';
 import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
@@ -22,7 +20,7 @@ import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
 import {connect} from 'react-redux';
-import {reduxForm} from 'redux-form';
+import {reduxForm, SubmissionError} from 'redux-form';
 import Input from './Types/Input';
 import Plupload from './Types/Plupload';
 import Checkbox from './Types/Checkbox';
@@ -113,20 +111,20 @@ const InnerForm = (props, context, context2) => {
         {col(field.row.col, size, _get(field, 'parent', null))}
       </Row>
     );
-/*
-    return (
-      <Row key={key}>
-        {_map(field.row, (rowItem, keyRow) => {
-          const thisSize = _get(rowItem, 'bsSize', size);
-          return (
-            <div key={keyRow}>
-              {col(rowItem.col, thisSize, _get(field, 'parent', null))}
-            </div>
-          );
-        })}
-      </Row>
-    );
-*/
+    /*
+        return (
+          <Row key={key}>
+            {_map(field.row, (rowItem, keyRow) => {
+              const thisSize = _get(rowItem, 'bsSize', size);
+              return (
+                <div key={keyRow}>
+                  {col(rowItem.col, thisSize, _get(field, 'parent', null))}
+                </div>
+              );
+            })}
+          </Row>
+        );
+    */
   };
 
   const checker = (args, parent) => {
@@ -482,7 +480,7 @@ class RenderForm extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-
+    return true;
     if (this.props.reInitializeOn && this.props.reInitializeOn !== nextProps.reInitializeOn) {
       return true;
     }
@@ -521,8 +519,16 @@ class RenderForm extends React.Component {
       setValidation={this.validate}
       onSubmit={(data, dispatch) => {
         if (Object.constructor.hasOwnProperty.call(this.props, 'onSubmit')) {
-          return this.props.onSubmit(data, dispatch);
+          return this.props.onSubmit(data, dispatch).catch((res) => {
+            throw new SubmissionError(res.errors);
+          })
+          .then(() => {
+            return new Promise((resolve) => {
+              resolve();
+            });
+          });
         }
+
       }}
     />);
   }

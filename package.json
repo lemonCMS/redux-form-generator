@@ -1,6 +1,6 @@
 {
   "name": "redux-form-generator",
-  "version": "6.0.50",
+  "version": "6.0.51",
   "description": "Generate forms with redux-form",
   "main": "lib/Form.js",
   "scripts": {

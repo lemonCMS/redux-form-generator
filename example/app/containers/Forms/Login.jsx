@@ -4,8 +4,7 @@ import Clearfix from 'react-bootstrap/lib/Clearfix';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {SubmissionError} from 'redux-form';
 import {dracula as style} from 'react-syntax-highlighter/dist/styles';
-// import Form from '../../components/Form/Form';
-import Form from 'redux-form-generator';
+import Form from '../../components/Form/Form';
 
 class Login extends React.Component {
   render() {

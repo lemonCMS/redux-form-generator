@@ -330,6 +330,14 @@ class Register extends React.Component {
                 fieldSize: {md: 8}
               },
               {
+                name: 'datetime',
+                type: 'datetime',
+                label: 'Datum + Tijd',
+                display: 'valueOf',
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+              {
                 name: 'username',
                 type: 'text',
                 label: 'Username',

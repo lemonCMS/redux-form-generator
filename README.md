@@ -362,6 +362,7 @@ See for more configuration options [plupload](https://github.com/quri/react-boot
   type: 'dateTime',
   placeholder: 'DateTime',
   bsSize: 'large',
+  display: valueOf // MomentJs function which returns the value you desire. [See momentjs docs](https://momentjs.com/docs/#/displaying/)
   conf: {
     format: 'x',
     inputFormat: 'YYYY-MM-DD'

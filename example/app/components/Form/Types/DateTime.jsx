@@ -81,7 +81,13 @@ class Input extends React.Component {
       return (
         <DateTimeField
           key={props.name}
-          onChange={input.onChange}
+          onChange={(val) => {
+            if (props.display && typeof val[props.display] !== "undefined") {
+              input.onChange(val[props.display]());
+            } else {
+              input.onChange(val);
+            }
+          }}
           value={moment(input.value)}
           {...add}
           {...conf}
@@ -142,6 +148,7 @@ Input.propTypes = {
   'locale': PropTypes.object,
   'horizontal': PropTypes.bool.isRequired
 };
-Input.defaultProps = {};
+Input.defaultProps = {
+};
 
 export default Input;

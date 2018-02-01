@@ -5,9 +5,7 @@
   "main": "lib/Form.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "node_modules/.bin/babel src --out-dir lib",
-    "build2": "babel ./src --out-dir ./lib --source-maps --presets es2015,react,stage-0",
-    "build3": "babel ./src --out-dir ./lib",
+    "build": "babel ./src --out-dir ./lib --presets es2015,react,stage-0",
     "lint": "eslint -c .eslintrc src"
   },
   "repository": {
@@ -29,15 +27,15 @@
     "babel-preset-es2015-no-commonjs": "0.0.2",
     "lodash": "^4.17.4",
     "react-bootstrap": "^0.31.5",
-    "react-datetime": "^2.11.1",
+    "react-datetime": "^2.12.0",
     "react-plupload": "0.0.16",
     "react-tinymce-input": "^2.1.0",
-    "redux-form": "^7.2.0"
+    "redux-form": "^7.2.1"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
-    "babel-eslint": "^8.0.2",
+    "babel-eslint": "^8.2.1",
     "babel-jest": "^21.2.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-istanbul": "^4.1.1",

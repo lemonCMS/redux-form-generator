@@ -36,6 +36,27 @@ class Login extends React.Component {
                 fieldSize: {md: 8}
               },
               {
+                name: 'binaries',
+                label: 'Logo',
+                type: 'plupload',
+                multi_selection: false,
+                conf: {
+                  id: 'xplupload',
+                  runtimes: 'html5',
+                  multipart: true,
+                  multi_selection: false,
+                  chunk_size: '1mb',
+                  url: `/api/admin/sources/`,
+                  autoUpload: true,
+                  headers: {
+                    Authorization: 'Bearer ' + this.props.token
+                  },
+                },
+                labelSize: {md: 2},
+                fieldSize: {md: 10}
+              },
+
+              {
                 row: {
                   hideOnStatic: true,
                   col: [

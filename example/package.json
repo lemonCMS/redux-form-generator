@@ -143,7 +143,7 @@
     "react-datetime": "^2.11.1",
     "react-dom": "^15.5.4",
     "react-helmet": "^3.1.0",
-    "react-plupload": "^0.1.0",
+    "react-plupload": "^0.0.16",
     "react-redux": "^5.0.4",
     "react-router": "^3.0.0",
     "react-router-redux": "^4.0.0",

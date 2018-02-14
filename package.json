@@ -26,7 +26,7 @@
     "react": "^0.14.9 || >=16.2.0",
     "react-dom": "^0.14.9 || >=16.2.0",
     "react-bootstrap": "^0.31.5 || >=0.32.1",
-    "react-plupload": "^0.0.16",
+    "react-plupload": "^0.0.17",
     "react-datetime": "^2.12.0",
     "react-tinymce-input": "^2.1.0",
     "redux-form": "^5.0.0 || >=7.2.1",

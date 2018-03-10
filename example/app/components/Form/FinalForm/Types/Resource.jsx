@@ -8,12 +8,12 @@ import _indexOf from 'lodash/indexOf';
 import _clone from 'lodash/clone';
 import _isEmpty from 'lodash/isEmpty';
 import React from 'react';
-import {Field} from 'redux-form';
+import {Field} from 'react-final-form';
 import Button from 'react-bootstrap/lib/Button';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
+import FormControl from 'react-bootstrap/lib/FormControl';
 import Col from 'react-bootstrap/lib/Col';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
-import FormControl from 'react-bootstrap/lib/FormControl';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 import _isFunction from 'lodash/isFunction';
 
@@ -68,8 +68,6 @@ class Resource extends React.Component {
   }
 
   callBack(values, list) {
-    console.log(this);
-
     this.setState({
       list: list
     }, () => {
@@ -97,7 +95,7 @@ class Resource extends React.Component {
       }
     }
 
-    const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
+    const {input, label, help, meta: {touched, error, submitError, valid}, ...custom} = props;
     this.input = input;
     this.custom = custom;
     const size = _get(this.props.field, 'bsSize', this.props.size);
@@ -192,11 +190,9 @@ class Resource extends React.Component {
         {getLabel()}
         <Col {...fieldSize()}>
           {component()}
-          {/*
-            {touched && error && <FormControl.Feedback />}
-          */}
-          {help && (!touched || !error) && <HelpBlock>{help}</HelpBlock>}
-          {touched && error && <HelpBlock>{error}</HelpBlock>}
+          {touched && (submitError || error) && <FormControl.Feedback />}
+          {help && (!touched || (!submitError && !error)) && <HelpBlock>{help}</HelpBlock>}
+          {touched && (submitError || error) && <HelpBlock>{(submitError || error)}</HelpBlock>}
         </Col>
       </FormGroup>
     );

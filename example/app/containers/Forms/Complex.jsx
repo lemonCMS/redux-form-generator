@@ -3,7 +3,7 @@ import Well from 'react-bootstrap/lib/Well';
 import Clearfix from 'react-bootstrap/lib/Clearfix';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {dracula as style} from 'react-syntax-highlighter/dist/styles';
-import Form from '../../components/Form/Form';
+import {FinalForm as Form} from '../../components/Form';
 
 class Complex extends React.Component {
   render() {
@@ -17,6 +17,13 @@ class Complex extends React.Component {
             locale="en_US"
             name="loginForm"
             horizontal
+            validate={() => {
+              return {name: 'dit dus'};
+            }}
+            onSubmit={(values, form, cb) => {
+              console.log('COMPLEX SUBMIT', values, cb);
+              cb({name: 'Hoi'});
+            }}
             fields={[
               {
                 name: 'name',
@@ -67,11 +74,43 @@ class Complex extends React.Component {
                 label: 'Substellingen',
                 addBtn: {label: 'Item toevoegen'},
                 moveBtn: {bsSize: 'xs'},
-                removeBtn: {wrapperClassName: 'clearfix', title: 'verwijderen', className: 'pull-right clearfix', bsSize: 'xs'},
+                removeBtn: {
+                  wrapperClassName: 'clearfix',
+                  title: 'verwijderen',
+                  className: 'pull-right clearfix',
+                  bsSize: 'xs'
+                },
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
                 collapsed: false,
                 children: [
+                  {
+                    name: 'items',
+                    type: 'complex',
+                    label: 'Substellingen',
+                    addBtn: {label: 'Item toevoegen'},
+                    moveBtn: {bsSize: 'xs'},
+                    removeBtn: {
+                      wrapperClassName: 'clearfix',
+                      title: 'verwijderen',
+                      className: 'pull-right clearfix',
+                      bsSize: 'xs'
+                    },
+                    labelSize: {md: 4},
+                    fieldSize: {md: 8},
+                    collapsed: false,
+                    children: [
+                      {
+                        name: 'field4',
+                        type: 'checkbox',
+                        label: 'Field 4',
+                        labelSize: {md: 4},
+                        fieldSize: {md: 8},
+                        options: [
+                          {value: 1, desc: 'Show field 5'}
+                        ]
+                      }]
+                  },
                   {
                     name: 'field4',
                     type: 'checkbox',
@@ -177,18 +216,38 @@ class Complex extends React.Component {
                     }
                   }
                 ]
+              },
+              {
+                buttonToolbar: {
+                  md: 8,
+                  mdOffset: 4,
+                  children: [
+                    {
+                      type: 'submit',
+                      name: 'submit',
+                      value: 'log me in!',
+                      bsStyle: 'primary'
+                    },
+                    {
+                      type: 'button',
+                      name: 'submit',
+                      value: 'Some other button',
+                      onClick: () => {
+                        alert('Clicked some other button!');
+                      }
+                    }
+                  ]
+                }
               }
             ]}
-            validate={() => {
-              return [];
-            }}
           />
           <Clearfix />
         </Well>
         <SyntaxHighlighter language="jsx" showLineNumbers style={style}>{codeString}</SyntaxHighlighter>
         <a href="">source on github</a>
       </div>
-    );
+    )
+      ;
   }
 }
 

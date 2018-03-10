@@ -2,6 +2,8 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import _get from 'lodash/get';
 import _has from 'lodash/has';
+import {Form as FinalForm} from 'react-final-form';
+import arrayMutators from 'final-form-arrays';
 import _clone from 'lodash/clone';
 import _isEmpty from 'lodash/isEmpty';
 import _filter from 'lodash/filter';
@@ -19,8 +21,6 @@ import Form from 'react-bootstrap/lib/Form';
 import Row from 'react-bootstrap/lib/Row';
 import Col from 'react-bootstrap/lib/Col';
 import ButtonToolbar from 'react-bootstrap/lib/ButtonToolbar';
-import {connect} from 'react-redux';
-import {reduxForm, SubmissionError} from 'redux-form';
 import Input from './Types/Input';
 import Plupload from './Types/Plupload';
 import Checkbox from './Types/Checkbox';
@@ -34,16 +34,17 @@ import Message from './Types/Message';
 import Complex from './Types/Complex';
 import Plain from './Types/Plain';
 import ContentEditable from './Types/ContentEditable';
-import locales from './locales';
+import locales from '../locales';
 import Pending from './Pending';
 
 let locale = {};
 
-const InnerForm = (props, context, context2) => {
+const InnerForm = (props) => {
+
   const {handleSubmit} = props;
   if (typeof props.locale === 'string') {
     if (!locales[props.locale]) {
-      console.warn(`Redux form generator locale ${props.locale} not implemented`);
+      console.warn(`Final form generator locale ${props.locale} not implemented`);
     } else {
       locale = locales[props.locale];
     }
@@ -111,20 +112,6 @@ const InnerForm = (props, context, context2) => {
         {col(field.row.col, size, _get(field, 'parent', null))}
       </Row>
     );
-    /*
-        return (
-          <Row key={key}>
-            {_map(field.row, (rowItem, keyRow) => {
-              const thisSize = _get(rowItem, 'bsSize', size);
-              return (
-                <div key={keyRow}>
-                  {col(rowItem.col, thisSize, _get(field, 'parent', null))}
-                </div>
-              );
-            })}
-          </Row>
-        );
-    */
   };
 
   const checker = (args, parent) => {
@@ -196,9 +183,9 @@ const InnerForm = (props, context, context2) => {
       let value = null;
 
       if (parent !== undefined) {
-        value = _get(props.formValues, `${parent}.${args.field}`, _get(props.formValues, `${args.field}`, _get(props.initialValues, [args.field])));
+        value = _get(props.values, `${parent}.${args.field}`, _get(props.values, `${args.field}`, _get(props.initialValues, [args.field])));
       } else {
-        value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+        value = _get(props.values, args.field, _get(props.initialValues, [args.field]));
       }
 
       if (!_isUndefined(args.value)) {
@@ -275,7 +262,7 @@ const InnerForm = (props, context, context2) => {
         return true;
       }
     } else if (_isString(args)) {
-      const value = _get(props.formValues, args.field, _get(props.initialValues, [args.field]));
+      const value = _get(props.values, args.field, _get(props.initialValues, [args.field]));
       return (value !== '');
     }
   };
@@ -289,11 +276,11 @@ const InnerForm = (props, context, context2) => {
   };
 
   const checkHidden = (args, parent) => {
-    return checkDisabled(args(props.formValues, parent), parent);
+    return checkDisabled(args(props.values, parent), parent);
   };
 
   const checkShow = (args, parent) => {
-    return checkDisabled(args(props.formValues, parent), parent);
+    return checkDisabled(args(props.values, parent), parent);
   };
 
   const buttonToolbar = (field, key, size) => {
@@ -353,7 +340,8 @@ const InnerForm = (props, context, context2) => {
       size,
       dispatch: props.dispatch,
       static: props.static,
-      horizontal: props.horizontal
+      horizontal: props.horizontal,
+      formChange: props.change
 
     };
 
@@ -428,7 +416,6 @@ const InnerForm = (props, context, context2) => {
       }
     }
 
-
     return (
       <div key={key}>
         {_map(field.wrap, (child, keyField) => {
@@ -454,108 +441,49 @@ const InnerForm = (props, context, context2) => {
   };
 
   return (
-    <Form onSubmit={handleSubmit} horizontal={props.horizontal}>
-      <Pending pending={props.submitting}>
-        {fields()}
-      </Pending>
-    </Form>
+    <Pending pending={props.submitting}>
+      {fields()}
+    </Pending>
   );
 };
 
-class RenderForm extends React.Component {
-
-  constructor() {
-    super();
-    this.validate = this.validate.bind(this);
-    this.state = {
-      validation: {}
-    };
-  }
-
-  validate(path, type) {
-    const state = this.state.validation;
-    state.path = type;
-    this.setState({validation: state}, () => {
-    });
-  }
-
-  shouldComponentUpdate(nextProps) {
-    return true;
-    if (this.props.reInitializeOn && this.props.reInitializeOn !== nextProps.reInitializeOn) {
-      return true;
-    }
-
-    if (!_isEqual(nextProps.initialValues, this.props.initialValues)) {
-      return true;
-    }
-
-    return (_get(this.props, 'static', false) !== _get(nextProps, 'static', false));
-  }
-
+class FormObj extends React.Component {
   render() {
-    const DynForm = reduxForm({
-      form: this.props.name, // a unique identifier for this form
-      validate: (values) => {
-        if (_has(this.props, 'validate')) {
-          return this.props.validate(values);
-        }
-        return {};
-      },
-      destroyOnUnmount: (_get(this.props, 'destroyOnUnmount', true)),
-    })(connect((state, form) => {
-      return {
-        formValues: _get(state, `${form.formReducer}.${form.name}.values`, {})
-      };
-    })(InnerForm));
-    return (<DynForm
-      fields={this.props.fields}
-      horizontal={this.props.horizontal || false}
-      dispatch={this.props.dispatch}
-      initialValues={this.props.initialValues}
-      name={this.props.name}
-      formReducer={_get(this.props, 'formReducer', 'form')}
-      static={this.props.static}
-      locale={this.props.locale}
-      setValidation={this.validate}
-      onSubmit={(data, dispatch) => {
-        if (Object.constructor.hasOwnProperty.call(this.props, 'onSubmit')) {
-          return this.props.onSubmit(data, dispatch).catch((res) => {
-            throw new SubmissionError(res.errors);
-          })
-          .then(() => {
-            return new Promise((resolve) => {
-              resolve();
-            });
-          });
-        }
-
+    return (<FinalForm
+      onSubmit={this.props.onSubmit || ((values) => {
+        console.warn('implement onSubmit');
+        console.warn('Values', values);
+      })}
+      validate={this.props.validate || ((values) => { })}
+      mutators={{
+        ...arrayMutators
       }}
-    />);
+      render={({
+        handleSubmit,
+        reset,
+        submitting,
+        pristine,
+        validating,
+        values,
+        submitSucceeded,
+        submitFailed,
+        valid,
+        change
+               }) => {
+        return (
+          <Form horizontal={this.props.horizontal} onSubmit={handleSubmit}>
+            <InnerForm
+              {...this.props}
+              {...{reset, submitting, pristine, validating, values, submitFailed, submitSucceeded, valid, change}}
+            />
+          </Form>
+        );
+      }} />);
   }
 }
 
-RenderForm.propTypes = {
-  'name': PropTypes.string.isRequired,
-  'horizontal': PropTypes.bool,
-  'fields': PropTypes.array.isRequired,
-  'initialValues': PropTypes.object,
-  'dispatch': PropTypes.func.isRequired,
-  'onSubmit': PropTypes.func,
-  'validate': PropTypes.func,
-  'static': PropTypes.bool,
-  'reInitializeOn': PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.bool
-  ]),
-  'locale': PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.object,
-  ])
+FormObj.propTypes = {
+  horizontal: PropTypes.bool
 };
 
-export default connect(() => ({})
-  , (dispatch) => {
-    return {dispatch};
-  })(RenderForm);
-
+export default FormObj;

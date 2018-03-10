@@ -1,6 +1,6 @@
 {
   "name": "redux-form-generator",
-  "version": "6.0.53",
+  "version": "6.0.55",
   "description": "Generate forms with redux-form",
   "main": "lib/Form.js",
   "scripts": {
@@ -22,17 +22,18 @@
   ],
   "author": "Raymond van Vuuren",
   "license": "MIT",
-  "dependencies": {
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-es2015-no-commonjs": "0.0.2",
-    "lodash": "^4.17.4",
-    "react-bootstrap": "^0.31.5",
+  "peerDependencies": {
+    "react": "^0.14.9 || >=16.2.0",
+    "react-dom": "^0.14.9 || >=16.2.0",
+    "react-bootstrap": "^0.31.5 || >=0.32.1",
+    "react-plupload": "^0.0.17",
     "react-datetime": "^2.12.0",
-    "react-plupload": "^0.0.16",
     "react-tinymce-input": "^2.1.0",
-    "redux-form": "^7.2.1"
+    "redux-form": "^5.0.0 || >=7.2.1",
+    "lodash": "^4.0.0 || >=4.17.4"
   },
   "devDependencies": {
+    "babel-preset-es2015": "^6.24.1",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",

@@ -1,10 +1,25 @@
-#redux-form-generator V6 for redux-form v6
+# redux-form-generator V6 for redux-form v6
 Generate bootstrap-form in your react application by providing json.
 
 Version 6 is build from the ground up, so you know features are missing ;) 
 
 
-#Migration 
+# Final-form
+Now you can also use [Final-Form](https://github.com/final-form/final-form) instead af [redux-form](https://redux-form.com/)
+
+**redux-form**
+```ecmascript 6 harmony
+import Form from 'redux-form-generator';
+```
+
+**final-form**
+```ecmascript 6
+import {FinalForm as Form} from 'redux-form-generator';
+```
+
+
+
+# Migration 
 V0.1.x -> V6.x.x
   - Added property hortzontal (bool)
   - Renamed property fieldsNeeded -> fields (json)
@@ -17,16 +32,16 @@ V0.1.x -> V6.x.x
   - Removed property formClass
 
 
-#Warning
+# Warning
 Breaking changes
 
-##0.0x Release for use with react-bootstrap <= 0.28.x
+## 0.0x Release for use with react-bootstrap <= 0.28.x
 
-##0.1.x Release from use with react-bootstrap >=0.29.x
+## 0.1.x Release from use with react-bootstrap >=0.29.x
 
 
 
-##Installation
+## Installation
 ````
 npm install --save redux-form-generator
 ````
@@ -34,7 +49,7 @@ npm install --save redux-form-generator
 File uploads are using [react-plupload](https://github.com/lemonCMS/react-plupload)
 So if you need file upload please follow the instructions over there for installation
 
-##Example
+## Example
 The is a small example included, this example had no working backend
 Use with the chromebrowser, IE will fail in the example.
 
@@ -49,7 +64,7 @@ npm run dev
 ````
 
 
-##Usage
+## Usage
 
 Define a const field function, later on in your component you call this function and you can pass extra params you can use in the fields definition. 
 Like i needed my authorization token for the use with plupload.
@@ -105,7 +120,7 @@ Put in your react render component the following code
 }
 ````
 
-##Submit
+## Submit
 ````js
 {
     type: 'submit',
@@ -114,7 +129,7 @@ Put in your react render component the following code
 }
 ````
 
-##Text
+## Text
 ````js
 {
     name: 'field_1',
@@ -134,7 +149,7 @@ Put in your react render component the following code
 }
 ````
 
-##Password
+## Password
 ````js
 {
     name: 'field_1',
@@ -153,7 +168,7 @@ Put in your react render component the following code
 }
 ````
 
-##Select
+## Select
 ````js
 {
   name: 'field_3',
@@ -176,7 +191,7 @@ Put in your react render component the following code
 }
 ````
 
-##Radio
+## Radio
 ````js
 {
   name: 'field_4',
@@ -200,7 +215,7 @@ Put in your react render component the following code
   filter: true
 }
 ````
-##Checkbox with multiple options, returns checkvalues as array
+## Checkbox with multiple options, returns checkvalues as array
 ````js
 {
   name: 'field_6',
@@ -227,7 +242,7 @@ Put in your react render component the following code
 }
 ````
 
-##Checkbox with sing option, returns checkvalue as is
+## Checkbox with sing option, returns checkvalue as is
 ````js
 {
   name: 'field_6',
@@ -251,7 +266,7 @@ Put in your react render component the following code
 ````
 
 
-##Textarea
+## Textarea
 ````js
 {
   name: 'field_5',
@@ -268,7 +283,7 @@ Put in your react render component the following code
 }
 ````
 
-##Rte
+## Rte
 Tinymce editor, so for configuration options [tinymce](http://tinymce.com)
 ````js
 {
@@ -289,7 +304,7 @@ Tinymce editor, so for configuration options [tinymce](http://tinymce.com)
 }
 ````
 
-##Input with dropdown
+## Input with dropdown
 ````js
 {
   name: 'field_7',
@@ -316,7 +331,7 @@ Tinymce editor, so for configuration options [tinymce](http://tinymce.com)
 }
 ````
 
-##Resource
+## Resource
 Load data from overlay with its own store. See the example on how to implement
 ````js
 {
@@ -331,7 +346,7 @@ Load data from overlay with its own store. See the example on how to implement
   ]
 }
 ````
-##Plupload
+## Plupload
 Upload files with plupload
 See for more configuration options [plupload](http://www.plupload.com)
 ````js
@@ -353,7 +368,7 @@ See for more configuration options [plupload](http://www.plupload.com)
 }
 ````
 
-##DateTime
+## DateTime
 See for more configuration options [plupload](https://github.com/quri/react-bootstrap-datetimepicker)
 ````js
 {
@@ -376,7 +391,7 @@ See for more configuration options [plupload](https://github.com/quri/react-boot
 }
 ````
 
-#Success
+# Success
 Show this message when the form has been succesfully send.
 ````js
 {
@@ -385,7 +400,7 @@ Show this message when the form has been succesfully send.
 }
 ````
 
-#Error
+# Error
 Show this message when there are errors
 ````js
 {
@@ -394,7 +409,7 @@ Show this message when there are errors
 }
 ````
 
-##Misc
+## Misc
 Display multiple fields in one row
 ````js
 row: {
@@ -455,17 +470,17 @@ Display messaged in your own grid layout.
     }
 ````
 
-#Dependecies
+# Dependecies
 - [react-bootstrap](https://github.com/react-bootstrap/react-bootstrap)
 - [react-datetime](https://github.com/YouCanBookMe/react-datetime)
 - [react-tinymce](https://github.com/instructure-react/react-tinymce)
 - [react-plupload](https://www.npmjs.com/package/react-plupload)
 
-#Help wanted
+# Help wanted
 Help wanted to make this package stable!
 
 
-###PM2
+### PM2
 Go into the example directory.
 and run
 ````

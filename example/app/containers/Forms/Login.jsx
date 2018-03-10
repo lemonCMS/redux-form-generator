@@ -2,9 +2,8 @@ import React from 'react';
 import Well from 'react-bootstrap/lib/Well';
 import Clearfix from 'react-bootstrap/lib/Clearfix';
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import {SubmissionError} from 'redux-form';
 import {dracula as style} from 'react-syntax-highlighter/dist/styles';
-import Form from '../../components/Form/Form';
+import {FinalForm as Form} from '../../components/Form';
 
 class Login extends React.Component {
   render() {
@@ -36,26 +35,89 @@ class Login extends React.Component {
                 fieldSize: {md: 8}
               },
               {
-                name: 'binaries',
-                label: 'Logo',
-                type: 'plupload',
-                multi_selection: false,
-                conf: {
-                  id: 'xplupload',
-                  runtimes: 'html5',
-                  multipart: true,
-                  multi_selection: false,
-                  chunk_size: '1mb',
-                  url: `/api/admin/sources/`,
-                  autoUpload: true,
-                  headers: {
-                    Authorization: 'Bearer ' + this.props.token
-                  },
-                },
-                labelSize: {md: 2},
-                fieldSize: {md: 10}
+                type: 'plain',
+                value: (<div className="warning">Please come again when you are a big person</div>),
+                show: values => (values.password === '1')
               },
-
+              {
+                name: 'calculation_type',
+                label: 'Werking',
+                type: 'select',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                options: [
+                  {value: 1, desc: 'Standaard werking'},
+                  {value: 2, desc: '1 antwoord mogelijk over alle substellingen'},
+                  {value: 3, desc: 'Meerdere antwoorden mogelijk per substelling'},
+                  {value: 4, desc: 'Standaard werking, over substellingen rekenen met de hoogste score'},
+                ]
+              },
+              {
+                name: 'display_type',
+                label: 'Weergave',
+                type: 'select',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                options: [
+                  {value: null, desc: '--Maak een keuze--'},
+                  {value: 1, desc: 'Tabel'},
+                  {value: 2, desc: 'Selectbox'},
+                  {value: 3, desc: 'Radiobutton'},
+                  {value: 4, desc: 'Checkbox'},
+                  {value: 5, desc: 'Vrij tekstveld'},
+                  {value: 6, desc: 'Geen antwoordmogelijkheden'},
+                  {value: 7, desc: 'Getal (x.xx)'},
+                  {value: 8, desc: 'Tekstregel'},
+                ]
+              },
+              {
+                row: {
+                  col: [
+                    {
+                      md: 4,
+                      children: [
+                        {
+                          type: 'plain',
+                          value: (<div className="form-group"><label className="col-md-12 control-label">Fullname</label></div>) // eslint-disable-line jsx-a11y/label-has-for
+                        }
+                      ]
+                    },
+                    {
+                      md: 3,
+                      children: [
+                        {
+                          name: 'firstname',
+                          type: 'text',
+                          placeholder: 'First name',
+                          fieldSize: {md: 12}
+                        }
+                      ]
+                    },
+                    {
+                      md: 2,
+                      children: [
+                        {
+                          name: 'suffix',
+                          type: 'text',
+                          placeholder: 'Suffix',
+                          fieldSize: {md: 12}
+                        }
+                      ]
+                    },
+                    {
+                      md: 3,
+                      children: [
+                        {
+                          name: 'surname',
+                          type: 'text',
+                          placeholder: 'Surname',
+                          fieldSize: {md: 12}
+                        }
+                      ]
+                    }
+                  ]
+                }
+              },
               {
                 row: {
                   hideOnStatic: true,
@@ -97,7 +159,8 @@ class Login extends React.Component {
             validate={() => {
               return [];
             }}
-            onSubmit={() => {
+            onSubmit={(values) => {
+              console.log(values);
               return new Promise(resolve => resolve());
             }}
             destroyOnUnmount={false}

@@ -3,7 +3,7 @@ import TestResource from './TestResource';
 import Well from 'react-bootstrap/lib/Well';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {github as style} from 'react-syntax-highlighter/dist/styles';
-import Form from '../../components/Form/Form';
+import {FinalForm as Form} from '../../components/Form';
 
 class Resource extends React.Component {
   render() {

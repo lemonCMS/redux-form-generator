@@ -21,16 +21,16 @@ class WrapRte extends React.Component {
 
   renderField(props) {
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
-      if (this.props.checkHidden(this.props.field.hidden(), _get(props, 'parent')) === true) {
+      if (this.props.checkHidden(this.props.field.hidden, _get(props, 'parent')) === true) {
         return null;
       }
     } else if (this.props.field && this.props.field.show && _isFunction(this.props.field.show)) {
-      if (this.props.checkShow(this.props.field.show(), _get(props, 'parent')) !== true) {
+      if (this.props.checkShow(this.props.field.show, _get(props, 'parent')) !== true) {
         return null;
       }
     }
 
-    const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
+    const {input, label, help, meta: {touched, error, submitError, valid}, ...custom} = props;
     this.input = input;
     const size = _get(this.props.field, 'bsSize', this.props.size);
 
@@ -86,7 +86,6 @@ class WrapRte extends React.Component {
         value={input.value}
         {...add}
         onChange={(event) => {
-          console.log('data', event);
           this.input.onBlur();
           this.input.onChange(event);
         }}
@@ -121,9 +120,9 @@ class WrapRte extends React.Component {
         {getLabel()}
         <Col {...fieldSize()}>
           {component()}
-          {touched && error && <FormControl.Feedback />}
-          {help && (!touched || !error) && <HelpBlock>{help}</HelpBlock>}
-          {touched && error && <HelpBlock>{error}</HelpBlock>}
+          {touched && (submitError || error) && <FormControl.Feedback />}
+          {help && (!touched || (!submitError && !error)) && <HelpBlock>{help}</HelpBlock>}
+          {touched && (submitError || error) && <HelpBlock>{(submitError || error)}</HelpBlock>}
         </Col>
       </FormGroup>
     );

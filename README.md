@@ -18,6 +18,12 @@ import {FinalForm as Form} from 'redux-form-generator';
 ```
 
 
+## Examples
+[Simple login form](https://codesandbox.io/s/mz33n78z7j)
+
+[FieldArray aka Complex](https://codesandbox.io/s/m340q702kp)
+
+
 
 # Migration 
 V0.1.x -> V6.x.x

@@ -1,4 +1,4 @@
-# redux-form-generator V6 for redux-form v6
+# Form generator for redux-form and final-form
 Generate bootstrap-form in your react application by providing json.
 
 Version 6 is build from the ground up, so you know features are missing ;) 

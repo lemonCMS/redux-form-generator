@@ -32,7 +32,7 @@ class Input extends React.Component {
       }
     }
 
-    const {input, label, help, meta: {touched, error, submitError, valid}, ...custom} = props;
+    const {input, label, help, meta: {touched, error, submitError, submitFailed, valid}, ...custom} = props;
     const size = _get(props.field, 'bsSize', props.size);
 
     const thisSize = () => {
@@ -63,7 +63,7 @@ class Input extends React.Component {
     const conf = _merge(props.locale.datetimepicker, props.conf);
 
     const validationState = () => {
-      if (touched && error) {
+      if ((touched && error) || (submitFailed && submitError)) {
         return 'error';
       }
 
@@ -82,7 +82,7 @@ class Input extends React.Component {
         <DateTimeField
           key={props.name}
           onChange={(val) => {
-            if (props.display && typeof val[props.display] !== "undefined") {
+            if (props.display && typeof val[props.display] !== 'undefined') {
               input.onChange(val[props.display]());
             } else {
               input.onChange(val);
@@ -116,9 +116,9 @@ class Input extends React.Component {
         {getLabel()}
         <Col {...fieldSize()}>
           {component()}
-          {touched && (submitError || error) && <FormControl.Feedback />}
+          {((touched && error) || (submitFailed && submitError)) && <FormControl.Feedback />}
           {help && (!touched || (!submitError && !error)) && <HelpBlock>{help}</HelpBlock>}
-          {touched && (submitError || error) && <HelpBlock>{(submitError || error)}</HelpBlock>}
+          {((touched && error) || (submitFailed && submitError)) && <HelpBlock>{(submitError || error)}</HelpBlock>}
         </Col>
       </FormGroup>
     );

@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import _get from 'lodash/get';
-import _has from 'lodash/has';
 import {Form as FinalForm} from 'react-final-form';
 import arrayMutators from 'final-form-arrays';
 import _clone from 'lodash/clone';
@@ -10,7 +9,6 @@ import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
 import _isUndefined from 'lodash/isUndefined';
-import _isEqual from 'lodash/isEqual';
 import _isBoolean from 'lodash/isBoolean';
 import _isString from 'lodash/isString';
 import _isArray from 'lodash/isArray';
@@ -40,8 +38,6 @@ import Pending from './Pending';
 let locale = {};
 
 const InnerForm = (props) => {
-
-  const {handleSubmit} = props;
   if (typeof props.locale === 'string') {
     if (!locales[props.locale]) {
       console.warn(`Final form generator locale ${props.locale} not implemented`);
@@ -447,35 +443,37 @@ const InnerForm = (props) => {
   );
 };
 
-const onSubmit = (...rest) => {
-  console.log(rest);
-}
+const onSubmit = () => {
+  console.warn('Implement onSubmit function');
+};
 
 class FormObj extends React.Component {
   render() {
     return (<FinalForm
-      onSubmit={onSubmit}
-      validate={this.props.validate || ((values) => { })}
+      onSubmit={this.props.onSubmit || onSubmit}
+      validate={this.props.validate || ((values) => {
+      })}
       mutators={{
         ...arrayMutators
       }}
       render={({
-        handleSubmit,
-        reset,
-        submitting,
-        pristine,
-        validating,
-        values,
-        submitSucceeded,
-        submitFailed,
-        valid,
-        change
+                 handleSubmit,
+                 reset,
+                 submitting,
+                 pristine,
+                 validating,
+                 values,
+                 submitSucceeded,
+                 submitError,
+                 submitFailed,
+                 valid,
+                 change
                }) => {
         return (
           <Form horizontal={this.props.horizontal} onSubmit={handleSubmit}>
             <InnerForm
               {...this.props}
-              {...{reset, submitting, pristine, validating, values, submitFailed, submitSucceeded, valid, change}}
+              {...{reset, submitting, pristine, validating, values, submitFailed, submitSucceeded, submitError, valid, change}}
             />
           </Form>
         );

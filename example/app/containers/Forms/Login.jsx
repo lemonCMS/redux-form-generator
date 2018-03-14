@@ -159,10 +159,6 @@ class Login extends React.Component {
             validate={() => {
               return [];
             }}
-            onSubmit={(values) => {
-              console.log(values);
-              return new Promise(resolve => resolve());
-            }}
             destroyOnUnmount={false}
           />
           <Clearfix />

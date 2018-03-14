@@ -81,13 +81,19 @@ class Complex extends React.Component {
     </div>);
 
     return (
-      <Panel className="rfg-cmplx-btn-flds" header={headerDiv} footer={footer}>
-        {children.map((child, key) => {
-          const clone = _clone(child);
-          clone.name = `${name}.${child.name}`;
-          clone.parent = `${name}`;
-          return this.props.addField(clone, key, size);
-        })}
+      <Panel className="rfg-cmplx-btn-flds">
+        <Panel.Heading>
+          {headerDiv}
+        </Panel.Heading>
+        <Panel.Body>
+          {children.map((child, key) => {
+            const clone = _clone(child);
+            clone.name = `${name}.${child.name}`;
+            clone.parent = `${name}`;
+            return this.props.addField(clone, key, size);
+          })}
+        </Panel.Body>
+        {footer && (<Panel.Footer>{footer}</Panel.Footer>)}
       </Panel>
     );
   }

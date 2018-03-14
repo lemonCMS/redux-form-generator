@@ -447,13 +447,14 @@ const InnerForm = (props) => {
   );
 };
 
+const onSubmit = (...rest) => {
+  console.log(rest);
+}
+
 class FormObj extends React.Component {
   render() {
     return (<FinalForm
-      onSubmit={this.props.onSubmit || ((values) => {
-        console.warn('implement onSubmit');
-        console.warn('Values', values);
-      })}
+      onSubmit={onSubmit}
       validate={this.props.validate || ((values) => { })}
       mutators={{
         ...arrayMutators

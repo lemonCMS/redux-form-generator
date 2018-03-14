@@ -37,7 +37,7 @@ export default class MessageType extends Component {
     }
 
     if (field.type === 'error' && !this.props.submitting) {
-      if (this.props.invalid === true && this.props.submitFailed === true) {
+      if (this.props.valid === false && this.props.submitFailed === true) {
         return (<Alert bsStyle="danger">{field.message}</Alert>);
       }
     }

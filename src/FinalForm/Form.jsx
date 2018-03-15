@@ -459,6 +459,7 @@ class FormObj extends React.Component {
       onSubmit={this.props.onSubmit || onSubmit}
       validate={this.props.validate || ((values) => {
       })}
+      initialValues={this.props.initialValues || {}}
       mutators={{
         ...arrayMutators
       }}
@@ -490,7 +491,8 @@ class FormObj extends React.Component {
 
 FormObj.propTypes = {
   horizontal: PropTypes.bool,
-  exportValues: PropTypes.func
+  exportValues: PropTypes.func,
+  initialValues: PropTypes.object
 };
 
 export default FormObj;

@@ -16,6 +16,7 @@ class Login extends React.Component {
           <Form
             locale="en_US"
             name="loginForm"
+            initialValues={{username: 'kaas'}}
             horizontal
             fields={[
               {

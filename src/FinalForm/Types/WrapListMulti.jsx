@@ -197,7 +197,7 @@ class WrapListMulti extends React.Component {
       }
     }
 
-    const {input, label, help, meta: {touched, error, submitError, valid}} = props;
+    const {input, label, help, meta: {touched, error, submitError, submitFailed, valid}} = props;
     this.input = input;
 
     if (props.searchable) {
@@ -230,7 +230,7 @@ class WrapListMulti extends React.Component {
     };
 
     const validationState = () => {
-      if (touched && error) {
+      if ((touched && error) || (submitFailed && submitError)) {
         return 'error';
       }
 
@@ -258,9 +258,9 @@ class WrapListMulti extends React.Component {
         <Col {...fieldSize()}>
           {this.searchBox()}
           {this.radioButtons()}
-          {touched && (submitError || error) && <FormControl.Feedback />}
+          {((touched && error) || (submitFailed && submitError)) && <FormControl.Feedback />}
           {help && (!touched || (!submitError && !error)) && <HelpBlock>{help}</HelpBlock>}
-          {touched && (submitError || error) && <HelpBlock>{(submitError || error)}</HelpBlock>}
+          {((touched && error) || (submitFailed && submitError)) && <HelpBlock>{(submitError || error)}</HelpBlock>}
         </Col>
       </FormGroup>
     );

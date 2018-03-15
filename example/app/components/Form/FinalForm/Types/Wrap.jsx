@@ -95,7 +95,7 @@ class Wrap extends React.Component {
   }
 
   renderField(props) {
-    const {input, label, help, meta: {touched, error, submitError, valid}, ...custom} = props;
+    const {input, label, help, meta: {touched, error, submitError, submitFailed, valid}, ...custom} = props;
     this.input = input;
     this.custom = custom;
     const size = _get(this.props.field, 'bsSize', this.props.size);
@@ -188,9 +188,8 @@ class Wrap extends React.Component {
       }
     };
 
-
     const validationState = () => {
-      if (touched && (submitError || error)) {
+      if ((touched && error) || (submitFailed && submitError)) {
         return 'error';
       }
 
@@ -271,9 +270,9 @@ class Wrap extends React.Component {
         {getLabel()}
         <Col {...fieldSize()}>
           {getField()}
-          {touched && (submitError || error) && <FormControl.Feedback />}
+          {((touched && error) || (submitFailed && submitError)) && <FormControl.Feedback />}
           {help && (!touched || (!submitError && !error)) && <HelpBlock>{help}</HelpBlock>}
-          {touched && (submitError || error) && <HelpBlock>{(submitError || error)}</HelpBlock>}
+          {((touched && error) || (submitFailed && submitError)) && <HelpBlock>{(submitError || error)}</HelpBlock>}
         </Col>
       </FormGroup>
     );

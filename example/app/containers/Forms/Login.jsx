@@ -83,7 +83,7 @@ class Login extends React.Component {
               });
             }}
             destroyOnUnmount={false}
-            exportValues={(props) => { console.log('va', props); props.change('username', 'abba')}}
+
           />
           <Clearfix />
         </Well>

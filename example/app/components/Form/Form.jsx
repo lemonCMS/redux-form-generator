@@ -480,7 +480,6 @@ class RenderForm extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    return true;
     if (this.props.reInitializeOn && this.props.reInitializeOn !== nextProps.reInitializeOn) {
       return true;
     }

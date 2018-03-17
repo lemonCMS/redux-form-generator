@@ -16,6 +16,7 @@ class Login extends React.Component {
           <Form
             locale="en_US"
             name="loginForm"
+            initialValues={{username: 'kaas'}}
             horizontal
             fields={[
               {
@@ -33,90 +34,6 @@ class Login extends React.Component {
                 placeholder: '**********',
                 labelSize: {md: 4},
                 fieldSize: {md: 8}
-              },
-              {
-                type: 'plain',
-                value: (<div className="warning">Please come again when you are a big person</div>),
-                show: values => (values.password === '1')
-              },
-              {
-                name: 'calculation_type',
-                label: 'Werking',
-                type: 'select',
-                labelSize: {md: 4},
-                fieldSize: {md: 8},
-                options: [
-                  {value: 1, desc: 'Standaard werking'},
-                  {value: 2, desc: '1 antwoord mogelijk over alle substellingen'},
-                  {value: 3, desc: 'Meerdere antwoorden mogelijk per substelling'},
-                  {value: 4, desc: 'Standaard werking, over substellingen rekenen met de hoogste score'},
-                ]
-              },
-              {
-                name: 'display_type',
-                label: 'Weergave',
-                type: 'select',
-                labelSize: {md: 4},
-                fieldSize: {md: 8},
-                options: [
-                  {value: null, desc: '--Maak een keuze--'},
-                  {value: 1, desc: 'Tabel'},
-                  {value: 2, desc: 'Selectbox'},
-                  {value: 3, desc: 'Radiobutton'},
-                  {value: 4, desc: 'Checkbox'},
-                  {value: 5, desc: 'Vrij tekstveld'},
-                  {value: 6, desc: 'Geen antwoordmogelijkheden'},
-                  {value: 7, desc: 'Getal (x.xx)'},
-                  {value: 8, desc: 'Tekstregel'},
-                ]
-              },
-              {
-                row: {
-                  col: [
-                    {
-                      md: 4,
-                      children: [
-                        {
-                          type: 'plain',
-                          value: (<div className="form-group"><label className="col-md-12 control-label">Fullname</label></div>) // eslint-disable-line jsx-a11y/label-has-for
-                        }
-                      ]
-                    },
-                    {
-                      md: 3,
-                      children: [
-                        {
-                          name: 'firstname',
-                          type: 'text',
-                          placeholder: 'First name',
-                          fieldSize: {md: 12}
-                        }
-                      ]
-                    },
-                    {
-                      md: 2,
-                      children: [
-                        {
-                          name: 'suffix',
-                          type: 'text',
-                          placeholder: 'Suffix',
-                          fieldSize: {md: 12}
-                        }
-                      ]
-                    },
-                    {
-                      md: 3,
-                      children: [
-                        {
-                          name: 'surname',
-                          type: 'text',
-                          placeholder: 'Surname',
-                          fieldSize: {md: 12}
-                        }
-                      ]
-                    }
-                  ]
-                }
               },
               {
                 row: {
@@ -166,6 +83,7 @@ class Login extends React.Component {
               });
             }}
             destroyOnUnmount={false}
+            exportValues={(props) => { console.log('va', props); props.change('username', 'abba')}}
           />
           <Clearfix />
         </Well>

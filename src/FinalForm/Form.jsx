@@ -34,6 +34,7 @@ import Plain from './Types/Plain';
 import ContentEditable from './Types/ContentEditable';
 import locales from '../locales';
 import Pending from './Pending';
+import ExportValues from './ExportValues';
 
 let locale = {};
 
@@ -448,11 +449,17 @@ const onSubmit = () => {
 };
 
 class FormObj extends React.Component {
+
+  componentWillReceiveProps(nextProps, nextState) {
+    console.log(nextProps, nextState);
+  }
+
   render() {
     return (<FinalForm
       onSubmit={this.props.onSubmit || onSubmit}
       validate={this.props.validate || ((values) => {
       })}
+      initialValues={this.props.initialValues || {}}
       mutators={{
         ...arrayMutators
       }}
@@ -471,6 +478,7 @@ class FormObj extends React.Component {
                }) => {
         return (
           <Form horizontal={this.props.horizontal} onSubmit={handleSubmit}>
+            {this.props.exportValues && <ExportValues callback={this.props.exportValues} />}
             <InnerForm
               {...this.props}
               {...{reset, submitting, pristine, validating, values, submitFailed, submitSucceeded, submitError, valid, change}}
@@ -482,7 +490,9 @@ class FormObj extends React.Component {
 }
 
 FormObj.propTypes = {
-  horizontal: PropTypes.bool
+  horizontal: PropTypes.bool,
+  exportValues: PropTypes.func,
+  initialValues: PropTypes.object
 };
 
 export default FormObj;

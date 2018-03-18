@@ -450,10 +450,6 @@ const onSubmit = () => {
 
 class FormObj extends React.Component {
 
-  componentWillReceiveProps(nextProps, nextState) {
-    console.log(nextProps, nextState);
-  }
-
   render() {
     return (<FinalForm
       onSubmit={this.props.onSubmit || onSubmit}

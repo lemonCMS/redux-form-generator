@@ -30,7 +30,7 @@ class Input extends React.Component {
     const change = (item) => {
       this.input.onChange(item.value);
       this.setState({title: item.desc});
-    }
+    };
 
     _map(this.props.field.items, (item, key) => {
       if (item.hasOwnProperty('default')) {

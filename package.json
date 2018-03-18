@@ -1,11 +1,11 @@
 {
   "name": "redux-form-generator",
-  "version": "7.0.0-beta7",
+  "version": "7.0.0-beta7.1",
   "description": "Generate forms with redux-form",
   "main": "lib/Form.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel ./src --out-dir ./lib --presets es2015,react,stage-0",
+    "build": "babel ./example/app/components/Form --out-dir ./lib --presets es2015,react,stage-0",
     "lint": "eslint -c .eslintrc src"
   },
   "repository": {

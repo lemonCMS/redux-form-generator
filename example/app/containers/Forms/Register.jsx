@@ -17,6 +17,7 @@ class Register extends React.Component {
             locale="en_US"
             name="loginForm"
             horizontal
+            initialValues={{text: '<b>amber</b>'}}
             fields={[
               {
                 type: 'plain',
@@ -322,7 +323,6 @@ class Register extends React.Component {
         </Well>
         <h3>Source</h3>
         <SyntaxHighlighter language="jsx" showLineNumbers style={style}>{codeString}</SyntaxHighlighter>
-        <a href="">source on github</a>
       </div>
     );
   }

@@ -4,12 +4,13 @@ import _has from 'lodash/has';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
 import _isFunction from 'lodash/isFunction';
-import TinyMCEInput from 'react-tinymce-input';
 import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import HelpBlock from 'react-bootstrap/lib/HelpBlock';
+import TinyMCEInput from '../../Modules/TinyMceInput';
+
 
 class WrapRte extends React.Component {
 

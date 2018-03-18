@@ -26,6 +26,7 @@ import DateTime from './Types/DateTime';
 import Radio from './Types/Radio';
 import Select from './Types/Select';
 import Button from './Types/Button';
+import DropDown from './Types/DropDown';
 import Rte from './Types/Rte';
 import Resource from './Types/Resource';
 import Message from './Types/Message';
@@ -360,6 +361,8 @@ const InnerForm = (props) => {
       case 'submit':
       case 'button':
         return (<Button {...spread} />);
+      case 'dropdown':
+        return (<DropDown {...spread} />);
       case 'rte':
         return (<Rte {...spread} />);
       case 'plain':
@@ -449,10 +452,6 @@ const onSubmit = () => {
 };
 
 class FormObj extends React.Component {
-
-  componentWillReceiveProps(nextProps, nextState) {
-    console.log(nextProps, nextState);
-  }
 
   render() {
     return (<FinalForm

@@ -16,7 +16,7 @@ class Login extends React.Component {
           <Form
             locale="en_US"
             name="loginForm"
-            initialValues={{username: 'kaas'}}
+            initialValues={{dropdown: 1}}
             horizontal
             fields={[
               {
@@ -33,7 +33,18 @@ class Login extends React.Component {
                 label: 'Password',
                 placeholder: '**********',
                 labelSize: {md: 4},
-                fieldSize: {md: 8}
+                fieldSize: {md: 8},
+                buttonAfter: {
+                  type: 'dropdown',
+                  name: 'dropdown',
+                  value: 'log me in!',
+                  bsStyle: 'primary',
+                  id: 'button-id',
+                  items: [
+                    {value: 1, desc: 'Keuze 1'},
+                    {value: 2, desc: 'Keuze 2'}
+                  ]
+                }
               },
               {
                 row: {

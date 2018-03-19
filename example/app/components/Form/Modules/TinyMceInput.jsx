@@ -20,6 +20,7 @@
 
 import React from 'react';
 import PropTypes from 'prop-types';
+import uuid from 'uuid';
 
 const DIRECT_PASSTHROUGH_EVENTS = [
   'Activate',
@@ -36,9 +37,8 @@ const DIRECT_PASSTHROUGH_EVENTS = [
 const PSEUDO_HIDDEN = {position: 'absolute', left: -200, top: -200, height: 0};
 
 class TinyMCEInput extends React.Component {
-  displayName = 'TinyMCEInput';
-
   static propTypes = {
+    id: PropTypes.string,
     className: PropTypes.string,
     tinymceConfig: PropTypes.object.isRequired,
     name: PropTypes.string,                           // the form name for the input element
@@ -58,17 +58,17 @@ class TinyMCEInput extends React.Component {
     onSetupEditor: PropTypes.func,
 
     // direct pass through events
-    // onActivate: PropTypes.func,
-    // onClick: PropTypes.func,
-    // onDeactivate: PropTypes.func,
-    // onFocus: PropTypes.func,
-    // onHide: PropTypes.func,
-    // onInit: PropTypes.func,
-    // onRedo: PropTypes.func,
-    // onRemove: PropTypes.func,
-    // onReset: PropTypes.func,
-    // onShow: PropTypes.func,
-    // onSubmit: PropTypes.func,
+    onActivate: PropTypes.func,
+    onClick: PropTypes.func,
+    onDeactivate: PropTypes.func,
+    onFocus: PropTypes.func,
+    onHide: PropTypes.func,
+    onInit: PropTypes.func,
+    onRedo: PropTypes.func,
+    onRemove: PropTypes.func,
+    onReset: PropTypes.func,
+    onShow: PropTypes.func,
+    onSubmit: PropTypes.func,
     onUndo: PropTypes.func,
 
     textareaProps: PropTypes.object.isRequired,       // props passed through to the textarea
@@ -84,8 +84,10 @@ class TinyMCEInput extends React.Component {
     pollInterval: 1000,
     textareaProps: {},
     otherEventHandlers: {},
-    onChange: () => {},
+    onChange: () => {
+    },
     component: 'textarea',
+
   };
 
   constructor() {
@@ -106,7 +108,9 @@ class TinyMCEInput extends React.Component {
     this.onTinyMCERedo = this.onTinyMCERedo.bind(this);
     this.onTinyMCEDrop = this.onTinyMCEDrop.bind(this);
     this.onTextareaChange = this.onTextareaChange.bind(this);
+    this.getContainerID = this.getContainerID.bind(this);
     this.state = {
+      id: uuid()
     };
     this.component = null;
     this.componentId = null;
@@ -115,6 +119,11 @@ class TinyMCEInput extends React.Component {
   getComponentID() {
     return (this.componentId || (this.componentId = this.component.getAttribute('id')));
   }
+
+  getContainerID() {
+    return this.props.id || this.state.id;
+  }
+
   componentWillMount() {
     this.setState({value: this.props.value || ''});
   }
@@ -199,7 +208,7 @@ class TinyMCEInput extends React.Component {
       {},
       this.props.tinymceConfig,
       {
-        target: this.component,
+        selector: `#${this.getContainerID()}`,
         setup: this.setupEditor
       }
     );
@@ -309,9 +318,10 @@ class TinyMCEInput extends React.Component {
     const Component = this.props.component;
     return (
       <div className={this.props.className} style={this.props.style}>
-        <input type="hidden" name={this.props.name} value={this.state.value} readOnly />
+        <input key={0} type="hidden" name={this.props.name} value={this.state.value} readOnly />
         <Component
-          // id={this.state.id}
+          key={1}
+          id={this.getContainerID()}
           defaultValue={this.state.value}
           onChange={this.onTextareaChange}
           rows={this.props.rows}

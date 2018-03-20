@@ -208,7 +208,7 @@ class TinyMCEInput extends React.Component {
       {},
       this.props.tinymceConfig,
       {
-        selector: `#${this.getContainerID()}`,
+        elem: this.component,
         setup: this.setupEditor
       }
     );

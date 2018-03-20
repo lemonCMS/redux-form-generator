@@ -68,8 +68,6 @@ class Resource extends React.Component {
   }
 
   callBack(values, list) {
-    console.log(this);
-
     this.setState({
       list: list
     }, () => {

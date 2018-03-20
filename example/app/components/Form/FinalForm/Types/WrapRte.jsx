@@ -34,7 +34,6 @@ class WrapRte extends React.Component {
     const {input, label, help, meta: {touched, error, submitError, submitFailed, valid}, ...custom} = props;
     this.input = input;
     const size = _get(this.props.field, 'bsSize', this.props.size);
-
     const thisSize = () => {
       if (size !== 'medium') {
         return ({bsSize: size});
@@ -59,9 +58,8 @@ class WrapRte extends React.Component {
       }
     };
 
-    const add = _pick(custom, ['placeholder', 'rows', 'cols']);
+    const add = _pick(custom, ['placeholder', 'rows', 'cols', 'id']);
     add.tinymceConfig = custom.config;
-
     const component = () => {
 
       let checkDisabled = false;

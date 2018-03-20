@@ -26,6 +26,7 @@ class Register extends React.Component {
               {
                 name: 'text',
                 type: 'rte',
+                id: 'rte-1',
                 label: 'Username',
                 placeholder: 'user@example.com',
                 labelSize: {md: 4},

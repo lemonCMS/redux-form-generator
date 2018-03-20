@@ -1,0 +1,25 @@
+{
+  "presets": [
+    "@babel/preset-react",
+    [
+      "@babel/preset-env",
+      {
+        "targets": {
+          "browsers": ["last 2 versions", "IE >= 8"],
+          "node": "current"
+        },
+        "useBuiltIns": "entry",
+        "modules": "umd",
+        "loose": true
+      }
+    ],
+    "@babel/preset-stage-0"
+  ],
+  "env": {
+    "development": {
+      "plugins": [
+        "@babel/plugin-transform-react-jsx-source"
+      ]
+    }
+  }
+}

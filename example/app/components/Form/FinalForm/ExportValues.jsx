@@ -3,7 +3,7 @@ import { FormSpy } from 'react-final-form'
 
 class ExportValues extends React.Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = { values: props.values, submitting: false }
   }
 

@@ -208,7 +208,7 @@ class TinyMCEInput extends React.Component {
       {},
       this.props.tinymceConfig,
       {
-        elem: this.component,
+        target: this.component,
         setup: this.setupEditor
       }
     );
@@ -321,7 +321,7 @@ class TinyMCEInput extends React.Component {
         <input key={0} type="hidden" name={this.props.name} value={this.state.value} readOnly />
         <Component
           key={1}
-          id={this.getContainerID()}
+          // id={this.getContainerID()}
           defaultValue={this.state.value}
           onChange={this.onTextareaChange}
           rows={this.props.rows}

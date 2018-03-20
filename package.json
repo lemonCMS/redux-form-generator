@@ -5,7 +5,7 @@
   "main": "lib/Form.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "babel ./example/app/components/Form --out-dir ./lib",
+    "build": "babel --config-file ./.babelrc ./example/app/components/Form --out-dir ./lib",
     "lint": "eslint -c .eslintrc src"
   },
   "repository": {
@@ -26,7 +26,7 @@
     "react": "^0.14.9 || >=15.0.0",
     "react-dom": "^0.14.9 || >=15.0.0 || >=16.x",
     "react-bootstrap": "^0.31.5 || >=0.32.1",
-    "react-plupload": "^0.0.17",
+    "react-plupload": ">=0.0.17",
     "react-datetime": "^2.12.0",
     "redux-form": "^5.0.0 || >=7.2.1",
     "lodash": "^4.0.0 || >=4.17.4"
@@ -34,16 +34,20 @@
   "devDependencies": {
     "@babel/cli": "^7.0.0-beta.42",
     "@babel/core": "^7.0.0-beta.42",
-    "babel-eslint": "^8.2.2",
-    "babel-loader": "^7.1.4",
+    "@babel/plugin-proposal-decorators": "^7.0.0-beta.42",
+    "@babel/plugin-transform-jsx": "^7.0.0-beta.42",
     "@babel/preset-env": "^7.0.0-beta.42",
-    "@babel/preset-es2015": "^7.0.0-beta.42",
     "@babel/preset-react": "^7.0.0-beta.42",
     "@babel/preset-stage-0": "^7.0.0-beta.42",
-    "@babel/preset-stage-2": "^7.0.0-beta.42",
-    "@babel/register": "^7.0.0-beta.42",
-    "react": "^16.2.0",
-    "react-dom": "16.2.0"
+    "babel-eslint": "^8.2.2",
+    "classnames": "^2.2.5",
+    "eslint": "^4.18.1",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-import": "^2.9.0",
+    "eslint-plugin-jsx-a11y": "^6.0.3",
+    "eslint-plugin-react": "^7.7.0",
+    "prettier-eslint-cli": "^4.7.1"
   },
   "bugs": {
     "url": "https://github.com/lemonCMS/react-form-generator/issues"

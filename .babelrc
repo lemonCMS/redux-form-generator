@@ -15,11 +15,7 @@
     ],
     "@babel/preset-stage-0"
   ],
-  "env": {
-    "development": {
-      "plugins": [
-        "@babel/plugin-transform-react-jsx-source"
-      ]
-    }
-  }
+  "plugins": [
+    "@babel/plugin-transform-react-jsx"
+  ]
 }

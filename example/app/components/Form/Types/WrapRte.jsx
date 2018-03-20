@@ -58,7 +58,7 @@ class WrapRte extends React.Component {
       }
     };
 
-    const add = _pick(custom, ['placeholder', 'rows', 'cols']);
+    const add = _pick(custom, ['placeholder', 'rows', 'cols', 'id']);
     add.tinymceConfig = custom.config;
 
     const component = () => {

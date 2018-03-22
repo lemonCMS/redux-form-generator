@@ -9,6 +9,10 @@ import Checkbox from '../../components/Form/FinalFormComponents/Bs/Checkbox';
 import Dropdown from '../../components/Form/FinalFormComponents/Bs/Dropdown';
 import TinyMce from '../../components/Form/FinalFormComponents/Bs/TinyMce';
 import Plupload from '../../components/Form/FinalFormComponents/Bs/Plupload';
+import Resource from '../../components/Form/FinalFormComponents/Bs/Resource';
+import Show from '../../components/Form/FinalFormComponents/Bs/Show';
+import Complex from '../../components/Form/FinalFormComponents/Bs/Complex';
+import TestResource from './TestResource';
 
 class New extends React.Component {
   render() {
@@ -16,9 +20,17 @@ class New extends React.Component {
       <div>
         <h1>TEST</h1>
         <FinalFC
-          initialValues={{selectbox: 2, dropdown: 3}}
+          initialValues={{
+            selectbox: 2,
+            dropdown: 3,
+            radio: 3,
+            checkbox: [1, 2],
+            resource: [1],
+            tiny: "<div><h1>Hoi</h1></div>",
+            para: [{name3: 'hoi 3'}, {name3: 'hoi 4'}]
+          }}
           validate={(values) => {
-            console.log('validate');
+            console.log('validate', values);
             const errors = [];
             if (!values.name2 || values.name2 !== 'Clown') {
               errors.name2 = 'Name must be \'Clown\'';
@@ -35,12 +47,12 @@ class New extends React.Component {
             type={'text'}
             name={'name2'}
             component={InputC}
-            className={'form-control'}
-            hidden={(data) => (data.name === '2')} />
-          <Input2 label='Naam 3'
-            type={'text'}
-            name={'name3'} />
-
+            className={'form-control'} />
+          <Show show={(data) => (data.name === '2')}>
+            <Input2 label='Naam 3'
+              type={'text'}
+              name={'name3'} />
+          </Show>
           <Dropdown label='Dropdown'
             type={'dropdown'}
             name={'dropdown'}>
@@ -58,24 +70,27 @@ class New extends React.Component {
             <option value={'3'}>Keuze 3</option>
           </Select>
 
-          <Radio label='Selectbox'
+          <Radio label='Radio set'
             name={'radio'}>
             <option value={'1'}>Keuze 1</option>
             <option value={'2'}>Keuze 2</option>
             <option value={'3'}>Keuze 3</option>
           </Radio>
 
-          <Checkbox label='Selectbox'
+          <Checkbox label='Checkbox'
             name={'checkbox'}>
             <option value={'1'}>Keuze 1</option>
             <option value={'2'}>Keuze 2</option>
             <option value={'3'}>Keuze 3</option>
           </Checkbox>
 
-          <TinyMce name={'tiny'}
+          <TinyMce
+            label={'TinyMCE'}
+            name={'tiny'}
             config={{id: 'tiny-1'}} />
 
           <Plupload
+            label={'Plupload'}
             name={'plupload'}
             config={{
               id: 'plupload-button',
@@ -90,6 +105,26 @@ class New extends React.Component {
               }
             }}
           />
+
+          <Resource
+            label={'Resource'}
+            help={'Oxie'}
+            name={'resource'}
+            resource={props => <TestResource {...props} />}
+          >
+            <option value={1}>Keuze 1</option>
+          </Resource>
+
+          <Complex name="complex" label="complex2" render={name => (
+            <div>
+              <Input2
+                label="Complex input"
+                type={'text'}
+                name={`${name}.name`} />
+            </div>
+          )} />
+
+
           <input type={'submit'}
             className={'btn btn-primary'}
             value={'submit'} />

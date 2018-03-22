@@ -69,7 +69,7 @@ class Wrap extends React.Component {
 
     let disabled = false;
     if (props.field && props.field.disabled && _isFunction(props.field.disabled)) {
-      disabled = this.props.checkDisabled(props.field.disabled());
+      disabled = this.context.checkDisabled(props.field.disabled());
     }
 
     if (isStatic === true || disabled === true) {
@@ -139,11 +139,17 @@ class Wrap extends React.Component {
     }
 
     if (custom.disabled && _isFunction(custom.disabled)) {
-      add.disabled = this.props.checkDisabled(custom.disabled(), _get(props, 'parent'));
+      add.disabled = this.context.checkDisabled(custom.disabled(), _get(props, 'parent'));
     }
 
     const component = () => {
-      if (this.props.static === true || _get(props.field, 'static', false) === true) {
+      // Render custom component
+      if (this.props.component) {
+        const Comp = this.props.component;
+        return (<Comp {...props} />);
+      }
+
+      if (this.context.isStatic === true || _get(props.field, 'static', false) === true) {
         const value = () => {
           if (props.field.type === 'select') {
             return _map(_filter(props.field.options, {value: this.input.value}), (item, key) => {
@@ -163,9 +169,6 @@ class Wrap extends React.Component {
               </FormControl.Static>);
           }
         }
-      }
-      if (this.props.component) {
-        return this.props.component(props);
       }
 
       switch (props.field.type) {
@@ -274,7 +277,7 @@ class Wrap extends React.Component {
         <Col {...fieldSize()}>
           {getField()}
           {((touched && error) || (submitFailed && submitError)) && <FormControl.Feedback />}
-          {help && (!touched || (!submitError && !error)) && <HelpBlock>{help}</HelpBlock>}
+          {props.field.help && (!touched || (!submitError && !error)) && <HelpBlock>{props.field.help}</HelpBlock>}
           {((touched && error) || (submitFailed && submitError)) && <HelpBlock>{(submitError || error)}</HelpBlock>}
         </Col>
       </FormGroup>
@@ -295,9 +298,6 @@ class Wrap extends React.Component {
 }
 
 Wrap.propTypes = {
-  'checkDisabled': PropTypes.func,
-  'checkHidden': PropTypes.func,
-  'checkShow': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
   'addField': PropTypes.func,
@@ -309,9 +309,11 @@ Wrap.propTypes = {
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array])
 };
 Wrap.contextTypes = {
+  checkDisabled: PropTypes.func.isRequired,
   checkHidden: PropTypes.func.isRequired,
-  checkShow: PropTypes.func.isRequired
-}
+  checkShow: PropTypes.func.isRequired,
+  isStatic: PropTypes.bool.isRequired
+};
 Wrap.defaultProps = {};
 
 export default Wrap;

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import {Form as FinalForm} from 'react-final-form';
 import _get from 'lodash/get';
+import _omit from "lodash/omit";
 import _map from "lodash/map";
 import _isUndefined from "lodash/isUndefined";
 import _filter from "lodash/filter";
@@ -32,6 +33,7 @@ class ContextWrapper extends React.Component {
     getProp: PropTypes.func.isRequired,
     checkHidden: PropTypes.func.isRequired,
     checkShow: PropTypes.func.isRequired,
+    isStatic: PropTypes.bool.isRequired
   };
 
   getChildContext() {
@@ -39,6 +41,7 @@ class ContextWrapper extends React.Component {
       getProp: name => _get(this.props, name, null),
       checkHidden: this.checkHidden,
       checkShow: this.checkShow,
+      isStatic: this.props.static
     };
   }
 
@@ -215,12 +218,14 @@ class ContextWrapper extends React.Component {
   }
 }
 ContextWrapper.propTypes = {
-  children: PropTypes.object
-};
-
-ContextWrapper.propTypes = {
+  children: PropTypes.object,
+  'static': PropTypes.bool,
   values: PropTypes.object,
   initialValues: PropTypes.object
+};
+
+ContextWrapper.defaultProps = {
+  'static': false
 };
 
 class FormObj extends React.Component {
@@ -234,8 +239,8 @@ class FormObj extends React.Component {
       }}
       render={({handleSubmit, ...rest}) => {
         return (
-          <ContextWrapper {...rest}>
-            <form onSubmit={handleSubmit}>
+          <ContextWrapper {..._omit(this.props, ['onSubmit', 'validate', 'initialValues'])} {...rest} >
+            <form onSubmit={handleSubmit} className={this.props.className}>
               {this.props.children}
             </form>
           </ContextWrapper>);
@@ -247,7 +252,8 @@ FormObj.propTypes = {
   initialValues: PropTypes.object,
   children: PropTypes.oneOfType([PropTypes.object, PropTypes.array]),
   onSubmit: PropTypes.func,
-  validate: PropTypes.func
+  validate: PropTypes.func,
+  className: PropTypes.func
 };
 
 export default FormObj;

@@ -5,3 +5,114 @@
 .rfg-cmplx-fields .btn-toolbar:after {
 
 }
+
+div.checkbox {
+    display: block;
+    position: relative;
+    margin-bottom: 12px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+/* Hide the browser's default checkbox */
+div.checkbox input[type=checkbox] {
+    position: absolute;
+    margin-left: 0px;
+    margin-top: 0px;
+    left: 0;
+    z-index: 1;
+    opacity: 1;
+    cursor: pointer;
+}
+
+div.checkbox input[type=checkbox]:before {
+    content: "";
+    opacity: 1;
+    z-index: 100;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #ccc;
+}
+
+div.checkbox input[type=checkbox]:checked:before {
+    background-color: #2196F3;
+}
+
+div.checkbox input[type=checkbox]:checked:after {
+    content: "";
+    position: absolute;
+    display: block;
+    z-index: 101;
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+
+/* Radio Buttons */
+div.radio {
+    display: block;
+    position: relative;
+    margin-bottom: 12px;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+
+}
+
+/* Hide the browser's default checkbox */
+div.radio input[type=radio] {
+    position: absolute;
+    margin-left: 0px;
+    margin-top: 0px;
+    left: 0;
+    z-index: 1;
+    opacity: 1;
+    cursor: pointer;
+    width: 0;
+    height: 0;
+}
+
+div.radio input[type=radio]:before {
+    content: "";
+    opacity: 1;
+    z-index: 100;
+    position: absolute;
+    display: block;
+    top: 0;
+    left: 0;
+    height: 18px;
+    width: 18px;
+    background-color: #ccc;
+    border-radius: 50%;
+}
+
+div.radio input[type=radio]:checked:before {
+    background-color: #2196F3;
+}
+
+div.radio input[type=radio]:checked:after {
+    content: "";
+    display: block;
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    z-index: 801;
+    background: white;
+}

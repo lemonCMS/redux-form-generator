@@ -39,6 +39,11 @@ app.use('/api', (req, res) => {
   proxy.web(req, res, {target: targetUrl});
 });
 
+app.use('/upload', (req, res) => {
+  res.status(200).send('{"result": {"file_name": "just-a-test-dummy.txt", "file_original_name": "original name"}}');
+});
+
+
 /*
  * This is where the magic happens. We take the locals data we have already
  * fetched and seed our stores with data.

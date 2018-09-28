@@ -171,7 +171,7 @@ class Complex extends React.Component {
                                              disabled={disabled}
                                              {...thisSize()}
                                              {...bsStyle()}
-                                             className={_get(addBtn, 'className')}
+                                             className={_get(this.props.addBtn, 'className')}
             >
               {_get(addBtn, 'label', locale.complex.buttonAdd)}</Button>
             }

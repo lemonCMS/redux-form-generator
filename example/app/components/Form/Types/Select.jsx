@@ -7,6 +7,8 @@ import Wrap from './Wrap';
 class Select extends Wrap {
 
   render() {
+    console.log(this.props);
+
     return (
       <Field
         component={this.renderField}

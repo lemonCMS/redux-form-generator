@@ -3,7 +3,7 @@ import Well from 'react-bootstrap/lib/Well';
 import Clearfix from 'react-bootstrap/lib/Clearfix';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {dracula as style} from 'react-syntax-highlighter/dist/styles';
-import {FinalForm as Form} from '../../components/Form';
+import Form from '../../components/Form';
 
 class Login extends React.Component {
   render() {
@@ -29,13 +29,24 @@ class Login extends React.Component {
               },
               {
                 name: 'password',
-                type: 'password',
+                type: 'text',
                 label: 'Password',
                 placeholder: '**********',
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
+                options: [
+                  {value: null, desc: '--Maak een keuze--'},
+                  {value: 1, desc: 'Tabel'},
+                  {value: 2, desc: 'Selectbox'},
+                  {value: 3, desc: 'Radiobutton'},
+                  {value: 4, desc: 'Checkbox'},
+                  {value: 5, desc: 'Vrij tekstveld'},
+                  {value: 6, desc: 'Geen antwoordmogelijkheden'},
+                  {value: 7, desc: 'Getal (x.xx)'},
+                  {value: 8, desc: 'Tekstregel'},
+                ],
                 buttonAfter: {
-                  type: 'dropdown',
+                  type: 'dropDown',
                   name: 'dropdown',
                   value: 'log me in!',
                   bsStyle: 'primary',

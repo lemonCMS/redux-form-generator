@@ -353,8 +353,8 @@ const InnerForm = (props, context, context2) => {
       size,
       dispatch: props.dispatch,
       static: props.static,
-      horizontal: props.horizontal
-
+      horizontal: props.horizontal,
+      addField: addField
     };
 
     switch (field.type) {
@@ -371,7 +371,7 @@ const InnerForm = (props, context, context2) => {
       case 'contentEditable':
         return (<ContentEditable {...spread} />);
       case 'complex':
-        return (<Complex {...spread} addField={addField} formName={props.name} />);
+        return (<Complex {...spread} formName={props.name} />);
       case 'submit':
       case 'button':
         return (<Button {...spread} />);
@@ -404,7 +404,7 @@ const InnerForm = (props, context, context2) => {
       case 'datetime':
         return (<DateTime {...spread} />);
       default:
-        return (<Input {...spread} addField={addField} />);
+        return (<Input {...spread} />);
     }
   };
 

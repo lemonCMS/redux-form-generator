@@ -42,7 +42,6 @@ class Resourcebinder extends React.Component {
   options() {
     const {field} = this.props;
     let list = [];
-    console.log(this.props);
     if (this.state.list === null) {
       if (_has(field, 'list')) {
         list = field.list;

@@ -374,18 +374,9 @@ const InnerForm = (props) => {
       case 'error': {
         return (<Message locale={locale}
                          key={key}
+                         {...props}
                          field={field}
-                         pristine={props.pristine}
-                         dirty={props.dirty}
-                         invalid={props.invalid}
-                         anyTouched={props.anyTouched}
-                         submitting={props.submitting}
-                         submitFailed={props.submitFailed}
-                         submitSucceeded={props.submitSucceeded}
-                         static={props.static}
                          size={size}
-                         valid={props.valid}
-                         horizontal={props.horizontal}
                          checkDisabled={checkDisabled}
         />);
       }

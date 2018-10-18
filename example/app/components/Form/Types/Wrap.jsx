@@ -87,6 +87,7 @@ class Wrap extends React.Component {
                         event.preventDefault();
                       }}
                       {...thisSize()}
+                      {...(_pick(this.props.field, ['bsStyle']))}
                       title={dropDownTitle || _get(this.custom, 'placeholder')}
                       id={'input-dropdown-addon' + this.input.name}>
         {menuItem}
@@ -213,7 +214,7 @@ class Wrap extends React.Component {
 
     const buttonAfter = () => {
       if (_has(this.props.field, 'buttonAfter')) {
-        if (this.props.field.buttonAfter.type === 'button') {
+        if (this.props.field.buttonAfter.type) {
           return (<InputGroup.Button>{this.props.addField(this.props.field.buttonAfter, 1, size)}</InputGroup.Button>);
         }
         return this.props.addField(this.props.field.buttonAfter, 1, size);

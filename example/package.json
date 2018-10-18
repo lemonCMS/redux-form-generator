@@ -5,8 +5,8 @@
   "repository": "https://github.com/choonkending/react-webpack-node",
   "main": "index.js",
   "scripts": {
-    "babel": "babel --presets es2015,stage-0 --ignore node_modules,public",
-    "babel-node": "babel-node --presets es2015,stage-0 --ignore node_modules,public",
+    "babel": "babel --presets es2015,stage-0 ",
+    "babel-node": "babel-node --presets es2015,stage-0 ",
     "sequelize": "node_modules/.bin/sequelize",
     "lint": "eslint app",
     "clean": "rimraf public/assets && rimraf compiled",
@@ -70,7 +70,7 @@
     "webpack": "^1.13.3"
   },
   "engines": {
-    "node": "8.x"
+    "node": ">=8.x"
   },
   "dependencies": {
     "autoprefixer": "^6.4.0",

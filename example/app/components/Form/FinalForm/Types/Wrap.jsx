@@ -87,6 +87,7 @@ class Wrap extends React.Component {
                         event.preventDefault();
                       }}
                       {...thisSize()}
+                      {...(_pick(this.props.field, ['bsStyle']))}
                       title={dropDownTitle || _get(this.custom, 'placeholder')}
                       id={'input-dropdown-addon' + this.input.name}>
         {menuItem}

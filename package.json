@@ -1,6 +1,6 @@
 {
   "name": "redux-form-generator",
-  "version": "7.0.0-beta10",
+  "version": "7.0.13-beta",
   "description": "Generate forms with redux-form",
   "main": "lib/Form.js",
   "scripts": {
@@ -23,7 +23,7 @@
   "author": "Raymond van Vuuren",
   "license": "MIT",
   "peerDependencies": {
-    "react": "^0.14.9 || >=15.0.0",
+    "react": "^0.14.9 || >=15.0.0 || >=16.x",
     "react-dom": "^0.14.9 || >=15.0.0 || >=16.x",
     "react-bootstrap": "^0.31.5 || >=0.32.1",
     "react-plupload": ">=0.0.17",

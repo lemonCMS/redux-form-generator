@@ -339,8 +339,8 @@ const InnerForm = (props) => {
       dispatch: props.dispatch,
       static: props.static,
       horizontal: props.horizontal,
-      formChange: props.change
-
+      formChange: props.change,
+      addField: addField
     };
 
     switch (field.type) {
@@ -357,7 +357,7 @@ const InnerForm = (props) => {
       case 'contentEditable':
         return (<ContentEditable {...spread} />);
       case 'complex':
-        return (<Complex {...spread} addField={addField} formName={props.name} />);
+        return (<Complex {...spread} formName={props.name} />);
       case 'submit':
       case 'button':
         return (<Button {...spread} />);
@@ -374,25 +374,16 @@ const InnerForm = (props) => {
       case 'error': {
         return (<Message locale={locale}
                          key={key}
+                         {...props}
                          field={field}
-                         pristine={props.pristine}
-                         dirty={props.dirty}
-                         invalid={props.invalid}
-                         anyTouched={props.anyTouched}
-                         submitting={props.submitting}
-                         submitFailed={props.submitFailed}
-                         submitSucceeded={props.submitSucceeded}
-                         static={props.static}
                          size={size}
-                         valid={props.valid}
-                         horizontal={props.horizontal}
                          checkDisabled={checkDisabled}
         />);
       }
       case 'datetime':
         return (<DateTime {...spread} />);
       default:
-        return (<Input {...spread} addField={addField} />);
+        return (<Input {...spread} />);
     }
   };
 

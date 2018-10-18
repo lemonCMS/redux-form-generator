@@ -13,7 +13,7 @@
         "loose": true
       }
     ],
-    "@babel/preset-stage-0"
+    ["@babel/preset-stage-0", {"decoratorsLegacy": true}]
   ],
   "plugins": [
     "@babel/plugin-transform-react-jsx"

@@ -204,6 +204,9 @@ class Wrap extends React.Component {
         if (this.props.field.buttonBefore.type === 'button') {
           return (<InputGroup.Button>{this.props.addField(this.props.field.buttonBefore, 1, size)}</InputGroup.Button>);
         }
+        if (this.props.field.buttonBefore.type === 'dropDown') {
+          return (this.props.addField(this.props.field.buttonBefore, 1, size));
+        }
         return (<InputGroup.Button>{this.props.addField(this.props.field.buttonBefore, 1, size)}</InputGroup.Button>);
       }
     };

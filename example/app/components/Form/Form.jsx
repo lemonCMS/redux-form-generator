@@ -469,7 +469,7 @@ class RenderForm extends React.Component {
       return true;
     }
 
-    if (!_isEqual(nextProps.fields, this.props.fields)) {
+    if (JSON.stringify(nextProps.fields) !== JSON.stringify(this.props.fields)) {
       return true;
     }
 

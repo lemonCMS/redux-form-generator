@@ -464,7 +464,8 @@ class RenderForm extends React.Component {
       return true;
     }
 
-    if (!_isEqual(nextProps.initialValues, this.props.initialValues)) {
+    if (!_isEqual(_omit(nextProps.initialValues, ['pending', 'success', 'failed']),
+      _omit(this.props.initialValues, ['pending', 'success', 'failed']))) {
       return true;
     }
 

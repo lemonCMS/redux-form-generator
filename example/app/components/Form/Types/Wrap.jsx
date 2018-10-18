@@ -130,12 +130,21 @@ class Wrap extends React.Component {
     };
 
     const fieldSize = () => {
+      let attrs = {};
+
       if (_has(this.props.field, 'fieldSize')) {
-        return this.props.field.fieldSize;
+        attrs = Object.assign(attrs, {}, this.props.field.fieldSize);
+      } else if (this.props.horizontal) {
+        attrs.sm = 10;
       }
-      if (this.props.horizontal) {
-        return {sm: 10};
+      if (_has(this.props.field, 'style')) {
+        attrs.style = this.props.field.style;
       }
+      if (_has(this.props.field, 'className')) {
+        attrs.className = this.props.field.className;
+      }
+
+      return attrs;
     };
 
     const add = _pick(custom, ['type', 'placeholder', 'rows', 'cols']);

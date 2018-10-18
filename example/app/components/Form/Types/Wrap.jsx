@@ -39,9 +39,12 @@ class Wrap extends React.Component {
     const menuItem = [];
     let dropDownTitle = null;
     _map(this.custom.items, (item, key) => {
-      const select = () => {
-        this.input.onBlur();
-        this.input.onChange(item.value);
+      const select = async () => {
+        await this.input.onBlur();
+        await this.input.onChange(item.value);
+        if (this.props.field.submit) {
+          this.props.submit();
+        }
       };
 
       if (item.hasOwnProperty('default')) {
@@ -295,6 +298,7 @@ Wrap.propTypes = {
   'checkShow': PropTypes.func,
   'field': PropTypes.object,
   'size': PropTypes.string,
+  'submit': PropTypes.func,
   'addField': PropTypes.func,
   'static': PropTypes.bool,
   'horizontal': PropTypes.bool.isRequired

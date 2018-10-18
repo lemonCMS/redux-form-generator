@@ -343,6 +343,7 @@ const InnerForm = (props, context, context2) => {
       return;
     }
 
+
     const spread = {
       checkDisabled,
       checkHidden,
@@ -354,6 +355,7 @@ const InnerForm = (props, context, context2) => {
       dispatch: props.dispatch,
       static: props.static,
       horizontal: props.horizontal,
+      submit: props.submit,
       addField: addField
     };
 

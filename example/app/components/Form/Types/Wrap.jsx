@@ -86,10 +86,10 @@ class Wrap extends React.Component {
 
     return (
       <DropdownButton key={this.input.name}
-                      componentClass={InputGroup.Button}
                       onClick={(event) => {
                         event.preventDefault();
                       }}
+                      {...(this.props.field.addon ? {componentClass: InputGroup.Button} : {})}
                       {...thisSize()}
                       {...(_pick(this.props.field, ['bsStyle']))}
                       title={dropDownTitle || _get(this.custom, 'placeholder')}

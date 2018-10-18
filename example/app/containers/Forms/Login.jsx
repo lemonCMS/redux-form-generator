@@ -41,11 +41,36 @@ class Login extends React.Component {
                   value: 'log me in!',
                   bsStyle: 'primary',
                   id: 'button-id',
+                  addon: true,
                   items: [
                     {value: 1, desc: 'Keuze 1'},
                     {value: 2, desc: 'Keuze 2'}
                   ]
                 }
+              },
+              {
+                submit: true,
+                type: 'dropDown',
+                name: 'dropdownx',
+                value: 'log me in!',
+                bsStyle: 'primary',
+                id: 'button-id',
+                items: [
+                  {value: 1, desc: 'Keuze 1'},
+                  {value: 2, desc: 'Keuze 2'}
+                ]
+              },
+              {
+                submit: true,
+                type: 'dropDown',
+                name: 'dropdownxx',
+                value: 'log me in!',
+                bsStyle: 'primary',
+                id: 'button-id',
+                items: [
+                  {value: 1, desc: 'Keuze 1'},
+                  {value: 2, desc: 'Keuze 2'}
+                ]
               },
               {
                 row: {

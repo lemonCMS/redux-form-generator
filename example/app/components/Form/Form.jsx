@@ -111,20 +111,6 @@ const InnerForm = (props, context, context2) => {
         {col(field.row.col, size, _get(field, 'parent', null))}
       </Row>
     );
-    /*
-        return (
-          <Row key={key}>
-            {_map(field.row, (rowItem, keyRow) => {
-              const thisSize = _get(rowItem, 'bsSize', size);
-              return (
-                <div key={keyRow}>
-                  {col(rowItem.col, thisSize, _get(field, 'parent', null))}
-                </div>
-              );
-            })}
-          </Row>
-        );
-    */
   };
 
   const checker = (args, parent) => {
@@ -383,7 +369,7 @@ const InnerForm = (props, context, context2) => {
         return (<Plain {...spread} />);
       case 'jsx':
       case 'react':
-        return field.component();
+        return <div key={key}>{field.component()}</div>;
       case 'success':
       case 'error': {
         return (<Message locale={locale}

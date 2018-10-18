@@ -38,6 +38,9 @@ class WrapListMulti extends React.Component {
   filtered(options) {
     if (this.props.static === true || _get(this.props.field, 'static', false) === true) {
       return _filter(options, (option) => {
+        if (_get(this.props, 'field.single', false) === true) {
+          return String(this.input.value) === String(option.value);
+        }
         return this.input.value.indexOf(option.value) > -1;
       });
     }

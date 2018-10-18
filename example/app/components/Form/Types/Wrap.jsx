@@ -83,6 +83,7 @@ class Wrap extends React.Component {
 
     return (
       <DropdownButton key={this.input.name}
+                      componentClass={InputGroup.Button}
                       onClick={(event) => {
                         event.preventDefault();
                       }}

@@ -28,6 +28,9 @@ class Input extends React.Component {
     if (this.props.field && this.props.field.disabled && _isFunction(this.props.field.disabled)) {
       disabled = this.props.checkDisabled(this.props.field.disabled());
     }
+    if (this.props.submitting) {
+      disabled = true;
+    }
 
     return (
       <Button
@@ -46,7 +49,8 @@ Input.propTypes = {
   'checkDisabled': PropTypes.func,
   'checkHidden': PropTypes.func,
   'checkShow': PropTypes.func,
-  'size': PropTypes.string
+  'size': PropTypes.string,
+  submitting: PropTypes.bool
 };
 Input.defaultProps = {};
 

@@ -342,6 +342,7 @@ const InnerForm = (props, context, context2) => {
       static: props.static,
       horizontal: props.horizontal,
       submit: props.submit,
+      submitting: props.submitting,
       addField: addField
     };
 

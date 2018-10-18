@@ -113,8 +113,13 @@ class Login extends React.Component {
             validate={() => {
               return [];
             }}
-            onSubmit={async (values) => {
-              console.log('values', values);
+            onSubmit={async () => {
+
+              function sleep(ms) {
+                return new Promise(resolve => setTimeout(resolve, ms));
+              }
+              await sleep(2000);
+
               return new Promise((resolve) => {
                 resolve({username: 'Failure'});
               });

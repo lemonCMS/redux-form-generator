@@ -469,6 +469,10 @@ class RenderForm extends React.Component {
       return true;
     }
 
+    if (!_isEqual(nextProps.fields, this.props.fields)) {
+      return true;
+    }
+
     return (_get(this.props, 'static', false) !== _get(nextProps, 'static', false));
   }
 

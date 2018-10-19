@@ -1,6 +1,6 @@
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import _ from 'lodash';
-import React, {Component} from 'react';
 import {Modal, Button} from 'react-bootstrap';
 
 export default class Resource extends Component {
@@ -11,6 +11,7 @@ export default class Resource extends Component {
     clonedValues: PropTypes.array,
     clonedList: PropTypes.array,
     callBack: PropTypes.func,
+    multiple: PropTypes.bool,
   };
 
   constructor() {
@@ -40,24 +41,29 @@ export default class Resource extends Component {
   }
 
   onChange(e, item) {
-    const values = this.state.values;
-    const list = this.state.list;
+    let {values} = this.state;
+    let list = this.state.list;
     const index = _.findIndex(list, {value: item.value});
 
-    if (e.target.checked === true) {
-      if (index === -1) {
-        list.push(item);
+    if (this.props.multiple) {
+      if (e.target.checked === true) {
+        if (index === -1) {
+          list.push(item);
+        }
+        values.push(item.value);
+      } else {
+        if (index > -1) {
+          list.splice(index, 1);
+        }
+        values.splice(_.indexOf(values, item.value), 1);
       }
-      values.push(item.value);
     } else {
-      if (index > -1) {
-        list.splice(index, 1);
-      }
-      values.splice(_.indexOf(values, item.value), 1);
+      list = [item];
+      values = item.value;
     }
 
     this.setState({
-      values: _.uniq(values),
+      values: values,
       list: list
     });
   }
@@ -69,9 +75,10 @@ export default class Resource extends Component {
           <label htmlFor={`check-${key}`}>
             <input
               id={`check-${key}`}
-              type="checkbox"
+              name={'option'}
+              type={this.props.multiple ? 'checkbox' : 'radio'}
               value={item.value}
-              defaultChecked={_.indexOf(this.state.values, item.value) > -1}
+              defaultChecked={this.props.multiple ? _.indexOf(this.state.values, item.value) > -1 : String(this.state.values) === String(item.value)}
               onChange={(e) => { this.onChange(e, item); }}
             />
             {' ' + item.desc}
@@ -114,6 +121,8 @@ export default class Resource extends Component {
   }
 
   render() {
+    console.log(this.props);
+
     return (
       <Modal show={this.props.show} onHide={this.props.closeResource}>
         <Modal.Header>

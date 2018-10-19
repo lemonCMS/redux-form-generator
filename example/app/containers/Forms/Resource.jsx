@@ -3,7 +3,7 @@ import TestResource from './TestResource';
 import Well from 'react-bootstrap/lib/Well';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {github as style} from 'react-syntax-highlighter/dist/styles';
-import {FinalForm as Form} from '../../components/Form';
+import Form from '../../components/Form';
 
 class Resource extends React.Component {
   render() {
@@ -24,6 +24,14 @@ class Resource extends React.Component {
                 type: 'resource',
                 labelSize: {md: 4},
                 fieldSize: {md: 8},
+                resource: props => <TestResource {...props} />
+              },
+              {
+                name: 'resource2',
+                type: 'resource',
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                multiple: false,
                 resource: props => <TestResource {...props} />
               },
               {
@@ -62,14 +70,14 @@ class Resource extends React.Component {
           </p>
           <p>
            The following properties are appended on to TestResource.
-            <ul>
-              <li>clonedValues</li>
-              <li>clonedList</li>
-              <li>callBack</li>
-              <li>show</li>
-              <li>closeResource</li>
-            </ul>
           </p>
+          <ul>
+            <li>clonedValues</li>
+            <li>clonedList</li>
+            <li>callBack</li>
+            <li>show</li>
+            <li>closeResource</li>
+          </ul>
         </Well>
         <Well>
           <h4>clonedValues <small>(Array)</small></h4>
@@ -100,12 +108,12 @@ class Resource extends React.Component {
           </p>
           <p>
             <strong>values</strong>: The array you return with all the selected items to pass on to redux-form
-            {(() => {
-              const cString = '[1, 2]';
-              return (<SyntaxHighlighter language="javascript" showLineNumbers style={style}>{cString}</SyntaxHighlighter>);
-            })()}
-
           </p>
+          {(() => {
+            const cString = '[1, 2]';
+            return (<SyntaxHighlighter language="javascript" showLineNumbers style={style}>{cString}</SyntaxHighlighter>);
+          })()}
+
           <p>
             <strong>list</strong>: The array of objects you return to display the selected values in your form.
           </p>

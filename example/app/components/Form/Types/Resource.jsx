@@ -48,17 +48,33 @@ class Resource extends React.Component {
 
   options() {
     const {field} = this.props;
-    const options = _map(this.state.list || _get(field, 'list', []), (option, key) => {
-      if (_indexOf(this.input.value, option.value) > -1) {
-        return (
-          <p className="form-control-static" key={key}>
-            {_indexOf(this.input.value, option.value) > -1 ? <i className="fa fa-check-square-o" /> : <i className="fa fa-square-o" />}
-            {' '}
-            {option.desc}
-          </p>
-        );
-      }
-    });
+    let options = [];
+    if (typeof field.multiple !== 'undefined' && field.multiple === false) {
+      options = _map(this.state.list || _get(field, 'list', []), (option, key) => {
+        if (String(this.input.value) === String(option.value)) {
+          return (
+            <p className="form-control-static"
+              key={key}>
+              <i className="fa fa-check-square-o" />
+              {' '}
+              {option.desc}
+            </p>);
+        }
+      });
+    } else {
+      options = _map(this.state.list || _get(field, 'list', []), (option, key) => {
+        if (_indexOf(this.input.value, option.value) > -1) {
+          return (
+            <p className="form-control-static"
+              key={key}>
+              {_indexOf(this.input.value, option.value) > -1 ? <i className="fa fa-check-square-o" /> : <i className="fa fa-square-o" />}
+              {' '}
+              {option.desc}
+            </p>
+          );
+        }
+      });
+    }
 
     return (
       <div className="checkbox">
@@ -71,7 +87,11 @@ class Resource extends React.Component {
     this.setState({
       list: list
     }, () => {
-      this.input.onChange(_uniq(values));
+      if (typeof this.props.field.multiple !== 'undefined' && this.props.field.multiple === false) {
+        this.input.onChange(values);
+      } else {
+        this.input.onChange(_uniq(values));
+      }
     });
   }
 
@@ -132,7 +152,8 @@ class Resource extends React.Component {
     const component = () => {
       const button = () => {
         if (!this.props.static) {
-          return (<Button onClick={this.openResource} disabled={disabled}>{_get(this.props, 'field.buttonResource', 'open')}</Button>);
+          return (<Button onClick={this.openResource}
+            disabled={disabled}>{_get(this.props, 'field.buttonResource', 'open')}</Button>);
         }
       };
 
@@ -149,6 +170,7 @@ class Resource extends React.Component {
         clonedList: _clone(this.state.list) || _clone(this.props.field.list),
         callBack: this.callBack,
         show: this.state.showResource,
+        multiple: !(typeof this.props.field.multiple !== 'undefined' && this.props.field.multiple === false),
         closeResource: this.closeResource
       };
 

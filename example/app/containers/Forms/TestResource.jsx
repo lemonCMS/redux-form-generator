@@ -8,7 +8,7 @@ export default class Resource extends Component {
   static propTypes = {
     show: PropTypes.bool,
     closeResource: PropTypes.func,
-    clonedValues: PropTypes.array,
+    clonedValues: PropTypes.oneOfType([PropTypes.array, PropTypes.string, PropTypes.number]),
     clonedList: PropTypes.array,
     callBack: PropTypes.func,
     multiple: PropTypes.bool,
@@ -121,8 +121,6 @@ export default class Resource extends Component {
   }
 
   render() {
-    console.log(this.props);
-
     return (
       <Modal show={this.props.show} onHide={this.props.closeResource}>
         <Modal.Header>

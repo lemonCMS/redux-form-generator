@@ -104,7 +104,6 @@ class Resource extends React.Component {
   }
 
   renderField(props) {
-
     if (this.props.field && this.props.field.hidden && _isFunction(this.props.field.hidden)) {
       if (this.props.checkHidden(this.props.field.hidden, _get(this.props.field, 'parent')) === true) {
         return null;
@@ -158,10 +157,13 @@ class Resource extends React.Component {
       };
 
       const clonedValues = () => {
+        if (typeof this.props.field.multiple !== 'undefined' && this.props.field.multiple === false) {
+          return this.input.value;
+        }
+
         if (_isEmpty(this.input.value)) {
           return [];
         }
-
         return _clone(this.input.value);
       };
 

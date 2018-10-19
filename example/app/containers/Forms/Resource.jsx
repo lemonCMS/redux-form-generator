@@ -60,6 +60,7 @@ class Resource extends React.Component {
             validate={() => {
               return {resource: 'verplicht'};
             }}
+            initialValues={{'resource2': 1, 'resource': [1]}}
             />
         </Well>
         <SyntaxHighlighter language="jsx" showLineNumbers style={style}>{codeString}</SyntaxHighlighter>

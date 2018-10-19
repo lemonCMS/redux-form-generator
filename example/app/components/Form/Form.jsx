@@ -512,6 +512,7 @@ class RenderForm extends React.Component {
       }
       return true;
     }
+    return false;
   }
 
   render() {

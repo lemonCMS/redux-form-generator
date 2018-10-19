@@ -24,6 +24,7 @@ class Login extends React.Component {
                 name: 'datetime',
                 type: 'datetime',
                 label: 'Datum + tijd',
+                locale: 'nl_NL',
                 config: {
 
                 },

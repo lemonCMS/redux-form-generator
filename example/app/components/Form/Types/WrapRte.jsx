@@ -59,7 +59,7 @@ class WrapRte extends React.Component {
     };
 
     const add = _pick(custom, ['placeholder', 'rows', 'cols', 'id']);
-    add.tinymceConfig = custom.config;
+    add.tinymceConfig = JSON.parse(JSON.stringify(custom.config));
 
     const component = () => {
 

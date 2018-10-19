@@ -536,7 +536,7 @@ class RenderForm extends React.Component {
       };
     })(InnerForm));
     return (<DynForm
-      fields={JSON.parse(JSON.stringify(this.props.fields))}
+      fields={this.props.fields}
       horizontal={this.props.horizontal || false}
       dispatch={this.props.dispatch}
       initialValues={JSON.parse(JSON.stringify(this.props.initialValues))}

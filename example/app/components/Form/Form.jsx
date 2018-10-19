@@ -448,8 +448,8 @@ class RenderForm extends React.Component {
     this.validate = this.validate.bind(this);
     this.maxUpdates = 128;
     this.showWarningAfter = 50;
+    this.warningDisplayed = false;
     this.updateCounter = 0;
-
 
     this.state = {
       validation: {}
@@ -464,19 +464,21 @@ class RenderForm extends React.Component {
   }
 
   shouldComponentUpdate(nextProps) {
-    if (this.updateCounter >= this.maxUpdates) {
+    if (!this.warningDisplayed && this.updateCounter >= this.maxUpdates) {
       console.log(`redux-form-components: Max update loop stack exceded: ${this.maxUpdates}`);
       console.log('There is something wrong with your code. This is not just a performance issue. Your form probably does not work as expected.');
       console.log('Most common is that initialValues are unexpectedly modified through reference.');
+      this.warningDisplayed = true;
       return false;
     }
 
     if (this.props.reInitializeOn && this.props.reInitializeOn !== nextProps.reInitializeOn) {
       this.updateCounter += 1;
-      if (this.updateCounter > this.showWarningAfter) {
+      if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
         console.log('Updated because: this.props.reInitializeOn !== nextProps.reInitializeOn');
         console.log('this.props.reInitializeOn', this.props.reInitializeOn);
         console.log('nextProps.reInitializeOn', nextProps.reInitializeOn);
+        this.warningDisplayed = true;
       }
       return true;
     }
@@ -484,10 +486,11 @@ class RenderForm extends React.Component {
     if (!_isEqual(_omit(nextProps.initialValues, ['pending', 'success', 'failed']),
       _omit(this.props.initialValues, ['pending', 'success', 'failed']))) {
       this.updateCounter += 1;
-      if (this.updateCounter > this.showWarningAfter) {
+      if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
         console.log('Updated because: this.props.initialValues !== nextProps.initialValues');
         console.log('this.props.initialValues', this.props.initialValues, JSON.stringify(this.props.initialValues));
         console.log('nextProps.initialValues', nextProps.initialValues, JSON.stringify(nextProps.initialValues));
+        this.warningDisplayed = true;
       }
 
       return true;
@@ -495,20 +498,22 @@ class RenderForm extends React.Component {
 
     if (JSON.stringify(nextProps.fields) !== JSON.stringify(this.props.fields)) {
       this.updateCounter += 1;
-      if (this.updateCounter > this.showWarningAfter) {
+      if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
         console.log('Updated because: this.props.fields !== nextProps.fields');
         console.log('this.props.fields', this.props.fields, JSON.stringify(this.props.fields));
         console.log('nextProps.fields', nextProps.fields, JSON.stringify(nextProps.fields));
+        this.warningDisplayed = true;
       }
       return true;
     }
 
     if (_get(this.props, 'static', false) !== _get(nextProps, 'static', false)) {
       this.updateCounter += 1;
-      if (this.updateCounter > this.showWarningAfter) {
+      if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
         console.log('Updated because: this.props.static !== nextProps.static');
         console.log('this.props.static', this.props.static, JSON.stringify(this.props.static));
         console.log('nextProps.static', nextProps.static, JSON.stringify(nextProps.static));
+        this.warningDisplayed = true;
       }
       return true;
     }
@@ -531,7 +536,7 @@ class RenderForm extends React.Component {
       };
     })(InnerForm));
     return (<DynForm
-      fields={this.props.fields}
+      fields={Object.assign({}, this.props.fields)}
       horizontal={this.props.horizontal || false}
       dispatch={this.props.dispatch}
       initialValues={Object.assign({}, this.props.initialValues)}

@@ -4,6 +4,7 @@ import Clearfix from 'react-bootstrap/lib/Clearfix';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {dracula as style} from 'react-syntax-highlighter/dist/styles';
 import Form from '../../components/Form';
+import moment from '../../helpers/moment';
 
 class Login extends React.Component {
   render() {
@@ -16,9 +17,29 @@ class Login extends React.Component {
           <Form
             locale="en_US"
             name="loginForm"
-            initialValues={{dropdown: 1}}
+            initialValues={{dropdown: 1, datetime: '2018-09-08 12:09:45', datetime2: 1410715640579}}
             horizontal
             fields={[
+              {
+                name: 'datetime',
+                type: 'datetime',
+                label: 'Datum + tijd',
+                config: {
+
+                },
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
+              {
+                name: 'datetime2',
+                type: 'datetime',
+                label: 'Datum + tijd',
+                config: {
+                  parse: 'x'
+                },
+                labelSize: {md: 4},
+                fieldSize: {md: 8}
+              },
               {
                 name: 'username',
                 type: 'text',
@@ -47,30 +68,6 @@ class Login extends React.Component {
                     {value: 2, desc: 'Keuze 2'}
                   ]
                 }
-              },
-              {
-                submit: true,
-                type: 'dropDown',
-                name: 'dropdownx',
-                value: 'log me in!',
-                bsStyle: 'primary',
-                id: 'button-id',
-                items: [
-                  {value: 1, desc: 'Keuze 1'},
-                  {value: 2, desc: 'Keuze 2'}
-                ]
-              },
-              {
-                submit: true,
-                type: 'dropDown',
-                name: 'dropdownxx',
-                value: 'log me in!',
-                bsStyle: 'primary',
-                id: 'button-id',
-                items: [
-                  {value: 1, desc: 'Keuze 1'},
-                  {value: 2, desc: 'Keuze 2'}
-                ]
               },
               {
                 row: {
@@ -113,8 +110,7 @@ class Login extends React.Component {
             validate={() => {
               return [];
             }}
-            onSubmit={async () => {
-
+            onSubmit={async (values) => {
               function sleep(ms) {
                 return new Promise(resolve => setTimeout(resolve, ms));
               }

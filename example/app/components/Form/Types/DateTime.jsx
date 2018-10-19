@@ -4,6 +4,7 @@ import _has from 'lodash/has';
 import _merge from 'lodash/merge';
 import _get from 'lodash/get';
 import _pick from 'lodash/pick';
+import _omit from 'lodash/omit';
 import DateTimeField from 'react-datetime';
 import Col from 'react-bootstrap/lib/Col';
 import FormControl from 'react-bootstrap/lib/FormControl';
@@ -60,7 +61,7 @@ class Input extends React.Component {
     };
 
     const add = _pick(custom, ['placeholder', 'inputProps']);
-    const conf = _merge(props.locale.datetimepicker, props.conf);
+    const conf = Object.assign({}, Object.assign({}, props.locale.datetimepicker), Object.assign({}, props.config));
 
     const validationState = () => {
       if (touched && error) {
@@ -78,19 +79,16 @@ class Input extends React.Component {
     }
 
     const component = () => {
+      const value = _has(conf, 'parse') ? moment(input.value, _get(conf, 'parse')) : moment(input.value);
       return (
         <DateTimeField
           key={props.name}
           onChange={(val) => {
-            if (props.display && typeof val[props.display] !== "undefined") {
-              input.onChange(val[props.display]());
-            } else {
-              input.onChange(val);
-            }
+            input.onChange(_has(conf, 'parse') ? moment(val).format(_get(conf, 'parse')) : val);
           }}
-          value={moment(input.value)}
+          value={value}
           {...add}
-          {...conf}
+          {..._omit(conf, ['parse'])}
           inputProps={{
             disabled: disabled
           }}

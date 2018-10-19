@@ -221,7 +221,7 @@ class WrapPlupload extends React.Component {
         validationState={validationState()}
       >
         {getLabel()}
-        <Col {...fieldSize()}>
+        <Col {...fieldSize()} className={_get(this.props.field, 'fieldClassName', '')}>
           {component()}
           {renderTable()}
           {touched && error && <FormControl.Feedback />}

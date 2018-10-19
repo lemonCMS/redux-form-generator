@@ -290,7 +290,7 @@ class Wrap extends React.Component {
         validationState={validationState()}
       >
         {getLabel()}
-        <Col {...fieldSize()}>
+        <Col {...fieldSize()} className={_get(this.props.field, 'fieldClassName', '')}>
           {getField()}
           {touched && error && <FormControl.Feedback />}
           {help && (!touched || !error) && <HelpBlock>{help}</HelpBlock>}

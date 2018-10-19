@@ -204,7 +204,7 @@ class WrapList extends React.Component {
         validationState={validationState()}
       >
         {getLabel()}
-        <Col {...fieldSize()}>
+        <Col {...fieldSize()} className={_get(this.props.field, 'fieldClassName', '')}>
           {this.searchBox()}
           {this.radioButtons()}
           {touched && error && <FormControl.Feedback />}

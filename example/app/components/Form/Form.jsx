@@ -539,7 +539,7 @@ class RenderForm extends React.Component {
       fields={this.props.fields}
       horizontal={this.props.horizontal || false}
       dispatch={this.props.dispatch}
-      initialValues={JSON.parse(JSON.stringify(this.props.initialValues))}
+      initialValues={JSON.parse(JSON.stringify(_get(this.props, 'initialValues', {})))}
       name={this.props.name}
       formReducer={_get(this.props, 'formReducer', 'form')}
       static={this.props.static}

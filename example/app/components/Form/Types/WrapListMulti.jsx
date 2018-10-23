@@ -103,7 +103,12 @@ class WrapListMulti extends React.Component {
           value={option.value}
           checked={this.input.value.indexOf(option.value) !== -1}
           onChange={(event) => {
-            const newValue = [...this.input.value];
+            let newValue = [...this.input.value];
+
+            if (typeof newValue === 'undefined') {
+              newValue = [];
+            }
+
             if (event.target.checked) {
               newValue.push(option.value);
             } else {

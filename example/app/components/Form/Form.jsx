@@ -483,8 +483,8 @@ class RenderForm extends React.Component {
       return true;
     }
 
-    if (!_isEqual(_omit(nextProps.initialValues, ['pending', 'success', 'failed']),
-      _omit(this.props.initialValues, ['pending', 'success', 'failed']))) {
+    if (!_isEqual(_omit(nextProps.initialValues, ['pending', 'success', 'failed', 'actionStatus']),
+      _omit(this.props.initialValues, ['pending', 'success', 'failed', 'actionStatus']))) {
       this.updateCounter += 1;
       if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
         console.log('Updated because: this.props.initialValues !== nextProps.initialValues');

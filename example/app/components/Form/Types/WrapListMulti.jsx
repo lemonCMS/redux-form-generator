@@ -105,7 +105,7 @@ class WrapListMulti extends React.Component {
           onChange={(event) => {
             let newValue = [...this.input.value];
 
-            if (typeof newValue === 'undefined') {
+            if (typeof newValue === 'undefined' || typeof newValue === 'string') {
               newValue = [];
             }
 

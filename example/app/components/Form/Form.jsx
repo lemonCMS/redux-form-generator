@@ -582,6 +582,12 @@ RenderForm.propTypes = {
   ])
 };
 
+RenderForm.defaultPropTypes = {
+  name: 'form',
+  initialValues: {},
+  fields: []
+};
+
 export default connect(() => ({})
   , (dispatch) => {
     return {dispatch};

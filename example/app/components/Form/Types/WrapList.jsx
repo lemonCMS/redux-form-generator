@@ -206,7 +206,9 @@ class WrapList extends React.Component {
         {getLabel()}
         <Col {...fieldSize()} className={_get(this.props.field, 'fieldClassName', '')}>
           {this.searchBox()}
-          {this.radioButtons()}
+          <div className={'rdf-radiolist'}>
+            {this.radioButtons()}
+          </div>
           {touched && error && <FormControl.Feedback />}
           {help && (!touched || !error) && <HelpBlock>{help}</HelpBlock>}
           {touched && error && <HelpBlock>{error}</HelpBlock>}

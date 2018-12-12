@@ -41,6 +41,11 @@ class WrapPlupload extends React.Component {
 
     const {input, label, help, meta: {touched, error, valid}, ...custom} = props;
     let allFiles = _get(props, 'input.value', []);
+
+    if (!(allFiles instanceof Array)) {
+      allFiles = [];
+    }
+
     this.input = input;
     this.custom = custom;
     const size = _get(this.props.field, 'bsSize', this.props.size);

@@ -65,6 +65,80 @@ class Complex extends React.Component {
                 ]
               },
               {
+                name: 'costs',
+                type: 'complex',
+                label: 'Beschikbare types en prijzen',
+                addBtn: {label: 'Model type toevoegen'},
+                removeBtn: {wrapperClassName: 'clearfix', label: 'verwijderen', className: 'pull-right clearfix'},
+                labelSize: {md: 4},
+                fieldSize: {md: 8},
+                children: [
+                  {
+                    name: 'type',
+                    label: 'Model type',
+                    placeholder: 'xxx',
+                    type: 'select',
+                    bsSize: 'small',
+                    labelSize: {md: 4},
+                    fieldSize: {md: 8}
+                  },
+                  {
+                    name: 'val',
+                    label: 'Prijs eerste periode',
+                    type: 'text',
+                    bsSize: 'small',
+                    placeholder: 'xxx',
+                    labelSize: {md: 4},
+                    fieldSize: {md: 8}
+                  },
+                  {
+                    name: 'value_extend',
+                    label: 'Prijs volgende periode',
+                    placeholder: 'xxx',
+                    type: 'text',
+                    bsSize: 'small',
+                    labelSize: {md: 4},
+                    fieldSize: {md: 8}
+                  },
+                  {
+                    name: 'value_extra',
+                    label: 'Prijs verlenging per maand',
+                    placeholder: 'xxx',
+                    type: 'text',
+                    bsSize: 'small',
+                    labelSize: {md: 4},
+                    fieldSize: {md: 8}
+                  },
+                  {
+                    name: 'value_norm',
+                    label: 'Norm eerste periode',
+                    placeholder: 'xxx',
+                    type: 'text',
+                    bsSize: 'small',
+                    labelSize: {md: 4},
+                    fieldSize: {md: 8}
+                  },
+                  {
+                    name: 'value_norm_extend',
+                    label: 'Norm volgende periode',
+                    placeholder: 'xxx',
+                    type: 'text',
+                    bsSize: 'small',
+                    labelSize: {md: 4},
+                    fieldSize: {md: 8}
+                  },
+                  {
+                    name: 'value_norm_extra',
+                    label: 'Norm verlenging per maand',
+                    placeholder: 'xxx',
+                    type: 'text',
+                    bsSize: 'small',
+                    labelSize: {md: 4},
+                    fieldSize: {md: 8}
+                  }
+                ]
+              },
+              {
                 name: 'items',
                 show: () => ({
                   field: 'display_type',

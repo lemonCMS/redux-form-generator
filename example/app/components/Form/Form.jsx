@@ -465,7 +465,7 @@ class RenderForm extends React.Component {
 
   shouldComponentUpdate(nextProps) {
     if (!this.warningDisplayed && this.updateCounter >= this.maxUpdates) {
-      console.log(`redux-form-components: Max update loop stack exceded: ${this.maxUpdates}`);
+      console.log(`redux-form-components: Max update loop stack exceeded: ${this.maxUpdates}`);
       console.log('There is something wrong with your code. This is not just a performance issue. Your form probably does not work as expected.');
       console.log('Most common is that initialValues are unexpectedly modified through reference.');
       this.warningDisplayed = true;
@@ -496,7 +496,7 @@ class RenderForm extends React.Component {
       return true;
     }
 
-    if (JSON.stringify(nextProps.fields) !== JSON.stringify(this.props.fields)) {
+    if (!_isEqual(nextProps.fields, this.props.fields)) {
       this.updateCounter += 1;
       if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
         console.log('Updated because: this.props.fields !== nextProps.fields');

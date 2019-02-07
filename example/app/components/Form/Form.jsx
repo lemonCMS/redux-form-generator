@@ -496,6 +496,7 @@ class RenderForm extends React.Component {
       return true;
     }
 
+/*
     if (!_isEqual(nextProps.fields, this.props.fields)) {
       this.updateCounter += 1;
       if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
@@ -506,6 +507,7 @@ class RenderForm extends React.Component {
       }
       return true;
     }
+*/
 
     if (_get(this.props, 'static', false) !== _get(nextProps, 'static', false)) {
       this.updateCounter += 1;

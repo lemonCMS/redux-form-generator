@@ -3,7 +3,7 @@ import Well from 'react-bootstrap/lib/Well';
 import Clearfix from 'react-bootstrap/lib/Clearfix';
 import SyntaxHighlighter from 'react-syntax-highlighter';
 import {dracula as style} from 'react-syntax-highlighter/dist/styles';
-import {FinalForm as Form} from '../../components/Form';
+import Form from '../../components/Form';
 
 class Complex extends React.Component {
   render() {
@@ -11,7 +11,7 @@ class Complex extends React.Component {
 
     return (
       <div>
-        <h2>Login</h2>
+        <h2>Loginxxx</h2>
         <Well>
           <Form
             locale="en_US"

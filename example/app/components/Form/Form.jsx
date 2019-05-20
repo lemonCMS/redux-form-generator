@@ -8,7 +8,7 @@ import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
 import _isUndefined from 'lodash/isUndefined';
-import _isEqual from 'lodash/isEqual';
+import {deepEqual} from 'fast-equals';
 import _isBoolean from 'lodash/isBoolean';
 import _isString from 'lodash/isString';
 import _isArray from 'lodash/isArray';
@@ -483,7 +483,7 @@ class RenderForm extends React.Component {
       return true;
     }
 
-    if (!_isEqual(_omit(nextProps.initialValues, ['pending', 'success', 'failed', 'actionStatus']),
+    if (!deepEqual(_omit(nextProps.initialValues, ['pending', 'success', 'failed', 'actionStatus']),
       _omit(this.props.initialValues, ['pending', 'success', 'failed', 'actionStatus']))) {
       this.updateCounter += 1;
       if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
@@ -496,8 +496,8 @@ class RenderForm extends React.Component {
       return true;
     }
 
-/*
-    if (!_isEqual(nextProps.fields, this.props.fields)) {
+
+    if (!deepEqual(nextProps.fields, this.props.fields)) {
       this.updateCounter += 1;
       if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
         console.log('Updated because: this.props.fields !== nextProps.fields');
@@ -507,7 +507,7 @@ class RenderForm extends React.Component {
       }
       return true;
     }
-*/
+
 
     if (_get(this.props, 'static', false) !== _get(nextProps, 'static', false)) {
       this.updateCounter += 1;

@@ -1,10 +1,10 @@
-import React from 'react'
-import { FormSpy } from 'react-final-form'
+import React from 'react';
+import {FormSpy} from 'react-final-form';
 
 class ExportValues extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { values: props.values, submitting: false }
+    this.state = { values: props.values, submitting: false };
   }
 
   componentWillReceiveProps(nextProps) {
@@ -17,14 +17,14 @@ class ExportValues extends React.Component {
   render() {
     // This component doesn't have to render anything, but it can render
     // submitting state.
-    return null
+    return null;
   }
 }
 
 export default props => (
-    <FormSpy
-      {...props}
-      subscription={{ active: true, values: true }}
-      component={ExportValues}
-    />
+  <FormSpy
+    {...props}
+    subscription={{ active: true, values: true }}
+    component={ExportValues}
+  />
 );

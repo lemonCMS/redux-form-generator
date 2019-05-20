@@ -8,7 +8,7 @@ import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
 import _isUndefined from 'lodash/isUndefined';
-import {deepEqual} from 'fast-equals';
+import {shallowEqual} from 'fast-equals';
 import _isBoolean from 'lodash/isBoolean';
 import _isString from 'lodash/isString';
 import _isArray from 'lodash/isArray';
@@ -479,11 +479,12 @@ class RenderForm extends React.Component {
         console.log('this.props.reInitializeOn', this.props.reInitializeOn);
         console.log('nextProps.reInitializeOn', nextProps.reInitializeOn);
         this.warningDisplayed = true;
+        return false;
       }
       return true;
     }
 
-    if (!deepEqual(_omit(nextProps.initialValues, ['pending', 'success', 'failed', 'actionStatus']),
+    if (!shallowEqual(_omit(nextProps.initialValues, ['pending', 'success', 'failed', 'actionStatus']),
       _omit(this.props.initialValues, ['pending', 'success', 'failed', 'actionStatus']))) {
       this.updateCounter += 1;
       if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
@@ -491,19 +492,21 @@ class RenderForm extends React.Component {
         console.log('this.props.initialValues', this.props.initialValues, JSON.stringify(this.props.initialValues));
         console.log('nextProps.initialValues', nextProps.initialValues, JSON.stringify(nextProps.initialValues));
         this.warningDisplayed = true;
+        return false;
       }
 
       return true;
     }
 
 
-    if (!deepEqual(nextProps.fields, this.props.fields)) {
+    if (!shallowEqual(nextProps.fields, this.props.fields)) {
       this.updateCounter += 1;
       if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
         console.log('Updated because: this.props.fields !== nextProps.fields');
         console.log('this.props.fields', this.props.fields, JSON.stringify(this.props.fields));
         console.log('nextProps.fields', nextProps.fields, JSON.stringify(nextProps.fields));
         this.warningDisplayed = true;
+        return false;
       }
       return true;
     }
@@ -516,6 +519,7 @@ class RenderForm extends React.Component {
         console.log('this.props.static', this.props.static, JSON.stringify(this.props.static));
         console.log('nextProps.static', nextProps.static, JSON.stringify(nextProps.static));
         this.warningDisplayed = true;
+        return false;
       }
       return true;
     }

@@ -499,7 +499,8 @@ class RenderForm extends React.Component {
     }
 
 
-/*    if (!shallowEqual(nextProps.fields, this.props.fields)) {
+    if (!deepEqual(JSON.parse(JSON.stringify(nextProps.fields)),
+     JSON.parse(JSON.stringify(this.props.fields)))) {
       this.updateCounter += 1;
       if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {
         console.log('Updated because: this.props.fields !== nextProps.fields');
@@ -509,8 +510,7 @@ class RenderForm extends React.Component {
         return false;
       }
       return true;
-    }*/
-
+    }
 
     if (_get(this.props, 'static', false) !== _get(nextProps, 'static', false)) {
       this.updateCounter += 1;

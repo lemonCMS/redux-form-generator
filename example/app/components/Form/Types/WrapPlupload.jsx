@@ -68,7 +68,7 @@ class WrapPlupload extends React.Component {
 
     const fileUploaded = (plupload, file, response) => {
       const uploadResponse = JSON.parse(response.response);
-      if (_get(custom, 'multi_selection', true) === false) {
+      if (_get(custom, 'conf.multi_selection', true) === false) {
         allFiles = [uploadResponse.result];
         this.setState({changed: Date.now()}, () => {
           this.input.onChange(allFiles);

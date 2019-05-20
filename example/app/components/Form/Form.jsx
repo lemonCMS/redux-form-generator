@@ -8,7 +8,7 @@ import _filter from 'lodash/filter';
 import _map from 'lodash/map';
 import _omit from 'lodash/omit';
 import _isUndefined from 'lodash/isUndefined';
-import {deepEqual} from 'fast-equals';
+import _isEqual from 'lodash/isEqual';
 import _isBoolean from 'lodash/isBoolean';
 import _isString from 'lodash/isString';
 import _isArray from 'lodash/isArray';
@@ -499,7 +499,7 @@ class RenderForm extends React.Component {
     }
 
 
-    if (!deepEqual(JSON.parse(JSON.stringify(nextProps.fields)),
+    if (!_isEqual(JSON.parse(JSON.stringify(nextProps.fields)),
      JSON.parse(JSON.stringify(this.props.fields)))) {
       this.updateCounter += 1;
       if (!this.warningDisplayed && this.updateCounter > this.showWarningAfter) {

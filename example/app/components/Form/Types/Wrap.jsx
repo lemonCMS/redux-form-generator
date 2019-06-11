@@ -41,7 +41,7 @@ class Wrap extends React.Component {
     _map(this.custom.items, (item, key) => {
       const select = async () => {
         await this.input.onBlur();
-        await this.input.onChange(item.value);
+        await this.input.onChange(item.value || null);
         if (this.props.field.submit) {
           this.props.submit();
         }

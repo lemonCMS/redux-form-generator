@@ -166,7 +166,7 @@
     "redux-thunk": "^2.0.1",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.0.2",
-    "sequelize": "^3.32.1",
+    "sequelize": "^5.15.1",
     "sequelize-cli": "^2.3.1",
     "spark-md5": "^3.0.0",
     "style-loader": "^0.13.0",

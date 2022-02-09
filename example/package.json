@@ -126,7 +126,7 @@
     "moment": "^2.21.0",
     "mongoose": "^4.13.12",
     "node-libs-browser": "^2.1.0",
-    "node-sass": "^4.8.2",
+    "node-sass": "^7.0.0",
     "passport": "^0.3.2",
     "passport-google-oauth": "^1.0.0",
     "passport-local": "^1.0.0",
